@@ -21,7 +21,7 @@ The goal of this repository is to document my growth as a QA Engineer, focusing 
 ## 📁 Structure
 
 All learning notes are stored in one folder:
-lessons
+> lessons
 
 ---
 
