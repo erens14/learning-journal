@@ -41,6 +41,7 @@ Current templates include:
 
 - Article Summary Template
 - QA Lesson Learned
+  
 (More templates will be added as the repository grows.)
 
 ---
