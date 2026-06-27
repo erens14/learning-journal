@@ -287,9 +287,7 @@ Responsibilities:
 
 ---
 
-
-
-# Key Takeaways
+# My Takeaways
 
 * The OSI model provides a conceptual framework for understanding network communication.
 * The TCP/IP model is the practical networking model used by the Internet.

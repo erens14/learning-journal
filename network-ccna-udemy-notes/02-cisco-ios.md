@@ -143,7 +143,7 @@ show flash
 
 ---
 
-# Key Takeaways
+# My Takeaways
 
 * SSH should always be preferred over Telnet because it encrypts management traffic.
 * Always save the running configuration after making changes to prevent configuration loss after a reboot.
