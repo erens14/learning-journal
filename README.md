@@ -22,8 +22,6 @@ This repository exists to:
 
 ## Learning Areas
 
-## Learning Areas
-
 This repository currently focuses on:
 
 - Quality Assurance
