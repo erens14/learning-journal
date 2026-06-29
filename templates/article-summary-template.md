@@ -1,9 +1,8 @@
-# Article Summary — <Article Title>
+# Article Summary — Article Title
 
-**Source:** <Website Name>
-**Author:** <Author Name>
-**Published:** <Publication Date>
-**Link:** <Article URL>
+**Source:** Website Name   
+**Author:** Author Name   
+**Link:** Article URL   
 
 ---
 
