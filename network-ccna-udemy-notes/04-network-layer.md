@@ -1,4 +1,4 @@
-# CCNA Section 03 - Network Layer
+# Network Layer
 
 > **Progress:** 3/7 
 
