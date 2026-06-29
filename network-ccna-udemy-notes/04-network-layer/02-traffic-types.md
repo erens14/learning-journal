@@ -29,9 +29,9 @@ Examples:
 
 Diagram : 
 
-![Unicast Traffic Diagram](../images/network-traffic-diagrams/unicast-traffic-diagram.jpg)
+![Unicast Traffic Diagram](/network-ccna-udemy-notes/04-network-layer/images/unicast-traffic-diagram.jpg)
 
-![Unicast Traffic with Multiple Host Diagram](../images/network-traffic-diagrams/unicast-multiple-host-diagram.jpg)
+![Unicast Traffic with Multiple Host Diagram](/network-ccna-udemy-notes/04-network-layer/images/unicast-multiple-host-diagram.jpg)
 
 ## Broadcast
 
@@ -49,7 +49,7 @@ Limiting broadcast traffic to a single subnet helps improve performance and prev
 
 Diagram : 
 
-![Broadcast Traffic Diagram](../images/network-traffic-diagrams/broadcast-traffic-diagram.jpg)
+![Broadcast Traffic Diagram](/network-ccna-udemy-notes/04-network-layer/images/broadcast-traffic-diagram.jpg)
 
 ## Multicast
 
@@ -71,7 +71,7 @@ Instead of transmitting three separate streams, the server sends one multicast s
 
 Diagram : 
 
-![Multicast Traffic Diagram](../images/network-traffic-diagrams/multicast-traffic-diagram.jpg)
+![Multicast Traffic Diagram](/network-ccna-udemy-notes/04-network-layer/images/multicast-traffic-diagram.jpg)
 
 ## Traffic Comparison
 
