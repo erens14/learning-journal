@@ -17,7 +17,6 @@
     - [Backup Configuration](#backup-configuration)
   - [My Takeaways](#my-takeaways)
 
-
 ## Connecting to a Cisco Device
 
 Cisco devices are commonly managed using **PuTTY**.

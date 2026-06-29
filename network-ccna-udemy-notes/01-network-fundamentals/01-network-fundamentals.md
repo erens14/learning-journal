@@ -29,6 +29,7 @@
     - [Layer 1 – Physical](#layer-1--physical)
   - [My Takeaways](#my-takeaways)
 
+
 ## Network Characteristics
 
 A well-designed network should consider the following characteristics:
