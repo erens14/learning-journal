@@ -73,3 +73,37 @@
 | Packet Loss | Performance | Paket yang hilang. |
 | Throughput | Performance | Kecepatan transfer aktual. |
 | Bottleneck | Performance | Titik pembatas performa. |
+| **Switching Fundamentals** |
+| Hub | Layer 1 Device | Perangkat Layer 1 yang mengirim ulang sinyal ke semua port tanpa memahami MAC Address. |
+| Switch | Layer 2 Device | Perangkat Layer 2 yang meneruskan frame berdasarkan MAC Address. |
+| Full-Duplex | Ethernet | Mode komunikasi yang memungkinkan perangkat mengirim dan menerima data secara bersamaan. |
+| Half-Duplex | Ethernet | Mode komunikasi di mana perangkat hanya dapat mengirim atau menerima pada satu waktu. |
+| Collision Domain | Ethernet | Area jaringan tempat collision dapat terjadi. |
+| CSMA/CD | Carrier Sense Multiple Access with Collision Detection | Mekanisme Ethernet half-duplex untuk mendeteksi dan menangani collision. |
+| CAM Table | Content Addressable Memory Table | Nama lain dari MAC Address Table pada switch. |
+| Unknown Unicast | Switching | Frame dengan MAC tujuan yang belum ada di MAC Address Table sehingga akan diflood. |
+| Known Unicast | Switching | Frame dengan MAC tujuan yang sudah diketahui sehingga hanya diteruskan ke port tujuan. |
+| Flooding | Switching | Mengirim frame ke semua port kecuali port asal. |
+| Inter-switch Link | Switching | Koneksi Ethernet antar switch untuk memperluas jaringan LAN. |
+| **Layer 3 Switching & Routing** |
+| Layer 3 Switch | Layer 3 Device | Switch yang mampu melakukan routing antar subnet atau VLAN. |
+| Broadcast Domain | Networking | Sekelompok perangkat yang menerima frame broadcast yang sama. |
+| WAN | Wide Area Network | Jaringan yang menghubungkan lokasi yang berjauhan secara geografis. |
+| LAN | Local Area Network | Jaringan lokal dalam area terbatas seperti kantor atau kampus. |
+| **Cisco Products** |
+| ASA | Adaptive Security Appliance | Firewall enterprise buatan Cisco. |
+| FirePower | Intrusion Prevention System | Sistem IPS Cisco untuk mendeteksi dan mencegah serangan jaringan. |
+| IPS | Intrusion Prevention System | Sistem keamanan yang mendeteksi sekaligus memblokir serangan jaringan. |
+| WLC | Wireless LAN Controller | Perangkat yang mengelola banyak Wireless Access Point secara terpusat. |
+| AP | Access Point | Perangkat yang menyediakan akses jaringan Wi-Fi kepada klien nirkabel. |
+| CUCM | Cisco Unified Communications Manager | IP PBX Cisco untuk mengelola sistem VoIP perusahaan. |
+| PBX | Private Branch Exchange | Sistem telepon internal organisasi. |
+| VoIP | Voice over Internet Protocol | Teknologi komunikasi suara melalui jaringan IP. |
+| TelePresence | Cisco Collaboration | Solusi video conference berkualitas tinggi dari Cisco. |
+| Webex | Cisco Collaboration | Platform meeting dan kolaborasi online dari Cisco. |
+| UCS | Unified Computing System | Platform server enterprise Cisco untuk data center. |
+| Blade Server | Server Hardware | Server modular yang dipasang dalam chassis bersama. |
+| Rack Server | Server Hardware | Server berbentuk rack yang dipasang pada rack data center. |
+| Nexus Switch | Data Center Switch | Seri switch Cisco untuk data center yang menjalankan NX-OS. |
+| NX-OS | Cisco Operating System | Sistem operasi yang digunakan pada Cisco Nexus Switch. |
+| Cisco IOS | Cisco Operating System | Sistem operasi yang digunakan pada router dan Catalyst Switch Cisco. |
