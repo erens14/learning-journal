@@ -1,8 +1,8 @@
 # Article Summary — Security Lessons from the Nidec Ransomware Attack
 
-**Source:** Cybersecurity Magazine
-**Author:** Rithula Nisha
-**Link:** <https://cybermagazine.com/news/security-lessons-from-the-nidec-ransomware-attack>
+**Source:** Cybersecurity Magazine  
+**Author:** Rithula Nisha  
+**Link:** <https://cybermagazine.com/news/security-lessons-from-the-nidec-ransomware-attack>  
 
 ---
 
