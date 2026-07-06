@@ -6,8 +6,6 @@ This repository serves as my technical knowledge base, where I document concepts
 
 Rather than just collecting information, the goal of this repository is to deepen my understanding by explaining complex concepts in my own words and tracking my engineering growth over time.
 
----
-
 ## 🎯 Purpose
 
 This repository exists to:
@@ -18,8 +16,6 @@ This repository exists to:
 * Refine technical communication and writing skills.
 * Track learning progress and personal milestones.
 
----
-
 ## 🧠 Learning Areas
 
 Current focus areas include:
@@ -28,8 +24,6 @@ Current focus areas include:
 ![Cyber Security](https://img.shields.io/badge/Focus-Cyber_Security-red?style=flat-square)
 ![Computer Networking](https://img.shields.io/badge/Focus-Computer_Networking-green?style=flat-square)
 
----
-
 ## 🛠️ Note Templates
 
 To maintain consistency and ease of review, all notes follow strict structural layouts. The reusable templates can be found in the `templates/` directory:
@@ -37,8 +31,6 @@ To maintain consistency and ease of review, all notes follow strict structural l
 * **[CCNA Self Notes](templates/ccna-self-notes-template.md):** Structured blueprint for network protocols, CLI configurations, and topology breakdowns.
 * **[Article Summary](templates/article-summary-template.md):** Concise overviews tracking cybersecurity trends, incident summaries, and threat behaviors.
 * **[QA Lesson Learned](templates/qa-lesson-learned-template.md):** Detailed analysis of software testing scenarios, edge cases, bugs, and UX impacts.
-
----
 
 ## 📝 Naming Convention
 
@@ -57,15 +49,11 @@ phishing-resistant-authentication-nist.md
 phishing-resistant-authentication-microsoft.md
 ```
 
----
-
 ## 💡 Learning Philosophy
 
 > "Learning becomes valuable when knowledge is transformed into understanding."
 
 Every note inside this repository reflects my specific baseline understanding at the time of writing. As my experience grows, older logs will be dynamically updated, corrected, or expanded. Continuous iteration takes priority over perfect documentation.
-
----
 
 ## ⚠️ Disclaimer
 
