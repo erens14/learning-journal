@@ -127,8 +127,8 @@ FastEthernet0/0 is up, line protocol is up
 
 ## My Takeaways
 
-- **Takeaway 1:** `show ip interface brief` is the best starting command for physical path troubleshooting, allowing engineers to instantly pinpoint layer 1 or layer 2 faults.
-- **Takeaway 2:** Statically hardcoding different speeds on opposing sides of a cable drops the entire link down, whereas a duplex mismatch leaves the link up but causes terrible performance.
-- **Takeaway 3:** Core infrastructure links (routers, switches, firewalls, and servers) should be manually configured for speed and duplex to prevent auto-negotiation failures.
-- **Takeaway 4:** End-user access ports (PCs and laptops) should remain configured for auto-negotiation to seamlessly accommodate a wide variety of client network interface cards.
-- **Takeaway 5:** CDP acts as a valuable background layer 2 auditor, automatically logging duplex configuration errors to the console terminal to save engineers manual troubleshooting time.
+- `show ip interface brief` is the best starting command for physical path troubleshooting, allowing engineers to instantly pinpoint layer 1 or layer 2 faults.
+- Statically hardcoding different speeds on opposing sides of a cable drops the entire link down, whereas a duplex mismatch leaves the link up but causes terrible performance.
+- Core infrastructure links (routers, switches, firewalls, and servers) should be manually configured for speed and duplex to prevent auto-negotiation failures.
+- End-user access ports (PCs and laptops) should remain configured for auto-negotiation to seamlessly accommodate a wide variety of client network interface cards.
+- CDP acts as a valuable background layer 2 auditor, automatically logging duplex configuration errors to the console terminal to save engineers manual troubleshooting time.

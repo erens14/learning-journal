@@ -2,11 +2,11 @@
 
 **Source:** The Hacker News  
 **Author:** Bobby Ford  
-**Link:** https://thehackernews.com/expert-insights/2026/06/beyond-blocking-disrupting-social.html
+**Link:** <https://thehackernews.com/expert-insights/2026/06/beyond-blocking-disrupting-social.html>
 
 ---
 
-# Summary
+## Summary
 
 This article discusses how generative AI has transformed social engineering attacks into highly sophisticated, multi-channel campaigns. Instead of relying solely on phishing emails, attackers now combine email, SMS, messaging platforms, social media, voice calls, and online advertisements to build trust and manipulate victims throughout a coordinated attack lifecycle.
 
@@ -18,7 +18,7 @@ To support this approach, the author recommends adopting cross-channel monitorin
 
 ---
 
-# Key Takeaways
+## Key Takeaways
 
 * AI has enabled attackers to launch highly personalized, multi-channel social engineering campaigns.
 * Modern social engineering follows a structured attack chain rather than a single phishing attempt.
@@ -28,7 +28,7 @@ To support this approach, the author recommends adopting cross-channel monitorin
 
 ---
 
-# Lesson Learned
+## Lesson Learned
 
 * Modern social engineering extends far beyond traditional phishing emails.
 * AI significantly increases the scale and effectiveness of social engineering attacks.
@@ -37,7 +37,7 @@ To support this approach, the author recommends adopting cross-channel monitorin
 
 ---
 
-# Personal Reflection
+## Personal Reflection
 
 This article broadened my understanding of how AI is reshaping social engineering attacks. I previously viewed phishing mainly as email-based attacks, but I now recognize that modern campaigns often span multiple communication platforms and rely on continuous interaction with victims.
 

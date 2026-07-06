@@ -2,7 +2,7 @@
 
 **Source:** NIST Cybersecurity Insights  
 **Author:** NIST  
-**Link:** https://www.nist.gov/blogs/cybersecurity-insights/phishing-resistance-protecting-keys-your-kingdom
+**Link:** <https://www.nist.gov/blogs/cybersecurity-insights/phishing-resistance-protecting-keys-your-kingdom>
 
 ---
 

@@ -2,11 +2,11 @@
 
 **Source:** National Institute of Standards and Technology (NIST)  
 **Author:** NIST  
-**Link:** https://www.nist.gov/blogs/taking-measure/zero-trust-cybersecurity-never-trust-always-verify
+**Link:** <https://www.nist.gov/blogs/taking-measure/zero-trust-cybersecurity-never-trust-always-verify>
 
 ---
 
-# Summary
+## Summary
 
 This article introduces **Zero Trust Architecture (ZTA)** and explains why traditional perimeter-based security is no longer sufficient in today's IT environments. As organizations increasingly adopt cloud services, remote work, and mobile devices, the concept of a trusted internal network has become less effective.
 
@@ -18,7 +18,7 @@ Overall, the article emphasizes that Zero Trust is not a single technology but a
 
 ---
 
-# Key Takeaways
+## Key Takeaways
 
 * Traditional perimeter-based security is no longer sufficient for modern distributed environments.
 * Zero Trust follows the principle of **"Never Trust, Always Verify."**
@@ -28,7 +28,7 @@ Overall, the article emphasizes that Zero Trust is not a single technology but a
 
 ---
 
-# Lesson Learned
+## Lesson Learned
 
 * Modern cybersecurity should rely on continuous verification instead of implicit trust.
 * Stolen credentials remain one of the most common attack vectors.
@@ -37,7 +37,7 @@ Overall, the article emphasizes that Zero Trust is not a single technology but a
 
 ---
 
-# Personal Reflection
+## Personal Reflection
 
 This article helped me understand that Zero Trust is much more than implementing firewalls or MFA. It is a comprehensive security architecture that continuously validates every access request based on multiple factors rather than network location alone.
 

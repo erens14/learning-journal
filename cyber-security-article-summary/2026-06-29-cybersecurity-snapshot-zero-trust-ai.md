@@ -2,11 +2,11 @@
 
 **Source:** Tenable  
 **Author:** Juan Perez  
-**Link:** https://www.tenable.com/blog/cybersecurity-snapshot-nist-offers-zero-trust-implementation-advice-while-openai-shares
+**Link:** <https://www.tenable.com/blog/cybersecurity-snapshot-nist-offers-zero-trust-implementation-advice-while-openai-shares>
 
 ---
 
-# Summary
+## Summary
 
 This article highlights several important cybersecurity developments, with the main focus on **Zero Trust Architecture (ZTA)**, **AI security**, and the evolving cyber threat landscape.
 
@@ -20,7 +20,7 @@ Finally, the article mentions a new U.S. Executive Order that encourages federal
 
 ---
 
-# Key Takeaways
+## Key Takeaways
 
 * Zero Trust implementation should be customized to each organization's environment rather than following a one-size-fits-all approach.
 * NIST SP 1800-35 provides practical deployment guidance with 19 implementation scenarios.
@@ -31,7 +31,7 @@ Finally, the article mentions a new U.S. Executive Order that encourages federal
 
 ---
 
-# Lesson Learned
+## Lesson Learned
 
 * Zero Trust is not just a security concept but a practical architecture supported by implementation guidelines.
 * Effective cybersecurity depends on continuous monitoring, identity verification, and minimizing unnecessary access.
@@ -40,6 +40,6 @@ Finally, the article mentions a new U.S. Executive Order that encourages federal
 
 ---
 
-# Personal Reflection
+## Personal Reflection
 
 This article reinforced that modern cybersecurity is shifting from reactive protection toward continuous verification and proactive risk management. I also realized that Zero Trust is much broader than implementing MFA or network segmentation—it requires visibility into assets, identities, vulnerabilities, and continuous policy enforcement. As I continue studying networking and cybersecurity, understanding these foundational principles will help me better connect infrastructure, cloud security, and security operations in real-world environments.
