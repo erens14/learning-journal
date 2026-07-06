@@ -7,12 +7,15 @@ Troubleshooting is a core operational skill for network engineers. Cisco recomme
 ## Key Concepts
 
 ### Structured Elimination
+
 The practice of systematically testing components along a network path to discard known-good links or configurations, allowing the engineer to narrow down the problem window.
 
 ### Two-Way Connectivity Validation
+
 A successful network exchange requires bidirectional verification. A breakdown on the return path from the destination back to the source causes communication to fail just as completely as a breakdown on the outbound path.
 
 ### Documentation Lifecycle
+
 The final, crucial phase of troubleshooting. Logging the root cause and the specific resolution builds an organizational knowledge base that slashes recovery times for recurring incidents.
 
 ## How It Works
@@ -128,15 +131,16 @@ Router# telnet 10.10.12.10 80
 
 * **Situation:** Host A (`10.10.10.10`) reports it cannot connect to the internal enterprise Web Server (`10.10.12.10`).
 * **Methodology Deployment:**
+
 1. **Define:** Host A cannot establish HTTP handshakes with `10.10.12.10`.
 2. **Gather:** Try pinging the destination from Host A. The ping fails. Next, check if Host B on the *same subnet* can ping the server.
+
 * *Result:* Host B can reach the server successfully.
 
-
-3. **Analyze & Eliminate:** Since Host B on the same subnet works, the core distribution switches and intermediary routers are functional. The issue is isolated to Host A's local stack or interface link.
-4. **Hypothesize:** Host A has an invalid default gateway IP configuration or a loose physical layer cable connection.
-5. **Test:** Run `ipconfig` on Host A. A typo is found in the gateway address field. Correct the gateway address.
-6. **Verify & Document:** Host A pings successfully. Log the incident: *"Host A connectivity lost due to manual gateway IP entry typo during device provisioning."*
+1. **Analyze & Eliminate:** Since Host B on the same subnet works, the core distribution switches and intermediary routers are functional. The issue is isolated to Host A's local stack or interface link.
+2. **Hypothesize:** Host A has an invalid default gateway IP configuration or a loose physical layer cable connection.
+3. **Test:** Run `ipconfig` on Host A. A typo is found in the gateway address field. Correct the gateway address.
+4. **Verify & Document:** Host A pings successfully. Log the incident: *"Host A connectivity lost due to manual gateway IP entry typo during device provisioning."*
 
 ## Important Notes
 
