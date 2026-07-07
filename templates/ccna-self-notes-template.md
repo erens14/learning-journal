@@ -40,7 +40,7 @@ Structure / Packet / Frame / Header
 
 ```
 
-*or*
+***or***
 
 | Component | Description |
 | --- | --- |
