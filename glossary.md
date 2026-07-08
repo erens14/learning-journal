@@ -2,7 +2,6 @@
 
 | Istilah | | Deskripsi |
 | :--- | :--- | :--- |
-| **OSI Model** | | |
 | OSI | Open Systems Interconnection | Model referensi jaringan 7 layer. |
 | PDU | Protocol Data Unit | Nama data pada tiap layer OSI. |
 | Data | Layer 5-7 | PDU pada Application, Presentation, Session. |
@@ -10,7 +9,6 @@
 | Packet | Layer 3 | PDU pada Network Layer. |
 | Frame | Layer 2 | PDU pada Data Link Layer. |
 | Bits | Layer 1 | Data pada Physical Layer. |
-| **Ethernet & Layer 2** | | |
 | Ethernet | Teknologi LAN | Standar Layer 2 yang paling banyak digunakan. |
 | MAC Address | Layer 2 Address | Alamat fisik NIC sepanjang 48 bit. |
 | OUI | Organizationally Unique Identifier | 24 bit pertama MAC Address yang menunjukkan vendor. |
@@ -24,7 +22,6 @@
 | Layer 2 Unicast | Unicast Frame | Frame data yang dikirimkan secara spesifik ke satu alamat MAC tujuan tertentu. |
 | CDP | Cisco Discovery Protocol | Protokol proprietary Cisco Layer 2 untuk mengumpulkan informasi perangkat Cisco tetangga yang terhubung langsung. |
 | LLDP | Link Layer Discovery Protocol | Protokol standar terbuka (IEEE 802.1AB) Layer 2 untuk mendeteksi perangkat tetangga lintas vendor (termasuk server Linux). |
-| **IP Addressing** | | |
 | IPv4 | Network Layer | Alamat logis 32 bit. |
 | IPv6 | Network Layer | Alamat logis 128 bit. |
 | Network Address | Subnet | Alamat pertama subnet. |
@@ -35,7 +32,6 @@
 | VLSM | Addressing | Variable Length Subnet Mask. |
 | Route Summarization | Routing | Menggabungkan beberapa network menjadi satu prefix. |
 | Default Gateway | Gateway | Alamat IP interface router yang menjadi pintu keluar host untuk berkomunikasi dengan subnet lain. |
-| **Private Address & NAT** | | |
 | RFC1918 | Private IP | Standar alamat private. |
 | NAT | Network Address Translation | Menerjemahkan Private IP menjadi Public IP. |
 | PAT | NAT | Banyak host berbagi satu Public IP. |
@@ -51,32 +47,27 @@
 | Administrative Distance | Routing | Tingkat kepercayaan routing protocol. |
 | MAC Rewriting | Hop-by-Hop Processing | Proses di mana router membongkar header L2 lama dan menulis ulang MAC address asal/tujuan baru di setiap hop routing. |
 | Packet Buffering | Memory Queue | Proses menahan sementara paket data di memori antrean perangkat saat menunggu resolusi alamat (seperti ARP). |
-| **Routing Protocol** | | |
 | RIP | Distance Vector | Routing protocol sederhana. |
 | OSPF | Link State | Routing protocol berbasis SPF. |
 | EIGRP | Cisco | Advanced Distance Vector. |
 | BGP | Exterior Gateway | Routing antar Autonomous System. |
-| **VLAN & Switching** | | |
 | VLAN | Virtual LAN | Memisahkan broadcast domain secara logis. |
 | Access Port | VLAN | Port untuk satu VLAN. |
 | Trunk Port | VLAN | Port yang membawa banyak VLAN. |
 | Native VLAN | VLAN | VLAN tanpa tag pada trunk. |
 | 802.1Q | VLAN | Standar VLAN Tagging. |
 | SVI | Switched Virtual Interface | Interface virtual Layer 3 pada switch yang digunakan untuk manajemen jarak jauh (VLAN 1) atau inter-VLAN routing. |
-| **STP** | | |
 | STP | Spanning Tree Protocol | Mencegah Layer 2 Loop. |
 | Root Bridge | STP | Switch utama STP. |
 | Root Port | STP | Jalur terbaik menuju Root Bridge. |
 | Designated Port | STP | Port forwarding pada segmen. |
 | BPDU | STP | Pesan yang dipakai STP. |
-| **DHCP & DNS** | | |
 | DHCP | Dynamic Host Configuration Protocol | Memberikan IP otomatis. |
 | Lease Time | DHCP | Lama peminjaman IP. |
 | DNS | Domain Name System | Menerjemahkan nama domain menjadi IP. |
 | FQDN | DNS | Fully Qualified Domain Name. |
 | Authoritative DNS | DNS Server Role | Server DNS yang memegang database rekaman asli, valid, dan definitif untuk suatu zona domain tertentu. |
 | DNS Forwarding | DNS Forwarder | Mekanisme meneruskan query DNS dari domain eksternal yang tidak diketahui ke server DNS publik di internet. |
-| **Performance & Troubleshooting** | | |
 | Ping | ICMP | Menguji konektivitas. |
 | Traceroute | Troubleshooting | Menampilkan jalur paket. |
 | RTT | Performance | Round Trip Time. |
@@ -93,7 +84,6 @@
 | Line Status | Interface State | Indikator kondisi fisik/Layer 1 dari interface perangkat (Up berarti mendeteksi sinyal/tegangan kabel). |
 | Protocol Status | Interface State | Indikator kondisi logis/Layer 2 dari interface perangkat (Up berarti framing dan keepalive sinkron). |
 | EMI | Electro-Magnetic Interference | Gangguan pada media transmisi tembaga akibat radiasi elektromagnetik luar seperti mesin besar atau microwave. |
-| **Switching Fundamentals** | | |
 | Hub | Layer 1 Device | Perangkat Layer 1 yang mengirim ulang sinyal ke semua port tanpa memahami MAC Address. |
 | Switch | Layer 2 Device | Perangkat Layer 2 yang meneruskan frame berdasarkan MAC Address. |
 | Full-Duplex | Ethernet | Mode komunikasi yang memungkinkan perangkat mengirim dan menerima data secara bersamaan. |
@@ -107,12 +97,10 @@
 | Inter-switch Link | Switching | Koneksi Ethernet antar switch untuk memperluas jaringan LAN. |
 | Auto-Negotiation | Ethernet | Proses otomatis antar interface untuk menyepakati kecepatan (speed) dan duplex terbaik secara mandiri. |
 | Duplex Mismatch | Ethernet Error | Kondisi kesalahan akibat perbedaan mode duplex di kedua ujung kabel, memicu kolisi konstan dan performa lambat. |
-| **Layer 3 Switching & Routing** | | |
 | Layer 3 Switch | Layer 3 Device | Switch yang mampu melakukan routing antar subnet atau VLAN. |
 | Broadcast Domain | Networking | Sekelompok perangkat yang menerima frame broadcast yang sama. |
 | WAN | Wide Area Network | Jaringan yang menghubungkan lokasi yang berjauhan secara geografis. |
 | LAN | Local Area Network | Jaringan lokal dalam area terbatas seperti kantor atau kampus. |
-| **Cisco Products & System Configuration** | | |
 | ASA | Adaptive Security Appliance | Firewall enterprise buatan Cisco. |
 | FirePower | Intrusion Prevention System | Sistem IPS Cisco untuk mendeteksi dan mencegah serangan jaringan. |
 | IPS | Intrusion Prevention System | Sistem keamanan yang mendeteksi sekaligus memblokir serangan jaringan. |
@@ -130,7 +118,6 @@
 | NX-OS | Cisco Operating System | Sistem operasi yang digunakan pada Cisco Nexus Switch. |
 | Cisco IOS | Cisco Operating System | Sistem operasi yang digunakan pada router dan Catalyst Switch Cisco. |
 | TFTP | Trivial File Transfer Protocol | Protokol transfer file sederhana (UDP port 69) tanpa otentikasi untuk backup/restore IOS dan konfigurasi. |
-| **Cisco Device Memory & Management** | | |
 | ROM | Read Only Memory | Memori permanen untuk menyimpan kode dasar bootstrap dan instruksi Power-On Self Test (POST). |
 | Flash Memory | Storage | Tempat penyimpanan persisten non-volatile untuk menyimpan file citra operating system Cisco IOS (`.bin`). |
 | NVRAM | Non-Volatile RAM | Memori persisten kecil khusus untuk menyimpan file konfigurasi cadangan saat perangkat mati (`startup-config`). |
@@ -147,3 +134,11 @@
 | Enable Secret | Cisco Security | Metode enkripsi hash kuat (MD5/SHA) untuk memproteksi gerbang masuk menuju Privileged EXEC mode. |
 | Enable Password | Cisco Security | Metode legacy otentikasi Privileged EXEC mode yang menyimpan kata sandi dalam teks polos tanpa enkripsi. |
 | VTY | Virtual Teletype | Jalur interface logis internal IOS untuk mengendalikan sesi manajemen jarak jauh masuk (SSH atau Telnet). |
+| Connected Route | Routing Table Entry | Jalur jaringan yang otomatis muncul di tabel routing (flag `C`) saat interface diberi IP dan berstatus up/up. |
+| Local Route | Routing Table Entry | Jalur host (`/32`) yang mendefinisikan IP spesifik milik interface router itu sendiri (flag `L`), diperkenalkan sejak IOS 15. |
+| Host Route | Routing | Rute yang mengarah ke satu alamat IP spesifik secara mutlak menggunakan subnet mask tertinggi (`/32` untuk IPv4 atau `/128` untuk IPv6). |
+| Longest Prefix Match | LPM / Algoritma | Aturan di mana router akan memilih rute dengan subnet mask paling panjang (paling spesifik) saat ada beberapa rute yang tumpang tindih. |
+| ECMP | Equal-Cost Multi-Path | Kondisi ketika router melakukan pembagian beban (load-balancing) lalu lintas data secara seimbang ke beberapa rute yang memiliki prefiks, mask, dan nilai metrik yang sama. |
+| Default Route | Gateway of Last Resort | Rute *catch-all* (`0.0.0.0/0`) yang digunakan untuk membuang atau meneruskan paket ke luar (seperti ISP) jika tidak ada kecocokan rute di tabel routing. |
+| Asymmetric Routing | Troubleshooting / Path | Kondisi di mana jalur pergi sebuah paket berbeda dengan jalur pulangnya, sering memicu *timeout* jika salah satu router kehilangan rute balik (*return path*). |
+| ICMP Debugging | debug ip icmp | Perintah pemantauan intensif real-time untuk melihat paket ICMP yang masuk/keluar langsung melalui layar konsol log. |
