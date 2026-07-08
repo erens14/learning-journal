@@ -2,7 +2,7 @@
 
 **Source:** Tenable  
 **Author:** Juan Perez  
-**Link:** <https://www.tenable.com/blog/cybersecurity-snapshot-nist-offers-zero-trust-implementation-advice-while-openai-shares>
+**Link:** [Cybersecurity Snapshot: NIST Offers Zero Trust Implementation Advice, While OpenAI Shares ChatGPT Misuse Incidents](https://www.tenable.com/blog/cybersecurity-snapshot-nist-offers-zero-trust-implementation-advice-while-openai-shares)  
 
 ---
 

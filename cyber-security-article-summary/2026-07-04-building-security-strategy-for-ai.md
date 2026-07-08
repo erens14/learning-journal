@@ -1,8 +1,8 @@
 # Article Summary — Building a Security Strategy for AI
 
 **Source:** The Hacker News  
-**Author:** Austin O'Saben - Kaseya
-**Link:** <https://thehackernews.com/expert-insights/2026/06/building-security-strategy-for-ai.html>
+**Author:** Austin O'Saben - Kaseya  
+**Link:** [Building a Security Strategy for AI-Powered Ransomware Attacks](https://thehackernews.com/expert-insights/2026/06/building-security-strategy-for-ai.html)  
 
 ---
 

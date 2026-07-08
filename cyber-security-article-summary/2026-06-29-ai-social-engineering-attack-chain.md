@@ -2,7 +2,7 @@
 
 **Source:** The Hacker News  
 **Author:** Bobby Ford  
-**Link:** <https://thehackernews.com/expert-insights/2026/06/beyond-blocking-disrupting-social.html>
+**Link:** [Beyond Blocking: Disrupting the Social Engineering Attack Chain](https://thehackernews.com/expert-insights/2026/06/beyond-blocking-disrupting-social.html)  
 
 ---
 

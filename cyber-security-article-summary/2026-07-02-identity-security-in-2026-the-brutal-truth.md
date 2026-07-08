@@ -1,8 +1,8 @@
 # Article Summary — Identity Security in 2026: The Brutal Truth
 
 **Source:** The Hacker News  
-**Author:** BeyondTrust (Sponsored Content)  
-**Link:** <https://thehackernews.com/expert-insights/2026/06/identity-security-in-2026-brutal-truth.html>
+**Author:** Len Noe - BeyondTrust  
+**Link:** [Identity Security in 2026: The Brutal Truth Enterprises Still Avoid](https://thehackernews.com/expert-insights/2026/06/identity-security-in-2026-brutal-truth.html)  
 
 ---
 

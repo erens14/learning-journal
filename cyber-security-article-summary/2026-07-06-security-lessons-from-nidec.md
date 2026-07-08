@@ -2,7 +2,7 @@
 
 **Source:** Cybersecurity Magazine  
 **Author:** Rithula Nisha  
-**Link:** <https://cybermagazine.com/news/security-lessons-from-the-nidec-ransomware-attack>  
+**Link:** [Security Lessons from the Nidec Ransomware Attack](https://cybermagazine.com/news/security-lessons-from-the-nidec-ransomware-attack)  
 
 ---
 

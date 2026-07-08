@@ -1,8 +1,8 @@
 # Article Summary — Phishing Resistance: Protecting the Keys to Your Kingdom
 
 **Source:** NIST Cybersecurity Insights  
-**Author:** NIST  
-**Link:** <https://www.nist.gov/blogs/cybersecurity-insights/phishing-resistance-protecting-keys-your-kingdom>
+**Author:** Andrew Regenscheid and Ryan Galluzzo  
+**Link:** [Phishing Resistance – Protecting the Keys to Your Kingdom](https://www.nist.gov/blogs/cybersecurity-insights/phishing-resistance-protecting-keys-your-kingdom)  
 
 ---
 

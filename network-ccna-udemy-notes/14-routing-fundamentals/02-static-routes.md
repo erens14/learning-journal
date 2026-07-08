@@ -1,4 +1,4 @@
-# CCNA Self Notes — Static Routing and Multi-Router Lab Deployment
+# Static Routing and Multi-Router Lab Deployment
 
 ## Overview
 
