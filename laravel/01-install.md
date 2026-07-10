@@ -2,14 +2,10 @@
 
 This guide breaks down the complete, step-by-step process for installing and setting up the Laravel development environment on your computer. Most of these steps are a one-time configuration.
 
----
-
 ## Prerequisites & Preparation
 
 * **Get Familiar with the Terminal:** You will need to use a command line interface to interact with your machine. On Windows, use the Command Prompt (`CMD`). On Mac, open the `Terminal` application.
 * **Handling Configuration Errors:** If you encounter error messages or firewalls blocking an installation during this process, do not quit. Copy the error message and use search engines or tools like ChatGPT to find the specific troubleshooting steps. Restarting your computer often solves initial path configuration issues.
-
----
 
 ### Step 1: Install the Latest Version of XAMPP
 
@@ -17,8 +13,6 @@ XAMPP provides a local server environment that includes Apache, MySQL, and PHP, 
 
 1. Download and install the latest version of **XAMPP** to avoid version mismatches with Laravel.
 2. **Important Folder Path Change:** In newer versions of XAMPP, website project directories are managed inside the `dashboard` folder located within the main `htdocs` directory: `C:\xampp\htdocs\dashboard`. Your new website folders will be created here.
-
----
 
 ### Step 2: Install Composer (PHP Dependency Manager)
 
@@ -29,8 +23,6 @@ Composer is a tool used by PHP developers to manage and store libraries and fram
 3. **Point to PHP Executable:** The setup installer will ask for your PHP path. Ensure it points exactly to the PHP installation inside your XAMPP folder: `C:\xampp\php\php.exe`.
 4. Click next and finish the installation. If you encounter errors directly after this, restart your computer.
 *(Note for Mac Users: Navigate to the "Getting Started" section on the Composer website and follow the terminal steps to install Composer globally).*
-
----
 
 ### Step 3: Configure System Environment Variables (Global Paths)
 
@@ -53,8 +45,6 @@ Setting up global system paths allows you to type PHP and Composer commands dire
    * Set Variable Value to the copied path.
    * Click OK.
 
----
-
 ### Step 4: Verify Installation
 
 1. Close all open Command Prompt windows and open a fresh one to reload the newly configured path variables.
@@ -64,16 +54,12 @@ Setting up global system paths allows you to type PHP and Composer commands dire
 
 3. The terminal should display your active Composer version alongside your current PHP version. If it throws an error, double-check your Environment Variable paths.
 
----
-
 ### Step 5: Install the Laravel Installer Globally
 
 1. Open your terminal and execute the following global command to download the Laravel installer into Composer:  
     `composer global require laravel/installer`
 
 2. Let the installation run its course until it finishes successfully. Composer will hold onto the installer so you can spin up new web projects instantly.
-
----
 
 ### Step 6: Configure the `php.ini` File for Laravel
 
@@ -90,8 +76,6 @@ Laravel requires specific PHP extensions to be active to handle file processing,
 4. **Warning:** Do **NOT** uncomment the extension called `openssl` if it is already duplicated elsewhere, as active duplicate extensions can cause setup conflict errors during project creation.
 5. Save and close the `php.ini` file.
 
----
-
 ### Step 7: Create a New Laravel Project
 
 1. Open VS Code, go to **File** $\rightarrow$ **Open Folder**, and open your XAMPP dashboard directory: `C:\xampp\htdocs\dashboard`.
@@ -106,8 +90,6 @@ Laravel requires specific PHP extensions to be active to handle file processing,
 * **Starter Kit:** Select `none` (preferred for learning basic core fundamentals).
 * **Testing Framework:** Select `0` for `Pest` (the modern testing framework option).
 
----
-
 ### Step 8: Create the Database and Run Migrations
 
 1. Open your **XAMPP Control Panel** and click **Start** next to both the **Apache** and **MySQL** services.
@@ -120,8 +102,6 @@ Laravel requires specific PHP extensions to be active to handle file processing,
 
 5. This process builds your default infrastructure tables (such as users and sessions tables) directly inside your database. Refresh phpMyAdmin to verify the tables are populated.
 
----
-
 ### Step 9: Launch and Verify Your Website
 
 1. With Apache and MySQL running in your XAMPP control panel, open a browser tab.
@@ -132,8 +112,6 @@ Laravel requires specific PHP extensions to be active to handle file processing,
     ```
 
 3. You will see the default Laravel placeholder splash page, confirming your installation is working correctly.
-
----
 
 ### Managing Environment Settings (`.env` File)
 
