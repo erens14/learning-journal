@@ -1,9 +1,9 @@
 # Menghapus Delivery Order (DO) dari Ekspedisi
 
-* **Tujuan Utama:** Melepas ikatan/relasi DO dari suatu jadwal ekspedisi karena alasan tertentu (misal: barang dikirim langsung ke customer atau batal jalan).
+* **Tujuan Utama:** Melepas ikatan/relasi DO dari suatu jadwal ekspedisi karena alasan tertentu (misal: batal jalan).
 * **Prinsip Dasar:** Sama seperti membatalkan DO yang mengharuskan pengembalian stok, membatalkan DO dari ekspedisi mengharuskan kita me-reset status pengambilannya agar dokumen tersebut tidak "menggantung" di sistem ekspedisi.
 
-## Langkah-langkah Eksekusi:
+## Langkah-langkah Eksekusi
 
 ### Step 1: Pengecekan Data (Inspeksi Awal)
 
@@ -30,25 +30,40 @@
 * *(Note: Selalu gunakan blok transaksi `BEGIN;` dan `COMMIT;` di SQL saat melakukan update ini agar data tetap aman jika terjadi kesalahan).*
 
 ```sql
-// link/link/x
-SELECT * FROM expedition_shipping_use_do WHERE expedition_shipping_id = x;
-SELECT * FROM expedition WHERE expedition_id = x;
-SELECT * FROM expedition_take_do where expedition_id = x;
+-- ==============================================================================
+-- STEP 1: INSPEKSI DATA AWAL
+-- Memeriksa seluruh riwayat pengiriman, jadwal ekspedisi, dan DO yang terikat.
+-- ==============================================================================
+SELECT * FROM expedition_shipping_use_do WHERE expedition_shipping_id = [id];
+SELECT * FROM expedition WHERE expedition_id = [id];
+SELECT * FROM expedition_take_do where expedition_id = [id];
 
+-- ==============================================================================
+-- STEP 2: LEPAS RELASI / RESET STATUS PENGAMBILAN
+-- Memutus ikatan DO dari ekspedisi agar statusnya tidak menggantung.
+-- ==============================================================================
 BEGIN;
 UPDATE expedition_take_do
-SET `status` = 0
-WHERE direct_order_id = y;
+SET `status` = [0] -- Reset status menjadi 0 (Batal / Belum diambil oleh ekspedisi)
+WHERE direct_order_id = [id];
 COMMIT;
 
-SELECT * FROM direct_order WHERE direct_order_no = 'zzz';
+-- ==============================================================================
+-- STEP 3: INSPEKSI & PENYESUAIAN KUANTITAS RIIL DO
+-- Menghitung ulang stok/qty riil dan mengembalikannya ke rekam data DO utama.
+-- ==============================================================================
 
+-- 3a. Cek data awal Direct Order sebelum diperbarui
+SELECT * FROM direct_order WHERE direct_order_no = '[number]';
+
+-- 3b. Perbarui jumlah total kuantitas (qty) dan zak yang valid ke dalam database
 BEGIN;
 UPDATE direct_order
-SET actual_qty = ?
-WHERE direct_order_no = 'zzz';
+SET actual_qty = [kuantitas_sisa + kuantitas_take_do_yang_dihapus] -- Akumulasi stok sisa + stok yang batal diangkut
+WHERE direct_order_no = '[number]';
+
 UPDATE direct_order
-SET actual_zak = ?
-WHERE direct_order_no = 'zzz';
+SET actual_zak = [kuantitas_sisa + kuantitas_take_do_yang_dihapus] -- Akumulasi jumlah zak sisa + zak yang batal diangkut
+WHERE direct_order_no = '[number]';
 COMMIT;
 ```
