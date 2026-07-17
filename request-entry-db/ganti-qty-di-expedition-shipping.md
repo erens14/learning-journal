@@ -39,6 +39,7 @@ SELECT * FROM expedition_shipping_use_item WHERE expedition_shipping_id = [id];
 BEGIN;
 
 -- 1. Ubah kuantitas di level detail terlebih dahulu (Bottom)
+-- Pastikan ini perlu diganti juga oleh user (di web -> qty_shipped)
 UPDATE expedition_shipping_use_item
 SET qty = [kuantitas_baru]
 WHERE expedition_shipping_id = [id];
