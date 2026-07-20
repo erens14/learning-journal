@@ -1,4 +1,4 @@
-# Article Summary — From Blocking to Breaking the Chain: Defending Against AI-Powered Social Engineering
+# From Blocking to Breaking the Chain: Defending Against AI-Powered Social Engineering
 
 **Source:** The Hacker News  
 **Author:** Bobby Ford  
@@ -16,8 +16,6 @@ Rather than focusing only on blocking malicious emails, the article argues that 
 
 To support this approach, the author recommends adopting cross-channel monitoring, automated phishing honeypots for gathering attacker intelligence, and API-driven infrastructure takedowns that remove malicious domains, fake accounts, and fraudulent content before they can reach potential victims.
 
----
-
 ## Key Takeaways
 
 * AI has enabled attackers to launch highly personalized, multi-channel social engineering campaigns.
@@ -26,16 +24,12 @@ To support this approach, the author recommends adopting cross-channel monitorin
 * Organizations should focus on disrupting attack campaigns during the early stages.
 * Cross-channel visibility and automated takedowns strengthen proactive cyber defense.
 
----
-
 ## Lesson Learned
 
 * Modern social engineering extends far beyond traditional phishing emails.
 * AI significantly increases the scale and effectiveness of social engineering attacks.
 * Proactive detection and disruption provide stronger protection than reactive filtering alone.
 * Threat intelligence and automated response are becoming essential components of modern cybersecurity.
-
----
 
 ## Personal Reflection
 

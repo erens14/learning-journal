@@ -1,4 +1,4 @@
-# Article Summary — How Threat Intelligence Works: AI Integration and Core Components
+# How Threat Intelligence Works: AI Integration and Core Components
 
 **Source:** Cisco  
 **Author:** Cisco  
@@ -16,8 +16,6 @@ The text details the paradigm shift introduced by Artificial Intelligence and Ma
 * **Securing Frontier Models:** As enterprise infrastructures integrate large-scale, highly capable frontier AI models, threat intelligence must expand to include specialized oversight. These systems introduce unique threat surfaces that demand dedicated defenses against novel adversarial techniques, such as prompt injection attacks and the extraction of sensitive training data.
 * **Key Pillars of Actionable CTI:** Building a dependable intelligence platform requires massive, diversified threat history datasets to accurately train and refine predictive models. It demands automated execution capabilities to neutralize threats without human delay, multilayered processing pipelines to increase detection fidelity, and the correlation of endpoint and network data backed by continuous domain expertise to resist adversarial manipulation like data poisoning.
 
----
-
 ## Key Takeaways
 
 * Cyber threat analysis moves past simple gateway checks by providing continuous evaluation of files throughout their lifecycle to trigger universal automated blocks.
@@ -26,16 +24,12 @@ The text details the paradigm shift introduced by Artificial Intelligence and Ma
 * Malicious actors leverage the dual-use nature of AI to engineer evasive polymorphic malware, orchestrate automated phishing, and execute model data poisoning attacks.
 * Actionable threat intelligence requires a combination of massive historical datasets, automated blocking mechanisms, multilayered processing, and correlated network-to-endpoint data.
 
----
-
 ## Lesson Learned
 
 * **Implementing Continuous Lifecycle Audits:** Software and defense architectures must shift away from single-point perimeter checks and implement continuous telemetry analysis for files and data packets over their entire execution lifespan.
 * **Deploying Multilayered Machine Learning Pipelines:** Any deployed machine learning framework must integrate multi-stage processing filters and highly diversified training data to maximize detection precision while filtering out operational false positives.
 * **Automating Global Mitigation Actions:** Orchestration platforms must link distinct geographical networks together, ensuring a high-risk anomaly detected in one region triggers instantaneous, automated containment rules globally without human latency.
 * **Hardening AI System Infrastructures:** Systems engineering teams deploying frontier models must build specific security boundaries around their model environments to intercept prompt injections and defend against data exfiltration.
-
----
 
 ## Personal Reflection
 

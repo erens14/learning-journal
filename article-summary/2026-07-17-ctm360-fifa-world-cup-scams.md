@@ -1,10 +1,8 @@
-# Article Summary — The Scam Before the Game: CTM360 Reveals Threats Targeting FIFA World Cup 2026 Fans
+# The Scam Before the Game: CTM360 Reveals Threats Targeting FIFA World Cup 2026 Fans
 
-**Source:** The Hacker News
-
-**Author:** CTM360 — Digital Risk Protection Stack™
-
-**Link:** [Before Whistle CTM360 Reveals How](https://thehackernews.com/expert-insights/2026/05/before-whistle-ctm360-reveals-how.html)
+**Source:** The Hacker News  
+**Author:** CTM360 — Digital Risk Protection Stack™  
+**Link:** [Before Whistle CTM360 Reveals How](https://thehackernews.com/expert-insights/2026/05/before-whistle-ctm360-reveals-how.html)  
 
 ---
 
@@ -18,8 +16,6 @@ Beyond financial fraud, the threat ecosystem heavily incorporates mobile malware
 
 This threat landscape underscores why massive international events remain high-value targets in today's cybersecurity landscape. Cybercriminals successfully capitalize on time-sensitive purchasing behavior, heavy online transactions, and high emotional engagement. The findings show that event-driven cyber threats are continuously evolving from basic opportunistic scams into persistent, multi-platform, and highly automated fraud networks built for massive scale.
 
----
-
 ## Key Takeaways
 
 * Threat actors are running an organized, large-scale fraud ecosystem for the FIFA World Cup 2026, with over 7,000 related domains and 1,000+ impersonation accounts already identified.
@@ -28,16 +24,12 @@ This threat landscape underscores why massive international events remain high-v
 * Streaming scams are being used as a vector for severe mobile malware deployment, specifically distributing BTMob Android APKs that can intercept OTPs, steal credentials, and capture screen data.
 * Cybercriminal infrastructure is highly resilient and built for scale, showing sharp spikes in registration months ahead of the event and the ability to quickly relaunch after takedowns.
 
----
-
 ## Lesson Learned
 
 * Major global events act as immediate catalysts for cybercrime, requiring proactive defense strategies, threat intelligence, and brand monitoring long before the actual event kicks off.
 * Phishing and fraud have evolved past simple malicious links; today’s threat actors use complex, multi-stage lifecycles that blend social engineering, fake infrastructure, and malware delivery.
 * Mobile security is increasingly critical during high-profile events, as users looking for free content are highly vulnerable to sideloading malicious APKs disguised as legitimate utility or streaming apps.
 * Relying solely on top-level domain trust (like `.com`) or an active social media presence is no longer a reliable indicator of a website's or account's legitimacy.
-
----
 
 ## Personal Reflection
 

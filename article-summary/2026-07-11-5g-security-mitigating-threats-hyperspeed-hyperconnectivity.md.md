@@ -1,4 +1,4 @@
-# Article Summary — 5G Security: Mitigating Threats in the Era of Hyperspeed and Hyperconnectivity
+# 5G Security: Mitigating Threats in the Era of Hyperspeed and Hyperconnectivity
 
 **Source:** DevOps.com  
 **Author:** Samantha Madrid  
@@ -16,8 +16,6 @@ The author emphasizes that enterprise security models must adapt to the unique h
 * **Endpoint Usurpation:** Hyperconnectivity brings internet access to seemingly harmless everyday appliances like smart light bulbs, thermometers, and refrigerators. Attackers can easily exploit these low-security endpoints to compromise broader networks.
 * **Hyperspeed Attack Expansion:** Because 5G moves data at massive speeds, cyberattacks and system breaches also execute much faster and spread significantly wider before manual intervention can contain them.
 
----
-
 ## Key Takeaways
 
 * 5G enables transformative technologies (IoT, AR/VR, autonomous systems) by delivering high bandwidth and near-zero latency to the network edge.
@@ -26,16 +24,12 @@ The author emphasizes that enterprise security models must adapt to the unique h
 * Basic smart appliances represent highly vulnerable network endpoints that malicious actors can easily compromise.
 * The hyperspeed nature of 5G means breaches occur faster and achieve far greater destructive reach than on previous generation networks.
 
----
-
 ## Lesson Learned
 
 * **Deploying Automated Policy Enforcement:** Organizations must implement automated security systems that continuously detect threats and enforce policies from endpoints to the cloud without relying on human response times.
 * **Scaling Up with Machine Learning:** Infrastructure frameworks must scale both physically and virtually, embedding machine learning to analyze raw network data and autonomously neutralize malware.
 * **Eliminating Resource Bottlenecks:** Network traffic architectures must prioritize critical operational traffic over non-essential peripherals to guarantee necessary bandwidth distribution.
 * **Adopting a Proactive Posture:** Expanding connectivity directly expands the threat landscape; enterprises must proactively adapt their security frameworks before deployment rather than waiting to see how risks unfold.
-
----
 
 ## Personal Reflection
 

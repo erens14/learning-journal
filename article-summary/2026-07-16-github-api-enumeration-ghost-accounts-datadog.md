@@ -1,4 +1,4 @@
-# Article Summary — GitHub API Enumeration: Overlapping Reconnaissance Campaigns Targeting Corporate Repositories
+# GitHub API Enumeration: Overlapping Reconnaissance Campaigns Targeting Corporate Repositories
 
 **Source:** Datadog Security Labs, The  Hacker News
 
@@ -18,8 +18,6 @@ The text outlines the stealth execution methods and the ultimate impact of these
 * **Reconnaissance and Infrastructure Mapping:** By combining these seemingly harmless queries, threat actors programmatically map out an organization’s entire GitHub ecosystem, identifying its active members, social circles, and specific projects modified by developers.
 * **Escalation to Private Code Exfiltration:** While the bulk of the activity focuses on gathering public information, the campaign is not purely passive. Datadog confirmed that in select corporate scenarios, the threat actors successfully pivoted from data enumeration to cloning private repositories.
 
----
-
 ## Key Takeaways
 
 * Threat actors use aged "ghost" accounts (2 to 5 years old) to bypass newer account creation security baselines and mask malicious scraping activity.
@@ -28,16 +26,12 @@ The text outlines the stealth execution methods and the ultimate impact of these
 * Although the majority of requests target public information, these campaigns can quickly escalate to the unauthorized cloning of private corporate codebases.
 * The true danger of these attacks lies in their aggregate behavior; individual requests look unremarkable, but they represent versioned tooling moving in sync across weeks.
 
----
-
 ## Lesson Learned
 
 * **Enforcing Strict Token Hygiene:** Development teams must implement automated scanning gates within code pipelines to instantly detect and revoke exposed PATs or OAuth tokens before they can be weaponized.
 * **Monitoring Aggregate API Anomaly Patterns:** Security architectures must shift from evaluating standalone requests to utilizing behavioral analytics that detect synchronized, multi-account movement targeting public infrastructure boundaries.
 * **Restricting Public Profile Footprints:** System administrators should audit organizational visibility settings, minimizing the amount of structural information (like developer connections and project histories) accessible via unauthenticated endpoints.
 * **Applying the Principle of Least Privilege to API Access:** Organizations must ensure that all developer-generated access tokens are tightly scoped to the minimum required permissions, preventing broad account enumeration if a token is lost.
-
----
 
 ## Personal Reflection
 

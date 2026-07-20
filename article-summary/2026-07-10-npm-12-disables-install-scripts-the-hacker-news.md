@@ -1,4 +1,4 @@
-# Article Summary — npm 12 Disables Install Scripts by Default to Reduce Supply Chain Risk
+# npm 12 Disables Install Scripts by Default to Reduce Supply Chain Risk
 
 **Source:** The Hacker News  
 **Author:** Ravie Lakshmanan  
@@ -20,8 +20,6 @@ To eliminate this code-execution surface, npm 12 implements the following founda
 
 Furthermore, npm 12 implements strict identity-based security policies by phasing out legacy granular access tokens (GATs) that bypass two-factor authentication (2FA). Moving forward, tokens configured to bypass 2FA will lose sensitive account and package management permissions. Their publishing capabilities are also heavily restricted, transitioning the ecosystem toward OpenID Connect (OIDC) trusted publishing and mandatory human 2FA sign-offs for package deployments.
 
----
-
 ## Key Takeaways
 
 * GitHub has launched npm version 12, flipping decades-old permissive defaults to enforce a zero-trust installation architecture.
@@ -31,16 +29,12 @@ Furthermore, npm 12 implements strict identity-based security policies by phasin
 * Granular access tokens that bypass 2FA are deprecated for publishing and administrative actions, mandating OIDC or human-verified multi-factor workflows.
 * The update shifts the ecosystem's baseline security model from assuming third-party dependency safety to treating unverified scripts as active risks.
 
----
-
 ## Lesson Learned
 
 * **Eliminating Permissive Defaults:** Modern ecosystem security requires engineering platforms to prioritize defense over total convenience, shifting the burden of trust confirmation from the user to an explicit configuration model.
 * **Securing Transitive Software Layers:** Software validation frameworks cannot simply verify direct code dependencies; they must actively account for the integrity and automated execution rights of third-party dependencies down the entire supply chain tree.
 * **Identity and Infrastructure Hardening:** Hardening access points through strict multi-factor enforcement and OIDC authentication prevents token harvesting and account takeover vectors from poisoning automated distribution channels.
 * **Proactive Refactoring Workflows:** Engineering teams must adapt their local build and continuous integration (CI) environments to support allowlist-style dependency patterns, ensuring necessary scripts run securely without opening ambient holes.
-
----
 
 ## Personal Reflection
 

@@ -1,4 +1,4 @@
-# Article Summary — Zero Trust Architecture
+# Zero Trust Architecture
 
 **Source:** National Institute of Standards and Technology (NIST)  
 **Author:** Alper Kerman  
@@ -16,8 +16,6 @@ Zero Trust addresses these challenges through the principle of **"Never Trust, A
 
 Overall, the article emphasizes that Zero Trust is not a single technology but a security architecture designed to minimize implicit trust, reduce lateral movement, and improve organizational resilience against modern cyber threats.
 
----
-
 ## Key Takeaways
 
 * Traditional perimeter-based security is no longer sufficient for modern distributed environments.
@@ -26,16 +24,12 @@ Overall, the article emphasizes that Zero Trust is not a single technology but a
 * Continuous verification helps reduce the risk of lateral movement after an initial compromise.
 * Zero Trust is an architectural approach rather than a standalone security product.
 
----
-
 ## Lesson Learned
 
 * Modern cybersecurity should rely on continuous verification instead of implicit trust.
 * Stolen credentials remain one of the most common attack vectors.
 * Identity, device posture, and security policies should all influence access decisions.
 * Zero Trust focuses on limiting the impact of breaches rather than assuming they will never occur.
-
----
 
 ## Personal Reflection
 

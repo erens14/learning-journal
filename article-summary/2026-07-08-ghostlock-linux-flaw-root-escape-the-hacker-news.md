@@ -1,4 +1,4 @@
-# Article Summary — 15-Year-Old GhostLock Flaw Enables Root and Container Escape on Most Linux Distros
+# 15-Year-Old GhostLock Flaw Enables Root and Container Escape on Most Linux Distros
 
 **Source:** The Hacker News  
 **Author:** Swati Khandelwal  
@@ -14,8 +14,6 @@ Mechanically, the vulnerability is triggered via a race condition during multi-t
 
 The security risk increases significantly within cloud-native infrastructures. Because container ecosystems (like Docker, containerd, and Kubernetes clusters) operate via a shared-kernel architecture, the GhostLock exploit effectively invalidates namespace isolation boundaries. An attacker who compromises a single unprivileged container can exploit the underlying shared host kernel to execute a complete **container escape**, thereby compromising the bare-metal host machinery and enabling lateral movement across adjacent multi-tenant containers.
 
----
-
 ## Key Takeaways
 
 * The **GhostLock** vulnerability is a 15-year-old structural security flaw embedded inside legacy Linux kernel synchronization code.
@@ -25,16 +23,12 @@ The security risk increases significantly within cloud-native infrastructures. B
 * The flaw breaks container boundaries, allowing container escape attacks that jeopardize multi-tenant cloud architectures.
 * Mitigating the vulnerability requires immediate kernel patching across all virtualized and physical Linux instances, followed by full system reboots.
 
----
-
 ## Lesson Learned
 
 * **Legacy Code Debt:** Open-source components that have been trusted for over a decade must still undergo continuous automated regression and fuzz testing to expose latent architectural weaknesses.
 * **Shared-Kernel Hazards:** The shared-kernel model inherent to standard container deployments represents an inherent structural point of vulnerability when low-level kernel exploits emerge.
 * **Defense-in-Depth Engineering:** Container infrastructures should be hardened with secondary boundary isolation controls—such as gVisor, seccomp profiles, or restrictive AppArmor/SELinux templates—to block unauthorized or irregular system calls to the host kernel.
 * **Rapid Deployment Workflows:** Production environments must maintain automated orchestration pipelines capable of rolling out infrastructure-wide kernel updates and managing node reboots with minimal disruption to live services.
-
----
 
 ## Personal Reflection
 

@@ -1,4 +1,4 @@
-# Article Summary — Building a Security Strategy for AI
+# Building a Security Strategy for AI
 
 **Source:** The Hacker News  
 **Author:** Austin O'Saben - Kaseya  
@@ -16,8 +16,6 @@ The article also highlights that AI creates risks beyond traditional cyber threa
 
 Ultimately, the article argues that AI security is becoming a core business requirement rather than a purely technical concern. As AI adoption accelerates, organizations that establish governance, secure architecture, continuous risk assessment, and cross-functional collaboration will be better positioned to benefit from AI while reducing security and compliance risks.
 
----
-
 ## Key Takeaways
 
 * AI systems introduce new attack surfaces, including models, prompts, datasets, APIs, and AI pipelines.
@@ -26,16 +24,12 @@ Ultimately, the article argues that AI security is becoming a core business requ
 * Security should be incorporated throughout the entire AI lifecycle, from development to deployment and ongoing operations.
 * Collaboration between security teams, AI engineers, and business stakeholders is critical for building secure AI solutions.
 
----
-
 ## Lesson Learned
 
 * Traditional cybersecurity controls alone are not sufficient for protecting AI systems.
 * AI security requires both technical safeguards and organizational governance.
 * Securing AI involves protecting not only infrastructure but also data, models, prompts, and user interactions.
 * A proactive security-by-design approach is more effective than attempting to secure AI after deployment.
-
----
 
 ## Personal Reflection
 

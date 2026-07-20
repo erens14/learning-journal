@@ -1,4 +1,4 @@
-# Article Summary — Phishing Resistance: Protecting the Keys to Your Kingdom
+# Phishing Resistance: Protecting the Keys to Your Kingdom
 
 **Source:** NIST Cybersecurity Insights  
 **Author:** Andrew Regenscheid and Ryan Galluzzo  
@@ -16,8 +16,6 @@ The article highlights technologies such as **FIDO/WebAuthn**, **Passkeys**, and
 
 Finally, NIST emphasizes that phishing-resistant authentication should be implemented as part of a **layered security strategy**, alongside security awareness training, email protection, network security, and other defensive controls.
 
----
-
 ## Key Takeaways
 
 * Traditional passwords and SMS OTPs remain susceptible to phishing attacks.
@@ -26,16 +24,12 @@ Finally, NIST emphasizes that phishing-resistant authentication should be implem
 * Multi-Factor Authentication (MFA) alone does not guarantee phishing resistance.
 * Authentication security should be combined with layered cybersecurity controls.
 
----
-
 ## Lesson Learned
 
 * Phishing-resistant authentication significantly reduces the risk of credential theft.
 * Modern authentication should verify the legitimacy of services before exchanging credentials.
 * Cryptographic authentication offers stronger protection than password-based methods.
 * Security awareness remains important but should complement technical security controls.
-
----
 
 ## Personal Reflection
 

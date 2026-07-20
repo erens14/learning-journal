@@ -1,4 +1,4 @@
-# Article Summary — Public GitHub Issues Could Be Exploited to Trick Users Into Downloading Malware
+# Public GitHub Issues Could Be Exploited to Trick Users Into Downloading Malware
 
 **Source:** The Hacker News  
 **Author:** Swati Khandelwal  
@@ -16,8 +16,6 @@ Threat actors weaponize this behavior by targeting high-profile, globally truste
 
 This exploitation technique introduces a severe systemic risk to the open-source supply chain ecosystem. It effectively transforms legitimate repository namespaces into unintentional malware distribution nodes without compromising the underlying source code or gaining unauthorized write access to the project. Consequently, repository maintainers are left completely blind to the abuse, as there are currently no platform-level notifications or dashboard analytics to inform project owners when files are attached to unsubmitted drafts within their repositories.
 
----
-
 ## Key Takeaways
 
 * GitHub's asset subsystem dynamically generates permanent download links under a repository's official URL path the moment a file is dragged into an issue or pull request comment field.
@@ -28,16 +26,12 @@ This exploitation technique introduces a severe systemic risk to the open-source
 * Project maintainers possess no administrative visibility or logging mechanisms to audit, detect, or purge unauthorized files attached to drafts within their project boundaries.
 * The attack vector undermines a foundational pillar of user security awareness, which relies on domain verification to determine download safety.
 
----
-
 ## Lesson Learned
 
 * **Platform Architectural Hardening:** Cloud collaboration platforms must decouple user-generated comment attachments from the primary project namespace, utilizing isolated, randomized domain structures (e.g., separate asset-specific subdomains) to break domain-trust inheritance.
 * **Asynchronous State Management:** Asynchronous file processing engines should implement automated garbage collection parameters that instantly delete uploaded assets if the parent text frame is not submitted within a designated time window.
 * **Telemetry and Visibility:** Enterprise code hosting platforms must provide repository administrators with granular telemetry dashboards to track, review, and remove all files hosted under their namespace boundaries.
 * **Rethinking Trust Metrics:** Defenses cannot treat established domain reputation as a definitive indicator of file safety; file integrity verification via cryptographic checksums (e.g., SHA-256 validation) must remain mandatory for all downloaded binaries.
-
----
 
 ## Personal Reflection
 

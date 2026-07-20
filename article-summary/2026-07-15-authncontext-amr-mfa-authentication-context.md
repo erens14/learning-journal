@@ -1,4 +1,4 @@
-# Article Summary — AuthNContext and AMR, We Remember What MFA You Provided Last Summer
+# AuthNContext and AMR, We Remember What MFA You Provided Last Summer
 
 **Source:** The Hacker News
 
@@ -20,8 +20,6 @@ The author explains the structural mechanics of how these context-tracking attri
 
 Ultimately, leveraging both ACR and AMR allows developers to shift identity mechanics away from static, one-time gate triggers and transform them into real-time languages of confidence. This dynamic capability allows applications to distinguish between actions that are "good enough to read" and high-stakes tasks that are "good enough to approve," establishing adaptive, risk-aware user environments.
 
----
-
 ## Key Takeaways
 
 * Traditional binary authentication models fail to secure modern platforms handling sensitive data, making source-level context metadata mandatory.
@@ -30,16 +28,12 @@ Ultimately, leveraging both ACR and AMR allows developers to shift identity mech
 * ACR decouples applications from strict credential combinations, allowing them to mandate a high-level assurance framework that can be satisfied by various compliant multi-factor methods.
 * Integrating identity context allows systems to execute fine-grained, adaptive access choices that respond in real time to fluctuating context, intent, and threat risk.
 
----
-
 ## Lesson Learned
 
 * **Implementing Context-Aware Access Policies:** Applications must read incoming authentication claims (`ACR`/`AMR`) to verify that a user’s session strength matches the sensitivity of the transaction they are trying to perform.
 * **Enforcing Step-Up Verification Paths:** Software teams must build dynamic verification routines that prompt an active user for secondary, hardware-backed factor validation before authorizing high-stakes processes, rather than relying solely on the initial login state.
 * **Standardizing Token Verification Checks:** Middleware verification pipelines must validate OIDC token metadata arrays against standardized rules matrices (such as RFC 8176) to defend against downstream token manipulation or credential downgrades.
 * **Transitioning to Zero Trust Architecture:** Engineering teams must transform identity management from a one-time gateway perimeter check into an adaptive verification architecture that evaluates context continuously.
-
----
 
 ## Personal Reflection
 

@@ -1,4 +1,4 @@
-# Article Summary — Testing vs. Debugging
+# Testing vs. Debugging
 
 **Source:** QA World  
 **Author:** Priya Rani
@@ -16,8 +16,6 @@ The article provides a definitive breakdown of two foundational yet frequently c
 
 The article emphasizes that high-performance engineering cultures do not treat these terms interchangeably. Testing provides the telemetry and failure data that makes effective debugging possible, while debugging resolves the issues so that the testing suite can validate the new baseline configuration.
 
----
-
 ## Key Takeaways
 
 * Testing is the process of finding defects; debugging is the process of locating the root cause and fixing those defects.
@@ -26,8 +24,6 @@ The article emphasizes that high-performance engineering cultures do not treat t
 * Testers or automated frameworks typically perform testing, whereas developers who own or understand the codebase execute debugging.
 * Software validation loops rely on both: testing uncovers the symptom, while debugging cures the disease.
 
----
-
 ## Lesson Learned
 
 * **Clear Role Boundaries:** Maintaining clear operational boundaries between testing workflows and debugging cycles prevents scope creep and ensures that quality metrics remain objective.
@@ -35,10 +31,8 @@ The article emphasizes that high-performance engineering cultures do not treat t
 * **Continuous Integration Synergy:** Integrating automated test suites into the deployment pipeline reduces the debugging feedback loop, allowing developers to isolate code regressions immediately after a commit.
 * **Separation of Mindsets:** Transitioning from testing to debugging requires shifting from a destructive mindset (trying to break the application) to a constructive analytical mindset (understanding system constraints and fixing logic blocks).
 
----
-
 ## Personal Reflection
 
-This comparative analysis clarifies an important distinction for my software validation foundation. In engineering, it is easy to lump all quality efforts under a single banner, but understanding that testing and debugging require different tools and mental frameworks changes how I approach code problems. 
+This comparative analysis clarifies an important distinction for my software validation foundation. In engineering, it is easy to lump all quality efforts under a single banner, but understanding that testing and debugging require different tools and mental frameworks changes how I approach code problems.  
 
 For my engineering knowledge base, this highlights that finding a bug is only half the battle. High-quality software engineering relies on the clean handoff between the telemetry provided by rigorous testing and the targeted diagnostic problem-solving involved in debugging. Mastering both sides of this loop is essential for building stable, reliable production systems.

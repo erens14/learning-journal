@@ -1,4 +1,4 @@
-# Article Summary — Fighting AI-Generated Threats
+# Fighting AI-Generated Threats
 
 **Source:** Cyber Security Hub (CS Hub)  
 **Author:** Alex Vakulov  
@@ -17,8 +17,6 @@ AI-driven attack techniques span several core operational domains:
 * **Automated Hacking:** AI automates high-velocity vulnerability scanning, port mapping, SQL injections, and credential stuffing, allowing attackers to locate misconfigurations and compromise vulnerable targets within seconds.
 * **Spyware and APTs:** Next-generation spyware uses AI to execute low-and-slow data exfiltration in small, undetectable fragments and automate privilege escalation to maintain long-term, undetected network access.
 
----
-
 ## Key Takeaways
 
 * Generative AI significantly lowers the technical barrier to entry, enabling low-skilled threat actors to execute advanced, automated cyber attacks.
@@ -27,16 +25,12 @@ AI-driven attack techniques span several core operational domains:
 * Automated vulnerability scanning allows AI tools to scan systems for open ports and outdated software, launching exploits with minimal human intervention.
 * Defending against mutating, high-velocity threats requires cybersecurity teams to pivot toward behavior-based, real-time AI threat detection architectures.
 
----
-
 ## Lesson Learned
 
 * **Countering High-Velocity Attacks:** Security operations centers can no longer rely solely on human response times or manual log analysis; defending against machine-driven threats requires automated, real-time AI tools.
 * **Moving Beyond Signatures:** Because polymorphic malware alters its code structure dynamically, security frameworks must abandon static signature tracking and focus heavily on behavioral anomaly detection.
 * **Hardening Platform Guardrails:** AI vendors must continuously patch LLM jailbreak vulnerabilities to prevent models from being weaponized for malicious code generation and script obfuscation.
 * **Continuous Attack Surface Reduction:** Since automated AI reconnaissance scans systems continuously, rapid vulnerability patching and configuration management are mandatory to close open ports and software flaws.
-
----
 
 ## Personal Reflection
 
