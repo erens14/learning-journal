@@ -1,9 +1,7 @@
 # AuthNContext and AMR, We Remember What MFA You Provided Last Summer
 
 **Source:** The Hacker News
-
 **Author:** Tibor Dombi
-
 **Link:** [https://thehackernews.com/expert-insights/2026/07/authncontext-and-amr-we-remember-what.html](https://thehackernews.com/expert-insights/2026/07/authncontext-and-amr-we-remember-what.html)
 
 ---

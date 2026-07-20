@@ -1,9 +1,7 @@
 # GitHub API Enumeration: Overlapping Reconnaissance Campaigns Targeting Corporate Repositories
 
 **Source:** Datadog Security Labs, The  Hacker News
-
 **Author:** Ravie Lakshmanan
-
 **Link:** [Dormant Github Accounts Help Attackers](https://thehackernews.com/2026/07/dormant-github-accounts-help-attackers.html)
 
 ---
