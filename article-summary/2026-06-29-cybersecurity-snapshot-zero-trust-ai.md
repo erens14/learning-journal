@@ -4,6 +4,8 @@
 **Author:** Juan Perez  
 **Link:** [Cybersecurity Snapshot: NIST Offers Zero Trust Implementation Advice, While OpenAI Shares ChatGPT Misuse Incidents](https://www.tenable.com/blog/cybersecurity-snapshot-nist-offers-zero-trust-implementation-advice-while-openai-shares)  
 
+---
+
 ## Summary
 
 This article highlights several important cybersecurity developments, with the main focus on **Zero Trust Architecture (ZTA)**, **AI security**, and the evolving cyber threat landscape.

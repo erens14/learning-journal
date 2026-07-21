@@ -2,7 +2,7 @@
 
 **Source:** DevOps.com  
 **Author:** Samantha Madrid  
-**Link:** [5G Security: Mitigating Threats in the Era of Hyperspeed and Hyperconnectivity](https://devops.com/5g-security-mitigating-threats-in-the-era-of-hyperspeed-and-hyperconnectivity/)  
+**Link:** [5G Security: Mitigating Threats in the Era of Hyperspeed and Hyperconnectivity](https://devops.com/5g-security-mitigating-threats-in-the-era-of-hyperspeed-and-hyperconnectivity/)
 
 ---
 
