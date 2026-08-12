@@ -1,7 +1,5 @@
 # QA Lesson Learned - Event Handler Bindings & Unresponsive UI Components in Data Grids
 
----
-
 ## Scenario
 
 An accounting disbursement module (**Bukti Bank Keluar / BBK**) was deployed featuring a data grid view with several interactive UI components, including:

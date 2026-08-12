@@ -19,17 +19,20 @@ At first glance, the report appears to function correctly because data is displa
 However, deeper testing reveals inconsistencies in supporting functionalities:
 
 ### Export Behavior
+
 - Export functionality behaves inconsistently across different report pages.
 - Some reports require user input (e.g., filename) before exporting.
 - Some reports export directly without any prompt.
 - Certain export actions fail silently or do not generate output files.
 
 ### Sorting Behavior
+
 - Sorting is only enabled on specific columns.
 - Some columns incorrectly expose sorting functionality.
 - Sorting behavior is not always aligned with expected business rules or technical implementation.
 
 ### Filter Behavior
+
 - Filters may appear to work but still return incorrect or incomplete datasets.
 - Some results include unrelated records despite filter selection.
 - Data accuracy is not guaranteed even when UI shows filtered output.
