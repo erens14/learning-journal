@@ -6,7 +6,7 @@
 
 ---
 
-## Executive Summary
+## Summary
 
 In 2008, the U.S. Department of Defense suffered "Operation Buckshot Yankee"—the most severe breach of military networks in American history. A worm known as **Agent.BTZ** penetrated the classified SIPRNet (Secret Internet Protocol Router Network), affecting over 15,000 networks and 7 million devices across the Pentagon and CENTCOM. Originating likely from a corrupted USB thumb drive purchased or plugged into a public internet cafe in Kabul, Afghanistan, Agent.BTZ breached air-gapped systems that traditional web-based threats could never reach.
 

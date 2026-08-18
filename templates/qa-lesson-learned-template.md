@@ -34,15 +34,19 @@ Explain why the finding is important.
 Consider the impact on:
 
 ### User Impact
+
 - How does it affect end users?
 
 ### System Impact
+
 - Does it affect system reliability or functionality?
 
 ### Data Impact
+
 - Can it cause incorrect, inconsistent, or missing data?
 
 ### Business Impact
+
 - Can it affect operations, reporting, compliance, or decision-making?
 
 ---
