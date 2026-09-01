@@ -1,40 +1,52 @@
-# 📚 Learning Journal
+# Learning Journal: QA, Security, Networking
 
-Welcome to my personal learning journal.
+This repository is my public learning portfolio for QA engineering, regression testing, database integrity, cybersecurity analysis, Laravel fundamentals, and CCNA networking foundations.
 
-This repository serves as my technical knowledge base, where I document concepts, lessons learned, technical notes, and practical insights gained through professional work, self-study, and technical articles.
+It is organized as a working knowledge base: each note turns a real testing scenario, technical article, course topic, or implementation pattern into structured takeaways that can be reviewed later.
 
-Rather than just collecting information, the goal of this repository is to deepen my understanding by explaining complex concepts in my own words and tracking my engineering growth over time.
+## Recruiter Quick Scan
 
-## 🎯 Purpose
+Start here if you want a fast view of my practical thinking:
 
-This repository exists to:
+| Area | Why it matters | Sample notes |
+| --- | --- | --- |
+| QA engineering | Shows how I test workflows, edge cases, regressions, and business rules. | [Sorting workflow validation](qa/verifying-sorting-functionality.md), [financial journal integrity test cases](qa/test-cases/financial-journal-integrity-test-cases.md) |
+| Data integrity | Shows care with SQL changes, transaction safety, and parent-child data consistency. | [Cascading quantity update pattern](request-entry-db/sql-cascading-quantity-update-pattern.md), [transaction rollback pattern](request-entry-db/sql-transaction-rollback-pattern.md) |
+| Cybersecurity analysis | Shows security awareness and ability to summarize attack chains clearly. | [Morris Worm case study](article-summary/2026-08-18-morris-worm-failed-experiment-broke-internet.md), [phishing-resistant authentication](article-summary/2026-06-27-phishing-resistant-authentication.md) |
+| Networking fundamentals | Shows structured CCNA study and technical foundation building. | [Network fundamentals](ccna-udemy-notes/01-network-fundamentals/01-network-fundamentals.md), [subnetting notes](ccna-udemy-notes/06-subnetting/README.md) |
+| Laravel learning | Shows web development fundamentals and backend learning progression. | [Laravel installation](laravel/01-install.md), [Laravel CRUD app](laravel/10-crud-app.md) |
 
-* Document technical knowledge systematically.
-* Record actionable lessons learned from QA testing and security analysis.
-* Build a reliable, long-term engineering knowledge base.
-* Refine technical communication and writing skills.
-* Track learning progress and personal milestones.
+## Repository Map
 
-## 🧠 Learning Areas
+| Folder | Focus |
+| --- | --- |
+| [qa](qa/README.md) | QA lessons learned, regression risks, workflow validation, and test cases. |
+| [request-entry-db](request-entry-db/README.md) | SQL data correction patterns and transaction-safe database updates. |
+| [article-summary](article-summary/README.md) | Cybersecurity article and video summaries with personal reflections. |
+| [ccna-udemy-notes](ccna-udemy-notes/README.md) | CCNA networking notes organized by topic. |
+| [laravel](laravel/README.md) | Laravel learning notes from setup through CRUD and Docker. |
+| [implementation-plan-web](implementation-plan-web/README.md) | Web implementation lessons from UI, architecture, and refactoring work. |
+| [templates](templates/README.md) | Reusable note templates that keep documentation consistent. |
+| [glossary.md](glossary.md) | CCNA terminology reference. |
 
-Current focus areas include:
+## Learning Areas
 
 ![Quality Assurance](https://img.shields.io/badge/Focus-Quality_Assurance-blue?style=flat-square)
 ![Cyber Security](https://img.shields.io/badge/Focus-Cyber_Security-red?style=flat-square)
 ![Computer Networking](https://img.shields.io/badge/Focus-Computer_Networking-green?style=flat-square)
+![Laravel](https://img.shields.io/badge/Focus-Laravel-orange?style=flat-square)
 
-## 🛠️ Note Templates
+## What This Shows
 
-To maintain consistency and ease of review, all notes follow strict structural layouts. The reusable templates can be found in the `templates/` directory:
+- Ability to break down bugs into user impact, system impact, data impact, and business impact.
+- Habit of validating workflows beyond the happy path.
+- Awareness of database consistency, rollback safety, and cross-module dependencies.
+- Interest in cybersecurity, threat behavior, identity, and secure system design.
+- Ongoing technical growth through networking and web development fundamentals.
 
-* **[CCNA Self Notes](templates/ccna-self-notes-template.md):** Structured blueprint for network protocols, CLI configurations, and topology breakdowns.
-* **[Article Summary](templates/article-summary-template.md):** Concise overviews tracking cybersecurity trends, incident summaries, and threat behaviors.
-* **[QA Lesson Learned](templates/qa-lesson-learned-template.md):** Detailed analysis of software testing scenarios, edge cases, bugs, and UX impacts.
+## Naming Convention
 
-## 📝 Naming Convention
-
-File names are strictly written in **lowercase letters** and separated by **hyphens (`-`)** for URL-friendly navigation:
+File names use lowercase letters and hyphens for readable GitHub URLs:
 
 ```text
 verifying-sorting-functionality.md
@@ -42,19 +54,19 @@ requirement-gathering-reveals-more-than-bugs.md
 phishing-resistant-authentication.md
 ```
 
-If multiple sources cover the same foundational topic, the source name is appended:
+When multiple sources cover the same foundational topic, the source name may be appended:
 
 ```text
 phishing-resistant-authentication-nist.md
 phishing-resistant-authentication-microsoft.md
 ```
 
-## 💡 Learning Philosophy
+## Learning Philosophy
 
 > "Learning becomes valuable when knowledge is transformed into understanding."
 
-Every note inside this repository reflects my specific baseline understanding at the time of writing. As my experience grows, older logs will be dynamically updated, corrected, or expanded. Continuous iteration takes priority over perfect documentation.
+Every note reflects my understanding at the time of writing. Older notes may be updated, corrected, or expanded as my experience grows.
 
-## ⚠️ Disclaimer
+## Disclaimer
 
-This repository tracks a personal, non-exhaustive learning journey. Content is intended strictly for educational purposes and personal reference. Interpretations and explanations will naturally evolve as my engineering insights grow.
+This repository is a personal, non-exhaustive learning journal for educational use. Notes are written in generalized terms and avoid confidential project details.
