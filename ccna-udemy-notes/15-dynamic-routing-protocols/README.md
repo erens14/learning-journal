@@ -4,3 +4,4 @@
 
 1. [Dynamic vs Static Routing](01-dynamic-vs-static.md)
 2. [Routing Protocol Types](02-routing-protocol-types.md)
+3. [Routing Protocol Metrics](03-routing-protocol-metrics.md)
