@@ -22,10 +22,10 @@ This documentary by Cybernews details the creation, unintended destruction, tech
 
 ## Technical Deep Dive: Morris Worm Vectors & Logic
 
-* **Vector 1 — Trusted Hosts (`rsh` / `rlogin`):** Exploit primitive session trust mechanisms (`.rhosts`). The worm identified trusted peer machines, executed a small bootstrap loader, and fetched the main payload over the network.
-* **Vector 2 — Sendmail Debug Mode:** Exploit a backdoor in Unix `sendmail` configured with `DEBUG` enabled. The worm issued mail commands that tricked the mail daemon into executing arbitrary shell commands to compile and run the worm payload.
-* **Vector 3 — Password Dictionary Attack:** Evaluated a built-in 400-word dictionary against Unix `crypt` password hashes to hijack accounts. (Ironically, the `crypt` algorithm itself had been co-authored by Morris's father, Bob Morris, a renowned NSA cryptographer).
-* **Vector 4 — Finger Daemon Buffer Overflow (`fingerd`):** Exploited an unchecked buffer in `fingerd`. The protocol expected up to 512 bytes for a username query, but the worm sent 536 bytes, overwriting the stack frame to execute malicious code—one of the earliest documented real-world buffer overflow exploits.
+* **Vector 1: Trusted Hosts (`rsh` / `rlogin`):** Exploit primitive session trust mechanisms (`.rhosts`). The worm identified trusted peer machines, executed a small bootstrap loader, and fetched the main payload over the network.
+* **Vector 2: Sendmail Debug Mode:** Exploit a backdoor in Unix `sendmail` configured with `DEBUG` enabled. The worm issued mail commands that tricked the mail daemon into executing arbitrary shell commands to compile and run the worm payload.
+* **Vector 3: Password Dictionary Attack:** Evaluated a built-in 400-word dictionary against Unix `crypt` password hashes to hijack accounts. (Ironically, the `crypt` algorithm itself had been co-authored by Morris's father, Bob Morris, a renowned NSA cryptographer).
+* **Vector 4: Finger Daemon Buffer Overflow (`fingerd`):** Exploited an unchecked buffer in `fingerd`. The protocol expected up to 512 bytes for a username query, but the worm sent 536 bytes, overwriting the stack frame to execute malicious code—one of the earliest documented real-world buffer overflow exploits.
 * **Self-Preservation & Process Hiding:** The worm randomized its process name, cleared its command-line arguments, and constantly rotated memory locations to evade basic administrative monitoring.
 
 ## Key Takeaways
