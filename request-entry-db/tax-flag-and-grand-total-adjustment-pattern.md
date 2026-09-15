@@ -1,86 +1,118 @@
-# 📝 Learning Note: Accounts Receivable Tax Flag & Grand Total Adjustment Pattern
+# 📝 Learning Note: Receivable Tax Flags and Grand-Total Recalculation
 
-**Goal:** Pattern for updating tax printing configurations (`pph_print`, `ppn_print`) and recalculating final payable amounts on receivable records while verifying associated line items and source vehicle orders.
+**Goal:** Correct receivable tax settings and derive financial totals from line items using one documented formula.
+
+**Core Principle:** **Recalculate; do not patch isolated totals.** Tax flags, tax amounts, and final balances must represent the same business rule.
+
+**Business Workflow Chain:** `Receivable` → `Receivable Items` → `Tax Configuration` → `Final Balance`.
 
 ---
 
 ## 📌 Context & Domain Parameters
 
-This pattern handles scenarios where a receivable record requires manual adjustments to its tax printing flags (e.g., enabling PPh tax deduction and disabling PPN tax) along with updated grand totals and net final totals.
-
-| Parameter Name | Example / Placeholder | Role in Adjustment |
+| Parameter | Placeholder | Purpose |
 | --- | --- | --- |
-| **Receivable Code** | `'REC/2026/XXX-001'` | Target main receivable document code |
-| **Receivable ID** | `[receivable_id]` | Primary key for target receivable record |
-| **Vehicle Order ID** | `[vehicle_order_id]` | Linked source vehicle order reference |
-| **PPh Print Flag** | `1` | Enable PPh (Income Tax) print flag |
-| **PPN Print Flag** | `0` | Disable PPN (VAT) print flag |
-| **Grand Total** | `4550000` | Base total amount before tax deduction |
-| **Grand Total Final** | `4550000 - 91000` | Net final amount after PPh deduction |
+| Receivable ID | `[receivable_id]` | Target financial document |
+| Withholding rate | `[withholding_rate]` | Approved deduction rate |
+| Indirect-tax rate | `[indirect_tax_rate]` | Approved addition rate |
+| Withholding enabled | `[withholding_enabled]` | Business-rule flag |
+| Indirect tax enabled | `[indirect_tax_enabled]` | Business-rule flag |
 
 ---
 
-## 🔄 Workflow Logic
+## 🔒 Integrity Rules
 
-1. **Pre-Check Verification:** Query the primary receivable record, its line details, and the linked vehicle order to inspect current financial figures and tax flags.
-2. **Update Receivable Tax Flags & Totals:** Modify `pph_print` and `ppn_print` flags while recalculating `grand_total` and `grand_total_final` in an atomic transaction.
-3. **Post-Check Verification:** Re-query the updated receivable record to confirm the new totals and tax statuses before issuing `COMMIT`.
+- Subtotal equals the sum of active receivable items.
+- Each tax amount uses the approved base and rounding policy.
+- Final total follows one explicit formula.
+- Flags and stored amounts cannot contradict each other.
 
 ---
 
-## 🛠 Complete SQL Execution Script
+## 🔄 Execution Workflow
+
+1. Inspect header flags, stored totals, and active line items.
+2. Calculate subtotal and taxes from approved rates.
+3. Update flags and all dependent totals together.
+4. Recalculate the same formula in a verification query.
+5. Commit only when stored and calculated values match exactly.
+
+---
+
+## 🛠 Generalized SQL Pattern
 
 ```sql
+-- Pre-check current header and source line totals.
+SELECT receivable_id, subtotal, withholding_tax, indirect_tax, final_total,
+       withholding_enabled, indirect_tax_enabled, status
+FROM receivables
+WHERE receivable_id = [receivable_id];
+
+SELECT item_id, line_total, status
+FROM receivable_items
+WHERE receivable_id = [receivable_id]
+  AND status = 1;
+
 START TRANSACTION;
 
--- ====================================================================
--- 1. PRE-CHECK DATA VALIDITY
--- ====================================================================
--- Inspect target receivable header record
-SELECT * 
-FROM receivable 
-WHERE receivable_no = 'REC/2026/XXX-001';
+SELECT COALESCE(SUM(line_total), 0)
+INTO @calculated_subtotal
+FROM receivable_items
+WHERE receivable_id = [receivable_id]
+  AND status = 1;
 
--- Inspect related receivable line details
-SELECT * 
-FROM receivable_detail 
-WHERE receivable_id = [receivable_id];
+SET @calculated_withholding := ROUND(
+    @calculated_subtotal * [withholding_rate] * [withholding_enabled],
+    2
+);
 
--- Inspect associated source vehicle order
-SELECT * 
-FROM vehicle_order 
-WHERE vehicle_order_id = [vehicle_order_id];
+SET @calculated_indirect_tax := ROUND(
+    @calculated_subtotal * [indirect_tax_rate] * [indirect_tax_enabled],
+    2
+);
 
--- ====================================================================
--- 2. UPDATE RECEIVABLE TAX FLAGS & GRAND TOTALS
--- ====================================================================
-UPDATE receivable
-SET pph_print = 1,
-    ppn_print = 0,
-    grand_total = 4550000,
-    grand_total_final = 4550000 - 91000,
-    updated_at = NOW(),
-    updated_by = [current_user_id]
-WHERE receivable_id = [receivable_id];
+SET @calculated_final_total :=
+    @calculated_subtotal
+    + @calculated_indirect_tax
+    - @calculated_withholding;
 
--- ====================================================================
--- 3. POST-CHECK VERIFICATION
--- ====================================================================
--- Re-verify receivable header record after update
-SELECT 
+UPDATE receivables
+SET subtotal = @calculated_subtotal,
+    withholding_tax = @calculated_withholding,
+    indirect_tax = @calculated_indirect_tax,
+    final_total = @calculated_final_total,
+    withholding_enabled = [withholding_enabled],
+    indirect_tax_enabled = [indirect_tax_enabled],
+    updated_at = NOW()
+WHERE receivable_id = [receivable_id]
+  AND status = 1;
+
+-- Post-check stored values against independently calculated values.
+SELECT
     receivable_id,
-    receivable_no,
-    pph_print,
-    ppn_print,
-    grand_total,
-    grand_total_final,
-    updated_at,
-    updated_by
-FROM receivable 
+    subtotal,
+    withholding_tax,
+    indirect_tax,
+    final_total,
+    subtotal + indirect_tax - withholding_tax AS verified_final_total
+FROM receivables
 WHERE receivable_id = [receivable_id];
 
--- Commit transaction if affected rows match expectation; otherwise execute ROLLBACK
-COMMIT;
--- ROLLBACK;
-
+ROLLBACK;
+-- Replace ROLLBACK with COMMIT only after finance rules and values match.
 ```
+
+---
+
+## ✅ Verification Checklist
+
+- Active item sum equals stored subtotal.
+- Rounding matches the approved currency policy.
+- Disabled tax flags produce zero related tax amounts.
+- Stored final total equals recalculated final total.
+
+---
+
+## 🧠 Lesson Learned
+
+Financial correction must preserve formula lineage. Updating one visible total without recalculating its components creates hidden inconsistencies across reports and payment workflows.

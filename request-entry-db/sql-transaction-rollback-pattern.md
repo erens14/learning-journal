@@ -1,120 +1,122 @@
-# 📝 Learning Note: Multi-Table Transaction Rollback & Data Adjustment Pattern
+# 📝 Learning Note: Business Reversal and SQL Transaction Rollback
 
-**Goal:** Pattern for manually reverting/canceling (soft-delete) complex transaction adjustments while keeping data consistency across related base orders and generated fulfillment items.
+**Goal:** Reverse a committed multi-table adjustment while preserving quantities, generated documents, and audit state.
+
+**Core Principle:** **Business reversal and SQL rollback solve different problems.** `ROLLBACK` cancels uncommitted statements; a committed workflow needs explicit compensating updates inside a new transaction.
+
+**Business Workflow Chain:** `Adjustment` → `Adjustment Items` → `Base Order` → `Generated Fulfillment`.
 
 ---
 
 ## 📌 Context & Domain Parameters
 
-This pattern handles scenario where an adjustment document needs to be voided, requiring:
-
-1. Reverting allocated quantities back to the original base order.
-2. Resetting pending flags on the source document.
-3. Soft-deleting any newly generated fulfillment sub-documents.
-4. Soft-deleting the parent adjustment document itself.
-
-| Parameter Name | Example / Placeholder | Role in Rollback |
+| Parameter | Placeholder | Purpose |
 | --- | --- | --- |
-| **Adjustment Code** | `ADJ-2026-0001` | Target main document to be voided |
-| **Adjustment ID** | `[adjustment_id]` | Primary key for target adjustment |
-| **Base Order ID** | `[base_order_id]` | Target order to refund/restore quantity |
-| **Source Fulfillment ID** | `[source_fulfillment_id]` | Original document needing status reset |
-| **Generated Fulfillment ID** | `[generated_fulfillment_id]` | New document created by adjustment (to be voided) |
+| Adjustment ID | `[adjustment_id]` | Committed adjustment being reversed |
+| Base order ID | `[base_order_id]` | Order receiving restored quantity |
+| Generated fulfillment ID | `[generated_fulfillment_id]` | Artifact created by the adjustment |
+| Reversal quantity | `[reversal_quantity]` | Approved amount to restore |
+| Current user | `[current_user]` | Sanitized audit actor placeholder |
 
 ---
 
-## 🔄 Workflow Logic
+## 🔒 Integrity Rules
 
-1. **Pre-Check Verification:** Validate records exist and inspect current quantities before executing state changes.
-2. **Revert Base Order Quantity (`sign = '-'`):** Add back the deducted quantity to `allocated_qty` and log `updated_by`.
-3. **Reset Source State:** Set `pending_qty` to `0` on the original source document line.
-4. **Void Generated Artifacts (`sign = '+'`):** If the adjustment generated new fulfillment entries, set `status = 0` (soft delete) for both detail and header rows.
-5. **Void Adjustment Record:** Close the transaction adjustment by setting `status = 0` on both detail and header level.
+- Adjustment must still be active and eligible for reversal.
+- Restored quantity must equal the original committed adjustment effect.
+- Generated documents are voided with status changes, not physically deleted.
+- Header and detail states change together with audit fields.
 
 ---
 
-## 🛠 Complete SQL Execution Script
+## 🔄 Execution Workflow
+
+1. Inspect adjustment, items, base order, and generated records.
+2. Reconstruct the original effect from stored adjustment items.
+3. Restore base-order quantity and void generated artifacts.
+4. Mark adjustment details and header reversed.
+5. Verify all invariants before committing the compensating transaction.
+
+---
+
+## 🛠 Generalized SQL Pattern
 
 ```sql
+-- Pre-check the committed business effect.
+SELECT adjustment_id, order_id, quantity_delta, generated_fulfillment_id, status
+FROM adjustment_items
+WHERE adjustment_id = [adjustment_id];
+
+SELECT order_id, available_quantity, status
+FROM base_orders
+WHERE order_id = [base_order_id];
+
 START TRANSACTION;
 
--- ====================================================================
--- 1. PRE-CHECK DATA VALIDITY
--- ====================================================================
-SELECT * 
-FROM transaction_adjustment_details 
-WHERE adjustment_id = [adjustment_id];
-
-SELECT * 
-FROM base_orders 
-WHERE order_id = [base_order_id];
-
--- ====================================================================
--- 2. REVERT BASE ORDER ALLOCATIONS (For negative adjustment entries)
--- ====================================================================
--- Inspect target details first
-SELECT * 
-FROM transaction_adjustment_details 
-WHERE adjustment_id = [adjustment_id] 
-  AND sign = '-';
-
--- Restore quantity back to base order
 UPDATE base_orders
-SET allocated_qty = allocated_qty + adjusted_qty,
+SET available_quantity = available_quantity + [reversal_quantity],
     updated_at = NOW(),
-    updated_by = [current_user_id]
+    updated_by = '[current_user]'
+WHERE order_id = [base_order_id]
+  AND status = 1;
+
+UPDATE fulfillment_items
+SET status = 0,
+    updated_at = NOW(),
+    updated_by = '[current_user]'
+WHERE fulfillment_id = [generated_fulfillment_id]
+  AND status = 1;
+
+UPDATE fulfillment_headers
+SET status = 0,
+    updated_at = NOW(),
+    updated_by = '[current_user]'
+WHERE fulfillment_id = [generated_fulfillment_id]
+  AND status = 1;
+
+UPDATE adjustment_items
+SET status = 0,
+    updated_at = NOW(),
+    updated_by = '[current_user]'
+WHERE adjustment_id = [adjustment_id]
+  AND status = 1;
+
+UPDATE adjustments
+SET status = 0,
+    reversal_reason = '[sanitized_reason]',
+    updated_at = NOW(),
+    updated_by = '[current_user]'
+WHERE adjustment_id = [adjustment_id]
+  AND status = 1;
+
+-- Post-check restored quantity and complete reversal state.
+SELECT order_id, available_quantity
+FROM base_orders
 WHERE order_id = [base_order_id];
 
--- ====================================================================
--- 3. RESET SOURCE FULFILLMENT PENDING QUANTITY
--- ====================================================================
-SELECT * 
-FROM fulfillment_details 
-WHERE fulfillment_id = [source_fulfillment_id];
+SELECT adjustment_id, status
+FROM adjustments
+WHERE adjustment_id = [adjustment_id];
 
-UPDATE fulfillment_details
-SET pending_qty = 0
-WHERE fulfillment_id = [source_fulfillment_id];
-
--- ====================================================================
--- 4. SOFT DELETE GENERATED FULFILLMENTS (For positive adjustment entries)
--- ====================================================================
--- Find generated fulfillment entries created during adjustment
-SELECT * 
-FROM transaction_adjustment_details 
-WHERE adjustment_id = [adjustment_id] 
-  AND sign = '+' 
-  AND fulfillment_id IS NOT NULL;
-
--- Soft delete generated detail rows
-UPDATE fulfillment_details
-SET `status` = 0
+SELECT fulfillment_id, status
+FROM fulfillment_headers
 WHERE fulfillment_id = [generated_fulfillment_id];
 
--- Soft delete generated header rows
-UPDATE fulfillments
-SET `status` = 0
-WHERE fulfillment_id = [generated_fulfillment_id];
-
--- ====================================================================
--- 5. SOFT DELETE ADJUSTMENT HEADER & DETAILS
--- ====================================================================
--- Soft delete adjustment details
-UPDATE transaction_adjustment_details
-SET `status` = 0
-WHERE adjustment_id = [adjustment_id];
-
--- Soft delete adjustment header
-UPDATE transaction_adjustments
-SET `status` = 0,
-    updated_at = NOW(),
-    updated_by = [current_user_id]
-WHERE adjustment_id = [adjustment_id];
-
--- Verification check
-SELECT * 
-FROM transaction_adjustments 
-WHERE adjustment_id = [adjustment_id];
-
-COMMIT;
+ROLLBACK;
+-- Replace ROLLBACK with COMMIT only after the compensating result is verified.
 ```
+
+---
+
+## ✅ Verification Checklist
+
+- Restored quantity matches original adjustment effect.
+- Generated header and detail records share the voided state.
+- Adjustment header and items share the reversed state.
+- Audit fields identify the approved actor and time.
+
+---
+
+## 🧠 Lesson Learned
+
+A committed transaction cannot be undone with a later `ROLLBACK`. Reliable reversals model the opposite business effect explicitly and apply it atomically.

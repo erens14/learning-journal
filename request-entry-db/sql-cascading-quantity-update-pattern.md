@@ -1,77 +1,117 @@
-# 📝 Learning Note: Cascading Quantity Updates (Bottom-to-Top Edit Pattern)
+# 📝 Learning Note: Cascading Quantity Updates
 
-**Goal:** Safely adjust shipped quantities across hierarchical logistics documents without corrupting data integrity or causing child-parent discrepancies.
+**Goal:** Correct quantities across allocation, line-item, and header levels without leaving conflicting totals.
 
-**Core Principle:** **"Bottom-to-Top Edit Pattern"** — Always update child/line-item detail records first before applying summarized changes to parent/header records.
+**Core Principle:** **Recalculate from the lowest trusted level.** Update the child record, then derive parent totals from stored children instead of repeating handwritten totals.
 
-**Business Workflow Chain:** `Create Fulfillment Order` $\rightarrow$ `Create Shipment Manifest` $\rightarrow$ `Create Shipment Line Item` $\rightarrow$ `Create Item Allocations / Order Links`.
+**Business Workflow Chain:** `Fulfillment Header` → `Fulfillment Line` → `Item Allocation`.
 
 ---
 
 ## 📌 Context & Domain Parameters
 
-| Parameter Name | Example / Placeholder | Role in Workflow |
+| Parameter | Placeholder | Purpose |
 | --- | --- | --- |
-| **Manifest ID** | `[manifest_id]` | Master shipment record |
-| **Shipment Item ID** | `[shipment_item_id]` | Parent line-item record |
-| **Detail Item ID** | `[detail_item_id]` | Child allocation/item detail record |
+| Fulfillment ID | `[fulfillment_id]` | Target workflow header |
+| Line ID | `[line_id]` | Parent line being reconciled |
+| Allocation ID | `[allocation_id]` | Lowest-level record to correct |
+| Old quantity | `[old_quantity]` | Current-state guard |
+| New quantity | `[new_quantity]` | Approved corrected value |
+
+---
+
+## 🔒 Integrity Rules
+
+- Target allocation must exist exactly once and still contain the expected old quantity.
+- Line quantity must equal the sum of active allocations.
+- Header quantity must equal the sum of active lines.
+- No record outside the selected fulfillment can change.
 
 ---
 
 ## 🔄 Execution Workflow
 
-### Step 1: Initial Data Inspection
-
-- Identify the target **Manifest ID** and **Shipment Item ID**.
-- Verify if the shipment line item links to child allocation details (`shipment_item_details`) or source order links (`shipment_order_links`).
-
-### Step 2: Conditional Workflow Validation
-
-- **Condition A (Linked to `shipment_item_details`):**
-  - Quantity on child detail records must be updated first before modifying the parent summary line.
-- **Condition B (Linked to `shipment_order_links`):**
-  - Re-verify input quantities against the source order document. Once confirmed, apply the same child-to-parent update logic.
-
-### Step 3: Data Modification (Bottom-to-Top Edit)
-
-- Execute quantity updates sequentially starting from the lowest child detail table up to the parent header record inside an explicit database transaction block.
+1. Inspect header, line, and allocation values.
+2. Record expected row counts and calculated totals.
+3. Update the allocation with identifier and old-value guards.
+4. Recalculate the line and header from active child records.
+5. Verify totals, then choose `COMMIT` or `ROLLBACK`.
 
 ---
 
-## 🛠 Complete SQL Execution Script
+## 🛠 Generalized SQL Pattern
 
 ```sql
--- ==============================================================================
--- STEP 1: DATA INSPECTION & DEPENDENCY CHECK
--- Check master manifest, shipment line item, and associated child allocations.
--- ==============================================================================
-SELECT * 
-FROM shipment_manifests 
-WHERE manifest_id = [manifest_id];
+-- Pre-check: inspect only fields required for reconciliation.
+SELECT allocation_id, line_id, allocated_quantity, status
+FROM fulfillment_allocations
+WHERE allocation_id = [allocation_id]
+  AND line_id = [line_id];
 
-SELECT * 
-FROM shipment_line_items 
-WHERE shipment_item_id = [shipment_item_id];
+SELECT line_id, fulfillment_id, shipped_quantity, status
+FROM fulfillment_lines
+WHERE line_id = [line_id]
+  AND fulfillment_id = [fulfillment_id];
 
-SELECT * 
-FROM shipment_item_details 
-WHERE shipment_item_id = [shipment_item_id];
-
--- ==============================================================================
--- STEP 2 & 3: BOTTOM-TO-TOP QUANTITY UPDATE
--- Sequentially update quantities from lowest child level up to parent summary.
--- ==============================================================================
 START TRANSACTION;
 
--- 1. Update child detail level first (Bottom)
-UPDATE shipment_item_details
-SET shipped_qty = [new_quantity]
-WHERE shipment_item_id = [shipment_item_id];
+UPDATE fulfillment_allocations
+SET allocated_quantity = [new_quantity]
+WHERE allocation_id = [allocation_id]
+  AND line_id = [line_id]
+  AND allocated_quantity = [old_quantity]
+  AND status = 1;
 
--- 2. Update parent summary line after child details are updated (Top)
-UPDATE shipment_line_items
-SET total_shipped_qty = [new_quantity]
-WHERE shipment_item_id = [shipment_item_id];
+SELECT ROW_COUNT() AS allocation_rows_updated;
 
-COMMIT;
+UPDATE fulfillment_lines
+SET shipped_quantity = (
+    SELECT COALESCE(SUM(allocated_quantity), 0)
+    FROM fulfillment_allocations
+    WHERE line_id = [line_id]
+      AND status = 1
+)
+WHERE line_id = [line_id]
+  AND fulfillment_id = [fulfillment_id]
+  AND status = 1;
+
+UPDATE fulfillment_headers
+SET total_shipped_quantity = (
+    SELECT COALESCE(SUM(shipped_quantity), 0)
+    FROM fulfillment_lines
+    WHERE fulfillment_id = [fulfillment_id]
+      AND status = 1
+)
+WHERE fulfillment_id = [fulfillment_id]
+  AND status = 1;
+
+-- Post-check: child sum, line total, and header total must agree.
+SELECT
+    h.fulfillment_id,
+    h.total_shipped_quantity,
+    SUM(l.shipped_quantity) AS calculated_header_quantity
+FROM fulfillment_headers h
+JOIN fulfillment_lines l ON l.fulfillment_id = h.fulfillment_id
+WHERE h.fulfillment_id = [fulfillment_id]
+  AND l.status = 1
+GROUP BY h.fulfillment_id, h.total_shipped_quantity;
+
+-- Safe default for a portfolio example.
+ROLLBACK;
+-- Replace ROLLBACK with COMMIT only after every check matches expectation.
 ```
+
+---
+
+## ✅ Verification Checklist
+
+- Guarded allocation update affects exactly one row.
+- Child, line, and header quantities reconcile.
+- Active-status filters exclude voided records.
+- Unrelated fulfillment records remain unchanged.
+
+---
+
+## 🧠 Lesson Learned
+
+Repeated manual totals create drift. Deriving each summary from its active children makes the correction auditable and reduces arithmetic mistakes.

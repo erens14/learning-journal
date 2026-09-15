@@ -1,101 +1,108 @@
-# 📝 Learning Note: Detaching Orders from Dispatch Schedules & Reallocating Quantities
+# 📝 Learning Note: Detaching a Dispatch Assignment and Restoring Availability
 
-**Goal:** Pattern for unlinking an order line/item from an assigned shipment/expedition schedule, resetting its pickup assignment, and recalculating the physical stock quantity on the core fulfillment document.
+**Goal:** Remove one fulfillment order from a dispatch schedule and restore its available quantity without double-counting the released allocation.
+
+**Core Principle:** **Release the relationship and restore its effect in one transaction.** Both changes represent one business action.
+
+**Business Workflow Chain:** `Dispatch Schedule` → `Dispatch Assignment` → `Fulfillment Order Availability`.
 
 ---
 
 ## 📌 Context & Domain Parameters
 
-When a dispatch item or order line is cancelled from a scheduled shipment run, system integrity requires:
-
-1. Releasing the link between the order and the logistics dispatch schedule.
-2. Resetting the pickup status so the order can be reassigned to future runs.
-3. Restoring or adjusting physical inventory quantities (`actual_quantity` and `package_count`) on the main fulfillment order.
-
-| Parameter Name | Example / Placeholder | Role in Workflow |
+| Parameter | Placeholder | Purpose |
 | --- | --- | --- |
-| **Schedule ID** | `[schedule_id]` | Target shipment schedule |
-| **Fulfillment Order ID** | `[fulfillment_order_id]` | Primary key for target order line |
-| **Fulfillment Order Code** | `[fulfillment_order_code]` | Human-readable document code (e.g., `FO-2026-0012`) |
+| Schedule ID | `[schedule_id]` | Schedule currently holding the assignment |
+| Assignment ID | `[assignment_id]` | Relationship to release |
+| Order ID | `[order_id]` | Fulfillment order receiving restored availability |
+| Released quantity | `[released_quantity]` | Quantity returned to the order |
+| Released packages | `[released_packages]` | Package count returned to the order |
+
+---
+
+## 🔒 Integrity Rules
+
+- Assignment must be active and belong to both target schedule and order.
+- Release must affect exactly one assignment.
+- Availability is restored only when the assignment release succeeds.
+- Re-running the same correction must not restore quantities twice.
 
 ---
 
 ## 🔄 Execution Workflow
 
-### Step 1: Initial Data Inspection
-
-- Identify the **Schedule ID** for the affected dispatch run.
-- Inspect `shipment_schedules` and `dispatch_item_mappings` to verify current schedule details.
-- Query `dispatch_item_pickups` using `[fulfillment_order_id]` to confirm assignment status.
-- Inspect `fulfillment_orders` to check current physical quantities before updating.
-
-### Step 2: Unlink Assignment & Reset Pickup Status
-
-- Access `dispatch_item_pickups` for the specific order.
-- Set `status = 0` to unbind the order line from the current dispatch run.
-
-### Step 3: Reallocate Physical Quantities
-
-- Access `fulfillment_orders` using `[fulfillment_order_code]`.
-- Recalculate remaining physical inventory by accumulating existing balance with restored quantities.
-- Update `actual_quantity` and `actual_package_count`.
-- Wrap modification steps inside an explicit transaction (`START TRANSACTION` and `COMMIT`).
+1. Join the schedule, assignment, and order to confirm ownership and current values.
+2. Save the expected released quantity and package count.
+3. Deactivate the assignment using current-state guards.
+4. Restore order availability only after one assignment row changes.
+5. Verify relationship status and totals before finalizing.
 
 ---
 
-## 🛠 Complete SQL Execution Script
+## 🛠 Generalized SQL Pattern
 
 ```sql
--- ==============================================================================
--- STEP 1: INITIAL DATA INSPECTION
--- Inspect shipment schedules, item mappings, and assigned fulfillment lines.
--- ==============================================================================
-SELECT * 
-FROM dispatch_item_mappings 
-WHERE dispatch_schedule_id = [schedule_id];
+-- Pre-check ownership, status, and current availability.
+SELECT
+    a.assignment_id,
+    a.schedule_id,
+    a.order_id,
+    a.assigned_quantity,
+    a.assigned_packages,
+    a.status,
+    o.available_quantity,
+    o.available_packages
+FROM dispatch_assignments a
+JOIN fulfillment_orders o ON o.order_id = a.order_id
+WHERE a.assignment_id = [assignment_id]
+  AND a.schedule_id = [schedule_id]
+  AND a.order_id = [order_id];
 
-SELECT * 
-FROM shipment_schedules 
-WHERE schedule_id = [schedule_id];
-
-SELECT * 
-FROM dispatch_item_pickups 
-WHERE schedule_id = [schedule_id];
-
--- ==============================================================================
--- STEP 2: UNLINK ASSIGNMENT / RESET PICKUP STATUS
--- Reset status to 0 (Unbound / Available for future dispatch)
--- ==============================================================================
 START TRANSACTION;
 
-UPDATE dispatch_item_pickups
-SET `status` = 0
-WHERE fulfillment_order_id = [fulfillment_order_id];
+UPDATE dispatch_assignments
+SET status = 0,
+    updated_at = NOW()
+WHERE assignment_id = [assignment_id]
+  AND schedule_id = [schedule_id]
+  AND order_id = [order_id]
+  AND status = 1;
 
-COMMIT;
+SET @released_assignment_rows := ROW_COUNT();
 
--- ==============================================================================
--- STEP 3: INSPECTION & QUANTITY REALLOCATION
--- Restore cancelled quantities back to the main fulfillment record.
--- ==============================================================================
-
--- 3a. Inspect current fulfillment order state
-SELECT * 
-FROM fulfillment_orders 
-WHERE fulfillment_order_code = '[fulfillment_order_code]';
-
--- 3b. Reallocate actual quantities and package counts
-START TRANSACTION;
-
--- Restore total item quantity (Remaining Qty + Cancelled Qty)
 UPDATE fulfillment_orders
-SET actual_quantity = [remaining_qty + cancelled_qty]
-WHERE fulfillment_order_code = '[fulfillment_order_code]';
+SET available_quantity = available_quantity + [released_quantity],
+    available_packages = available_packages + [released_packages],
+    updated_at = NOW()
+WHERE order_id = [order_id]
+  AND status = 1
+  AND @released_assignment_rows = 1;
 
--- Restore total package/unit count (Remaining Package Count + Cancelled Package Count)
-UPDATE fulfillment_orders
-SET actual_package_count = [remaining_packages + cancelled_packages]
-WHERE fulfillment_order_code = '[fulfillment_order_code]';
+-- Post-check assignment state and restored availability.
+SELECT assignment_id, status
+FROM dispatch_assignments
+WHERE assignment_id = [assignment_id];
 
-COMMIT;
+SELECT order_id, available_quantity, available_packages
+FROM fulfillment_orders
+WHERE order_id = [order_id];
+
+ROLLBACK;
+-- Replace ROLLBACK with COMMIT only when one assignment was released
+-- and restored availability equals the approved expected values.
 ```
+
+---
+
+## ✅ Verification Checklist
+
+- Assignment update affects exactly one active row.
+- Order availability increases by the released values once.
+- No other schedule or order changes.
+- Re-running the guarded update affects zero rows.
+
+---
+
+## 🧠 Lesson Learned
+
+Unlinking a record is incomplete when its consumed quantity remains allocated. Relationship state and inventory effect must be reversed atomically and verified together.

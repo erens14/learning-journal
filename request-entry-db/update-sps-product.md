@@ -1,151 +1,115 @@
-# 📝 Learning Note: Cross-Table Product Specification Update Pattern
+# 📝 Learning Note: Cross-Table Product Reference Correction
 
-**Goal:** Pattern for safely updating product specifications (`product_id`) across primary order details (`sps_detail`) and linked fulfillment records (`direct_order`) while ensuring data integrity via condition safeguards and atomic transactions.
+**Goal:** Replace an incorrect product reference across an order line and its dependent fulfillment records without changing unrelated transactions.
+
+**Core Principle:** **Resolve stable keys first, then update every dependent reference with old-state guards.** Product names are discovery aids, not safe update keys.
+
+**Business Workflow Chain:** `Product Master` → `Order Line` → `Fulfillment Record`.
 
 ---
 
 ## 📌 Context & Domain Parameters
 
-This pattern handles scenarios where a user requests a correction for an incorrectly assigned product size/specification across multiple main documents and their corresponding sub-order lines.
-
-| Parameter Name | Example / Placeholder | Role in Transaction |
+| Parameter | Placeholder | Purpose |
 | --- | --- | --- |
-| **Target SPS Numbers** | `'SPS/2026/XXX-001'`, `'SPS/2026/XXX-002'` | Target main documents requiring item update |
-| **Old Product Name** | `'[NAMA_PRODUK_LAMA]'` | Source product specification to be replaced |
-| **New Product Name** | `'[NAMA_PRODUK_BARU]'` | Target correct product specification |
+| Order ID | `[order_id]` | Parent transaction containing incorrect reference |
+| Order line ID | `[order_line_id]` | Specific line to correct |
+| Fulfillment ID | `[fulfillment_id]` | Dependent record using same product |
+| Old product ID | `[old_product_id]` | Current-state guard |
+| New product ID | `[new_product_id]` | Approved replacement reference |
 
 ---
 
-## 🔄 Workflow Logic
+## 🔒 Integrity Rules
 
-1. **Pre-Check Verification:** Inspect existing SPS details, direct orders, and verify both source and target `product_id` values before executing state changes.
-2. **Update Primary Order Details (`sps_detail`):** Reassign `product_id` to the new product ID for target SPS numbers, restricted by the old `product_id` as a safeguard.
-3. **Update Linked Direct Orders (`direct_order`):** Reassign `product_id` on associated direct order records using the same safeguard filters.
-4. **Post-Check & Verification:** Re-query both tables to verify the product updates were applied cleanly before issuing `COMMIT`.
+- Old and new product IDs must resolve to active, distinct master records.
+- Target line and fulfillment record must belong to the same order workflow.
+- Both records must currently reference the old product.
+- Each update must affect exactly one expected row.
 
 ---
 
-## 🛠 Complete SQL Execution Script
+## 🔄 Execution Workflow
+
+1. Resolve old and new products by stable code and confirm uniqueness.
+2. Join order line and fulfillment record to confirm shared ownership.
+3. Update both references inside one transaction using old-product guards.
+4. Re-query joined records and product codes.
+5. Commit only when both references match the approved product.
+
+---
+
+## 🛠 Generalized SQL Pattern
 
 ```sql
+-- Pre-check product identities using stable codes.
+SELECT product_id, product_code, status
+FROM products
+WHERE product_code IN ('[old_product_code]', '[new_product_code]');
+
+-- Confirm both dependent records belong to the target workflow.
+SELECT
+    ol.order_line_id,
+    ol.order_id,
+    ol.product_id AS line_product_id,
+    f.fulfillment_id,
+    f.product_id AS fulfillment_product_id
+FROM order_lines ol
+JOIN fulfillments f ON f.order_line_id = ol.order_line_id
+WHERE ol.order_id = [order_id]
+  AND ol.order_line_id = [order_line_id]
+  AND f.fulfillment_id = [fulfillment_id];
+
 START TRANSACTION;
 
--- ====================================================================
--- 1. PRE-CHECK DATA VALIDITY
--- ====================================================================
--- Inspect target SPS & SPS Detail records
-SELECT 
-    s.sps_id,
-    s.sps_no,
-    sd.sps_detail_id,
-    sd.product_id,
-    p.name AS product_name
-FROM sps s
-JOIN sps_detail sd ON s.sps_id = sd.sps_id
-JOIN product p ON sd.product_id = p.product_id
-WHERE s.sps_no IN (
-    'SPS/2026/XXX-001',
-    'SPS/2026/XXX-002'
-);
+UPDATE order_lines
+SET product_id = [new_product_id],
+    updated_at = NOW()
+WHERE order_id = [order_id]
+  AND order_line_id = [order_line_id]
+  AND product_id = [old_product_id]
+  AND status = 1;
 
--- Inspect target Direct Order records
-SELECT 
-    do.direct_order_id,
-    do.sps_id,
-    do.product_id,
-    p.name AS product_name
-FROM direct_order do
-JOIN sps s ON do.sps_id = s.sps_id
-JOIN product p ON do.product_id = p.product_id
-WHERE s.sps_no IN (
-    'SPS/2026/XXX-001',
-    'SPS/2026/XXX-002'
-);
+SELECT ROW_COUNT() AS order_line_rows_updated;
 
--- Verify source & target product IDs
-SELECT product_id, `name` 
-FROM product 
-WHERE `name` IN ('[NAMA_PRODUK_LAMA]', '[NAMA_PRODUK_BARU]');
+UPDATE fulfillments
+SET product_id = [new_product_id],
+    updated_at = NOW()
+WHERE fulfillment_id = [fulfillment_id]
+  AND order_line_id = [order_line_id]
+  AND product_id = [old_product_id]
+  AND status = 1;
 
--- ====================================================================
--- 2. UPDATE PRIMARY ORDER DETAILS (sps_detail)
--- ====================================================================
-UPDATE sps_detail sd
-JOIN sps s ON sd.sps_id = s.sps_id
-SET sd.product_id = (
-    SELECT product_id 
-    FROM product 
-    WHERE `name` = '[NAMA_PRODUK_BARU]' 
-    LIMIT 1
-)
-WHERE s.sps_no IN (
-    'SPS/2026/XXX-001',
-    'SPS/2026/XXX-002'
-)
--- Safeguard: Only update lines matching the old product ID
-AND sd.product_id = (
-    SELECT product_id 
-    FROM product 
-    WHERE `name` = '[NAMA_PRODUK_LAMA]' 
-    LIMIT 1
-);
+SELECT ROW_COUNT() AS fulfillment_rows_updated;
 
--- ====================================================================
--- 3. UPDATE LINKED DIRECT ORDERS (direct_order)
--- ====================================================================
-UPDATE direct_order do
-JOIN sps s ON do.sps_id = s.sps_id
-SET do.product_id = (
-    SELECT product_id 
-    FROM product 
-    WHERE `name` = '[NAMA_PRODUK_BARU]' 
-    LIMIT 1
-)
-WHERE s.sps_no IN (
-    'SPS/2026/XXX-001',
-    'SPS/2026/XXX-002'
-)
--- Safeguard: Only update lines matching the old product ID
-AND do.product_id = (
-    SELECT product_id 
-    FROM product 
-    WHERE `name` = '[NAMA_PRODUK_LAMA]' 
-    LIMIT 1
-);
+-- Post-check both references and resolved product code.
+SELECT
+    ol.order_line_id,
+    p1.product_code AS order_line_product,
+    f.fulfillment_id,
+    p2.product_code AS fulfillment_product
+FROM order_lines ol
+JOIN products p1 ON p1.product_id = ol.product_id
+JOIN fulfillments f ON f.order_line_id = ol.order_line_id
+JOIN products p2 ON p2.product_id = f.product_id
+WHERE ol.order_line_id = [order_line_id]
+  AND f.fulfillment_id = [fulfillment_id];
 
--- ====================================================================
--- 4. POST-CHECK VERIFICATION
--- ====================================================================
--- Re-verify SPS Details after update
-SELECT 
-    s.sps_no,
-    sd.sps_detail_id,
-    sd.product_id,
-    p.name AS product_name
-FROM sps s
-JOIN sps_detail sd ON s.sps_id = sd.sps_id
-JOIN product p ON sd.product_id = p.product_id
-WHERE s.sps_no IN (
-    'SPS/2026/XXX-001',
-    'SPS/2026/XXX-002'
-);
-
--- Re-verify Direct Orders after update
-SELECT 
-    s.sps_no,
-    do.direct_order_id,
-    do.product_id,
-    p.name AS product_name
-FROM direct_order do
-JOIN sps s ON do.sps_id = s.sps_id
-JOIN product p ON do.product_id = p.product_id
-WHERE s.sps_no IN (
-    'SPS/2026/XXX-001',
-    'SPS/2026/XXX-002'
-);
-
--- Commit transaction if affected rows match expectation; otherwise execute ROLLBACK
-COMMIT;
--- ROLLBACK;
-
+ROLLBACK;
+-- Replace ROLLBACK with COMMIT only when both guarded updates affect one row.
 ```
+
+---
+
+## ✅ Verification Checklist
+
+- Product codes resolve to one active record each.
+- Order line and fulfillment remain linked to the same workflow.
+- Both product references change from expected old ID to approved new ID.
+- Unrelated lines and fulfillments remain unchanged.
+
+---
+
+## 🧠 Lesson Learned
+
+Cross-table reference repair succeeds only when identity and ownership are proven first. Stable keys and old-state guards prevent a targeted correction from becoming a broad data rewrite.
