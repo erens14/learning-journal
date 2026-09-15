@@ -1,72 +1,68 @@
-# Learning Journal: QA, Security, Networking
+# QA Engineering Portfolio and Learning Journal
 
-This repository is my public learning portfolio for QA engineering, regression testing, database integrity, cybersecurity analysis, Laravel fundamentals, and CCNA networking foundations.
+QA-focused portfolio demonstrating test design, regression thinking, data-integrity validation, and security-aware quality practices. Content is based on sanitized, generalized scenarios; it contains no confidential project data.
 
-It is organized as a working knowledge base: each note turns a real testing scenario, technical article, course topic, or implementation pattern into structured takeaways that can be reviewed later.
+## Start Here
 
-## Recruiter Quick Scan
+Read these QA evidence documents first:
 
-Start here if you want a fast view of my practical thinking:
+1. [Financial journal integrity test cases](qa/test-cases/financial-journal-integrity-test-cases.md) — double-entry accuracy, tax synchronization, and rounding-risk regression testing.
+2. [Cross-module data synchronization](qa/verifying-cross-module-data-synchronization.md) — end-to-end workflow validation beyond successful record creation.
+3. [RBAC authorization and relational data integrity](qa/test-cases/rbac-consignment-integrity-test-cases.md) — authorization boundaries and relational-data safeguards.
 
-| Area | Why it matters | Sample notes |
+## Professional Profile
+
+| Focus | Evidence |
+| --- | --- |
+| QA engineering | Functional, integration, regression, negative, and precision testing of business workflows. |
+| Data integrity | SQL-safe correction patterns, transaction safety, and parent-child consistency checks. |
+| Security-aware QA | Authentication, role-based access, input validation, and attack-chain analysis. |
+| Technical foundation | Laravel fundamentals, Google Apps Script reliability testing, and CCNA networking study. |
+
+See [skills and tools](skills-and-tools.md) for an evidence-based capability matrix. Connect through [GitHub](https://github.com/erens14).
+
+## Featured Project
+
+[Automated expense tracker](projects/README.md#automated-expense-tracker) documents a Google Forms, Sheets, Apps Script, and Discord-notification automation project, including reliability risks found during QA review.
+
+## Portfolio Evidence
+
+| Area | What it demonstrates | Start point |
 | --- | --- | --- |
-| QA engineering | Shows how I test workflows, edge cases, regressions, and business rules. | [Sorting workflow validation](qa/verifying-sorting-functionality.md), [financial journal integrity test cases](qa/test-cases/financial-journal-integrity-test-cases.md) |
-| Data integrity | Shows care with SQL changes, transaction safety, and parent-child data consistency. | [Cascading quantity update pattern](request-entry-db/sql-cascading-quantity-update-pattern.md), [transaction rollback pattern](request-entry-db/sql-transaction-rollback-pattern.md) |
-| Cybersecurity analysis | Shows security awareness and ability to summarize attack chains clearly. | [Morris Worm case study](article-summary/2026-08-18-morris-worm-failed-experiment-broke-internet.md), [phishing-resistant authentication](article-summary/2026-06-27-phishing-resistant-authentication.md) |
-| Networking fundamentals | Shows structured CCNA study and technical foundation building. | [Network fundamentals](ccna-udemy-notes/01-network-fundamentals/01-network-fundamentals.md), [subnetting notes](ccna-udemy-notes/06-subnetting/README.md) |
-| Laravel learning | Shows web development fundamentals and backend learning progression. | [Laravel installation](laravel/01-install.md), [Laravel CRUD app](laravel/10-crud-app.md) |
+| QA engineering | Workflow, business-rule, reporting, deployment, and regression validation. | [QA notes](qa/README.md) |
+| Test design | Executable test matrices for financial integrity, authentication, RBAC, and master data. | [Test-case portfolio](qa/test-cases/README.md) |
+| Database integrity | Transaction-safe SQL maintenance and linked-record consistency. | [Database patterns](request-entry-db/README.md) |
+| Security analysis | Attack-chain analysis linked to practical QA controls. | [Cybersecurity summaries](article-summary/README.md) |
+| Implementation thinking | Maintainability, architecture, UI, and verification tradeoffs. | [Web implementation lessons](implementation-plan-web/README.md) |
+
+## Study Library
+
+The following sections support the portfolio but are primarily learning records:
+
+- [CCNA networking notes](ccna-udemy-notes/README.md)
+- [Laravel learning notes](laravel/README.md)
+- [Templates](templates/README.md)
+- [Glossary](glossary.md)
+
+## Quality and Documentation Standards
+
+- New portfolio notes follow [portfolio standards](portfolio-standards.md): context, risk, approach, evidence, outcome, and learning.
+- Security summaries identify their source and publication date when known; analysis is separated from source facts.
+- Public material is sanitized. Names, IDs, values, schemas, and internal references are generalized or removed.
+- Local Markdown links are verified with `powershell -ExecutionPolicy Bypass -NoProfile -File scripts/validate-markdown-links.ps1`.
 
 ## Repository Map
 
-| Folder | Focus |
+| Folder | Purpose |
 | --- | --- |
-| [qa](qa/README.md) | QA lessons learned, regression risks, workflow validation, and test cases. |
-| [request-entry-db](request-entry-db/README.md) | SQL data correction patterns and transaction-safe database updates. |
-| [article-summary](article-summary/README.md) | Cybersecurity article and video summaries with personal reflections. |
-| [ccna-udemy-notes](ccna-udemy-notes/README.md) | CCNA networking notes organized by topic. |
-| [laravel](laravel/README.md) | Laravel learning notes from setup through CRUD and Docker. |
-| [implementation-plan-web](implementation-plan-web/README.md) | Web implementation lessons from UI, architecture, and refactoring work. |
-| [templates](templates/README.md) | Reusable note templates that keep documentation consistent. |
-| [glossary.md](glossary.md) | CCNA terminology reference. |
-
-## Learning Areas
-
-![Quality Assurance](https://img.shields.io/badge/Focus-Quality_Assurance-blue?style=flat-square)
-![Cyber Security](https://img.shields.io/badge/Focus-Cyber_Security-red?style=flat-square)
-![Computer Networking](https://img.shields.io/badge/Focus-Computer_Networking-green?style=flat-square)
-![Laravel](https://img.shields.io/badge/Focus-Laravel-orange?style=flat-square)
-
-## What This Shows
-
-- Ability to break down bugs into user impact, system impact, data impact, and business impact.
-- Habit of validating workflows beyond the happy path.
-- Awareness of database consistency, rollback safety, and cross-module dependencies.
-- Interest in cybersecurity, threat behavior, identity, and secure system design.
-- Ongoing technical growth through networking and web development fundamentals.
-
-## Naming Convention
-
-File names use lowercase letters and hyphens for readable GitHub URLs:
-
-```text
-verifying-sorting-functionality.md
-requirement-gathering-reveals-more-than-bugs.md
-phishing-resistant-authentication.md
-```
-
-When multiple sources cover the same foundational topic, the source name may be appended:
-
-```text
-phishing-resistant-authentication-nist.md
-phishing-resistant-authentication-microsoft.md
-```
-
-## Learning Philosophy
-
-> "Learning becomes valuable when knowledge is transformed into understanding."
-
-Every note reflects my understanding at the time of writing. Older notes may be updated, corrected, or expanded as my experience grows.
+| [projects](projects/README.md) | Shipped or externally hosted implementation work. |
+| [qa](qa/README.md) | Detailed QA lessons and test cases. |
+| [request-entry-db](request-entry-db/README.md) | Data-maintenance and transaction-safety patterns. |
+| [article-summary](article-summary/README.md) | Security research and personal analysis. |
+| [ccna-udemy-notes](ccna-udemy-notes/README.md) | Networking study notes. |
+| [laravel](laravel/README.md) | Laravel learning progression. |
+| [implementation-plan-web](implementation-plan-web/README.md) | Implementation and architecture lessons. |
 
 ## Disclaimer
 
-This repository is a personal, non-exhaustive learning journal for educational use. Notes are written in generalized terms and avoid confidential project details.
+Personal portfolio and learning journal. Notes reflect understanding at time of writing and may be updated as knowledge grows.

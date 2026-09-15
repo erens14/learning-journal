@@ -12,4 +12,5 @@ This folder contains structured test-case matrices for feature workflows, author
 | [Financial journal integrity](financial-journal-integrity-test-cases.md) | Double-entry accounting and journal correctness. |
 | [Master data lifecycle](master-data-test-cases.md) | Create, read, update, delete, and validation flow. |
 | [Overpaid deletion journal integrity](overpaid-deletion-journal-integrity-test-cases.md) | Reversal logic and financial consistency. |
+| [Receivable overpayment journal and balance synchronization](receivable-overpayment-journal-and-balance-synchronization-test-cases.md) | Bank-entry uniqueness, overpaid allocation, remaining balance, and PPh consistency. |
 | [RBAC consignment integrity](rbac-consignment-integrity-test-cases.md) | Role permissions and relational data integrity. |

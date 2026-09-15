@@ -1,97 +1,36 @@
-# QA Lesson Learned - [Title Here]
+# QA Lesson Learned — [Title]
 
-## Scenario
+**Area:** [e.g., Reporting, Authorization, Data Integrity]
+**Scope:** [Feature, module, or workflow]
 
-Describe the feature, module, or business process being tested and provide the context of the issue.
+## Context
 
-Consider documenting:
+[Describe the user goal, expected behavior, and conditions that led to the finding.]
 
-- What feature or module is being tested?
-- What is the user trying to accomplish?
-- What is the expected workflow or business process?
-- What conditions led to the issue being discovered?
+## Finding and Evidence
 
----
+**Expected behavior:** [What should happen.]
 
-## Observation
+**Actual behavior:** [What happened.]
 
-Describe what actually happened during testing.
+**Evidence / reproduction:** [Steps, test data conditions, error message, screenshot-safe reference, or observable result.]
 
-Include:
+**Suspected cause (optional):** [State only when not confirmed.]
 
-- Current system behavior
-- Differences between actual and expected behavior
-- Any inconsistencies found
-- Unexpected system responses
-- Missing validations or controls
+## Impact
 
----
+[Describe only the relevant user, system, data, or business consequences.]
 
-## Why This Matters
+## Testing and Outcome
 
-Explain why the finding is important.
+**Checks performed:** [Positive, negative, boundary, integration, regression, or permission checks.]
 
-Consider the impact on:
+**Outcome:** [Open finding, verified fix, blocked, or follow-up needed.]
 
-### User Impact
+**Proposed improvement (optional):** [Clearly label this as a recommendation, not a completed change.]
 
-- How does it affect end users?
+**Unresolved follow-up (optional):** [What still needs verification and why.]
 
-### System Impact
+## Lesson Learned
 
-- Does it affect system reliability or functionality?
-
-### Data Impact
-
-- Can it cause incorrect, inconsistent, or missing data?
-
-### Business Impact
-
-- Can it affect operations, reporting, compliance, or decision-making?
-
----
-
-## QA Learning
-
-Document lessons that can be applied to future testing activities.
-
-Examples:
-
-- Validation points that should always be checked
-- Edge cases worth testing
-- Business rules that require verification
-- System behavior expectations
-- Areas that commonly introduce regressions
-
----
-
-## UX / System Consideration
-
-(Optional)
-
-Describe possible improvements from a usability or system design perspective.
-
-Examples:
-
-- Better design approach
-- Workflow simplification
-- More consistent behavior across modules
-- Improved error handling or user feedback
-- Better validation mechanisms
-
----
-
-## Key Takeaway
-
-Summarize the primary lesson learned in 1–3 sentences.
-
-Focus on:
-
-- Testing principles
-- Reusable testing patterns
-- QA mindset and analytical thinking
-- Insights that can help future investigations
-
-Example:
-
-> A feature may appear functional from the user interface, but deeper validation is often required to verify business rules, data consistency, and system integrity.
+[State the reusable QA principle in one to three sentences.]

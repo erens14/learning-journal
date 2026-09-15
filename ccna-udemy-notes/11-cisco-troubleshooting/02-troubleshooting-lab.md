@@ -22,7 +22,7 @@ Traceroute exploits the IP header's **TTL (Time to Live)** field—originally de
 
 ### Troubleshooting a Remote Subnet Break Scenario
 
-![Topology](/network-ccna-udemy-notes/11-cisco-troubleshooting/images/topology-used-in-lab-example.jpg)
+![Topology](images/topology-used-in-lab-example.jpg)
 
 ```text
   [ R1 (Client Router) ] ------------ (10.10.10.0/24) ------------> [ R2 (Transit Router) ] --x (10.10.20.0/24) --x> [ R3 (DNS Server) ]

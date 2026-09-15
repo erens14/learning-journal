@@ -1,45 +1,45 @@
-# Video Summary — [Judul Video / Topik Utama]
+# Video Summary — [Video Title / Main Topic]
 
-**Source:** YouTube ([Nama Channel])  
-**Channel / Speaker:** [Nama Channel / Pembuat Konten / Pembicara]  
-**Link:** [URL Video YouTube]  
+**Source:** YouTube ([Channel Name])
+**Channel / Speaker:** [Channel Name / Content Creator / Speaker]
+**Link:** [YouTube Video URL]
 
 ## Summary
 
-[Tulis 2–3 paragraf gambaran besar. Paragraf 1 memuat latar belakang dan latar tempat/waktu insiden. Paragraf 2 memuat ringkasan ancaman teknis atau alur analisis utama. Paragraf 3 memuat kesimpulan akhir, dampak sejarah, atau resolusi dari video tersebut.]
+[Write a 2–3 paragraph overview. Paragraph 1 covers the background and the incident's time/place context. Paragraph 2 summarizes the technical threat or main analysis flow. Paragraph 3 explains the final conclusion, historical impact, or resolution presented in the video.]
 
 ## Chronology & Narrative Breakdown
 
-* **Act 1: [Judul Fase 1 / Inisiasi]:** [Penjelasan alur/kronologi kejadian awal atau langkah pertama analisis]
-* **Act 2: [Judul Fase 2 / Eskalasi]:** [Penjelasan perkembangan insiden atau penemuan bukti teknis selanjutnya]
-* **Act 3: [Judul Fase 3 / Mekanisme Utama]:** [Penjelasan inti masalah, logika malware, atau puncak analisis]
-* **Act 4: [Judul Fase 4 / Mitigasi & Dampak]:** [Penjelasan penanganan, investigasi lanjutan, resolusi, atau dampak jangka panjang]
+* **Act 1: [Phase 1 Title / Initiation]:** [Explain the early event sequence or first analysis step.]
+* **Act 2: [Phase 2 Title / Escalation]:** [Explain how the incident develops or what technical evidence emerges next.]
+* **Act 3: [Phase 3 Title / Core Mechanism]:** [Explain the core problem, malware logic, or peak of the analysis.]
+* **Act 4: [Phase 4 Title / Mitigation & Impact]:** [Explain response, further investigation, resolution, or long-term impact.]
 
-## Technical Deep Dive: [Fokus Teknis Utama]
+## Technical Deep Dive: [Main Technical Focus]
 
-* **[Komponen / Vektor Teknis 1]:** [Rincian teknis eksploitasi, protokol, enkripsi, atau perintah OS yang digunakan]
-* **[Komponen / Vektor Teknis 2]:** [Rincian teknis eksploitasi, protokol, enkripsi, atau perintah OS yang digunakan]
-* **[Komponen / Vektor Teknis 3]:** [Rincian teknis eksploitasi, protokol, enkripsi, atau perintah OS yang digunakan]
-* **[Komponen / Vektor Teknis 4]:** [Rincian teknis eksploitasi, protokol, enkripsi, atau perintah OS yang digunakan]
-* **[Komponen / Vektor Teknis 5]:** [Rincian teknis eksploitasi, protokol, enkripsi, atau perintah OS yang digunakan]
+* **[Technical Component / Vector 1]:** [Technical detail about an exploit, protocol, encryption method, or OS command used.]
+* **[Technical Component / Vector 2]:** [Technical detail about an exploit, protocol, encryption method, or OS command used.]
+* **[Technical Component / Vector 3]:** [Technical detail about an exploit, protocol, encryption method, or OS command used.]
+* **[Technical Component / Vector 4]:** [Technical detail about an exploit, protocol, encryption method, or OS command used.]
+* **[Technical Component / Vector 5]:** [Technical detail about an exploit, protocol, encryption method, or OS command used.]
 
 ## Key Takeaways
 
-* [Poin utama 1 mengenai temuan kunci atau karakteristik serangan]
-* [Poin utama 2 mengenai temuan kunci atau karakteristik serangan]
-* [Poin utama 3 mengenai temuan kunci atau karakteristik serangan]
-* [Poin utama 4 mengenai temuan kunci atau karakteristik serangan]
-* [Poin utama 5 mengenai temuan kunci atau karakteristik serangan]
+* [Key finding or attack characteristic 1.]
+* [Key finding or attack characteristic 2.]
+* [Key finding or attack characteristic 3.]
+* [Key finding or attack characteristic 4.]
+* [Key finding or attack characteristic 5.]
 
 ## Lesson Learned
 
-* [Pelajaran operasional / teknis 1 tentang pertahanan atau arsitektur sistem]
-* [Pelajaran operasional / teknis 2 tentang pertahanan atau arsitektur sistem]
-* [Pelajaran operasional / teknis 3 tentang pertahanan atau arsitektur sistem]
-* [Pelajaran operasional / teknis 4 tentang pertahanan atau arsitektur sistem]
+* [Operational or technical lesson about defense or system architecture 1.]
+* [Operational or technical lesson about defense or system architecture 2.]
+* [Operational or technical lesson about defense or system architecture 3.]
+* [Operational or technical lesson about defense or system architecture 4.]
 
 ## Personal Reflection
 
-[Paragraf 1: Refleksi dari sudut pandang seorang **QA Engineer dan Cybersecurity Enthusiast**. Hubungkan konsep video ini (misal: edge case, input validation, logic flaw, protocol behavior, atau behavioral tracking) dengan prinsip pencegahan cacat software dan pengujian kualitas di dunia QA.]
+[Paragraph 1: Reflect as a **QA Engineer and Cybersecurity Enthusiast**. Connect the video's concepts—such as edge cases, input validation, logic flaws, protocol behavior, or behavioral tracking—to software-defect prevention and quality-assurance practices.]
 
-[Paragraf 2: Hubungkan temuan dari video ini dengan langkah pembelajaran cybersecurity ke depan, seperti mengintegrasikan security test cases, boundary testing, atau telemetry monitoring ke dalam pipeline testing QA.]
+[Paragraph 2: Connect the video's findings to future cybersecurity learning, such as integrating security test cases, boundary testing, or telemetry monitoring into a QA testing pipeline.]
