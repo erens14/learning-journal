@@ -1,105 +1,46 @@
-# QA Lesson Learned - Requirement Gathering Reveals More Than Bugs
+# QA Lesson Learned — Requirement Gathering Reveals More Than Bugs
 
-## Scenario
+**Area:** Requirement Analysis and Process Quality
 
-During requirement gathering sessions, users shared various operational challenges encountered while using the system.
+**Scope:** User interviews, workflow gaps, reporting needs, and cross-module consistency
 
-Rather than reporting only technical defects, users also highlighted areas where the application could better support their daily workflows.
+## Context
 
-The objective was to understand the underlying business problems and identify opportunities for system improvement.
+Users described operational problems encountered during daily work. The QA objective was to distinguish software defects from missing requirements, inefficient workflows, performance concerns, and enhancement requests before proposing technical changes.
 
----
+## Finding and Evidence
 
-## Observation
+**Expected behavior:** Each reported problem should be linked to a business objective, classified correctly, and converted into a testable requirement or investigation question.
 
-Many of the findings collected during discussions were not traditional software bugs.
+**Actual behavior:** User feedback included more than defects. Findings covered manual work, missing information, report limitations, performance concerns, cross-module inconsistencies, and master-data needs.
 
-Instead, they fell into several categories:
+**Evidence / reproduction:** The following traceability sample demonstrates how raw feedback can become structured QA work.
 
-* Missing or incomplete functionality.
-* Workflow inefficiencies that required unnecessary manual work.
-* Reporting limitations.
-* Performance concerns when processing larger datasets.
-* Data consistency issues across different modules.
-* Missing information at critical stages of the business process.
-* Requests for additional master data management capabilities.
+> **Portfolio evidence notice:** This is a sanitized reconstruction using fictional workflows. It contains no original internal-system screenshot, company name, user identity, or production value.
 
-These findings demonstrated that users often describe business pain points rather than technical problems.
+| Evidence ID | Reconstructed user concern | Classification | QA clarification or evidence needed |
+| --- | --- | --- | --- |
+| REQ-E01 | “I repeat the same entry in two screens.” | Workflow inefficiency | Map both steps, identify duplicate fields, and confirm system ownership. |
+| REQ-E02 | “The report becomes slow for a full month.” | Performance requirement | Define dataset size, acceptable response time, filters, and export format. |
+| REQ-E03 | “A saved transaction is missing from another module.” | Possible integration defect | Trace record creation, synchronization timing, permissions, and retrieval rules. |
+| REQ-E04 | “We need another master-data option.” | Feature request | Confirm business owner, allowed values, dependencies, and lifecycle rules. |
 
----
+**Suspected cause (optional):** Several concerns lacked measurable acceptance criteria or a shared understanding of the end-to-end workflow.
 
-## Why This Matters
+## Impact
 
-### User Impact
+Incorrect classification can produce the wrong fix, hide genuine defects, or add features that do not solve the operational problem. Missing acceptance criteria also makes testing and stakeholder approval unreliable.
 
-* Users may spend additional time completing manual tasks.
-* Important information may not be available when needed.
-* Daily operations become less efficient.
+## Testing and Outcome
 
-### System Impact
+**Checks performed:** Workflow mapping, problem classification, affected-module review, business-objective clarification, dependency identification, and acceptance-criteria drafting.
 
-* The system may technically function as designed while still failing to meet business needs.
-* Missing functionality can increase dependency on manual processes.
+**Outcome:** Findings were converted into clearer investigation questions and testable categories. This note does not claim that every requested improvement was approved or implemented.
 
-### Data Impact
+**Proposed improvement (optional):** Use a requirement traceability record containing the user problem, business goal, classification, acceptance criteria, owner, and linked tests.
 
-* Data inconsistencies may reduce user confidence.
-* Manual work increases the risk of human error.
+**Unresolved follow-up (optional):** Obtain stakeholder approval for each business rule and measurable non-functional requirement before development begins.
 
-### Business Impact
+## Lesson Learned
 
-* Operational efficiency may decrease.
-* Reporting and decision-making become more difficult.
-* Improvement opportunities may be overlooked if every finding is treated solely as a bug.
-
----
-
-## QA Learning
-
-Requirement gathering requires understanding the business problem before identifying the technical solution.
-
-### Validation Points
-
-* Understand the user's current workflow.
-* Identify the business objective behind each request.
-* Verify whether the issue is caused by incorrect system behavior or by missing functionality.
-* Determine whether the request impacts multiple modules or business processes.
-
-### Edge Cases
-
-* Large datasets affecting performance.
-* Cross-module data consistency.
-* Manual workarounds performed by users.
-* Missing information during specific business processes.
-
-### Business Rules
-
-* System behavior should support established business workflows.
-* Business requirements should be validated before defining technical solutions.
-* Similar workflows should provide a consistent user experience.
-
-### System Behavior Expectations
-
-* The application should minimize unnecessary manual work.
-* Required business information should be available at the appropriate stage of the workflow.
-* Related modules should present consistent and reliable data.
-
----
-
-## UX / System Consideration
-
-Potential improvements include:
-
-* Simplifying workflows to reduce manual effort.
-* Improving report accessibility and performance.
-* Making critical business information more visible.
-* Enhancing master data management to support operational needs.
-* Designing features based on business objectives rather than individual user requests.
-
----
-
-## Key Takeaway
-
-Requirement gathering is not only about identifying software bugs—it is about understanding the business problems users are trying to solve.
-
-Effective QA requires looking beyond technical defects to identify workflow improvements, usability concerns, and opportunities to better align the system with business processes.
+Users usually report pain, not system diagnoses. QA should identify the underlying business objective before classifying a concern or designing a test.

@@ -1,76 +1,48 @@
-# QA Lesson Learned - Multi-Tier Approval Workflows, Test Architecture & Automated Ledger Posting
+# QA Lesson Learned — Multi-Tier Approval and Automated Ledger Posting
 
-## Scenario
+**Area:** Financial Workflow, Authorization, and Data Integrity
 
-A new petty cash disbursement module (**Bukti Kas Keluar / BKK**) was introduced to mirror the existing bank disbursement UI (**BBK**) while introducing a distinct approval-driven financial lifecycle:
-$$\text{Input} \longrightarrow \text{Approved 1} \longrightarrow \text{Approved 2 (Super Admin)} \longrightarrow \text{Posted (Journal \& GL)}$$
+**Scope:** Cash-disbursement approval, automatic numbering, journal posting, and role restrictions
 
-Key technical requirement attributes include:
+## Context
 
-* **Dynamic Document Numbering:** Auto-generation following the standard format `BKK No XXX/XX/YY` (Transaction Sequence / Roman Numeral Month / Short Year, e.g., `BKK No 007/VII/26`).
-* **Automated Financial Trigger:** Transitioning to **Approved 2** automatically commits corresponding balanced entries into both **Journal Info** and the **General Ledger (GL)** without manual posting interventions.
+A cash-disbursement workflow required record creation, first-level approval, restricted final approval, and automatic posting to the journal and general ledger. QA needed to verify the complete state transition rather than test each screen independently.
 
----
+## Finding and Evidence
 
-## Test Architecture & Coverage Matrix
+**Expected behavior:** Each authorized approval should advance the document by one valid state. Final approval should create balanced accounting entries once. Unauthorized users should not complete the restricted approval.
 
-To validate both functional workflows and financial integration, QA structured the test suite into a multi-layer verification matrix:
+**Actual behavior:** All six documented execution scenarios passed. Creation, numbering, approval transitions, automatic posting, ledger balance, role restriction, and layout consistency matched the recorded expectations. A minor legacy label was observed during the creation check.
 
-| Test Scenario Focus | Test Case Ref | Key Validation Objective |
-| :--- | :--- | :--- |
-| **Sequence & Pattern** | `TC-BKK-001`, `TC-BKK-007` | Verifies auto-generation of `BKK No XXX/XX/YY` and month/year boundary transitions (`VII` $\rightarrow$ `VIII`). |
-| **Workflow State Machine** | `TC-BKK-002`, `TC-BKK-003` | Validates step-by-step state progression (`Input` $\rightarrow$ `Approved 1` $\rightarrow$ `Approved 2`). |
-| **Financial Integration** | `TC-BKK-003`, `TC-BKK-004` | Verifies automated 2-line/3-line balanced entries in Journal Info and General Ledger upon `Approved 2`. |
-| **RBAC Security** | `TC-BKK-005` | Enforces authorization gates ensuring non-Super Admin roles cannot trigger level-2 approvals. |
-| **UI & Layout Consistency** | `TC-BKK-006` | Ensures UI components align with established BBK interface standards. |
+**Evidence / reproduction:** Full execution steps and results are recorded in [Cash outflow approval and GL integration test cases](test-cases/bkk-cash-feature-test-cases.md).
 
----
+> **Portfolio evidence notice:** The summary below reconstructs the tested workflow with generic terms. It contains no original internal-system screenshot, company identifier, production record, or real financial value.
 
-## Technical Observations & Risk Analysis
+| Evidence ID | Test reference | Sanitized checkpoint | Recorded result |
+| --- | --- | --- | --- |
+| APR-E01 | `TC-BKK-001` | Create voucher and verify sequential reference | PASS; minor legacy label noted. |
+| APR-E02 | `TC-BKK-002` | Complete first-level approval | PASS; state advanced correctly. |
+| APR-E03 | `TC-BKK-003` | Complete restricted final approval | PASS; journal and ledger posting triggered. |
+| APR-E04 | `TC-BKK-004` | Compare total debit and total credit | PASS; zero variance recorded. |
+| APR-E05 | `TC-BKK-005` | Attempt final approval without required role | PASS; restricted action was blocked. |
+| APR-E06 | `TC-BKK-006` | Compare related-module layout conventions | PASS; expected layout consistency recorded. |
 
-### 1. Atomic Transaction Integrity (Auto-Posting Risk)
+**Suspected cause (optional):** Not applicable to the passed workflow. The minor legacy label suggests reused interface text was not fully renamed.
 
-Testing **TC-BKK-003** and **TC-BKK-004** revealed that updating a document's status to `Approved 2` and creating financial records in Journal Info and GL must execute within a single atomic database transaction (`BEGIN...COMMIT`). If a GL database write fails, the approval state must roll back to `Approved 1` to prevent orphaned, unposted approved vouchers.
+## Impact
 
-### 2. Privilege Escalation & API Bypassing
+Weak approval controls can permit unauthorized cash movement. Partial posting can leave an approved voucher without balanced ledger records. Duplicate references or journal entries can also damage traceability and reconciliation.
 
-Executing **TC-BKK-005** highlighted the importance of testing beyond UI button visibility. Even if the "Approve 2" button is hidden on the web frontend for standard users, QA must verify that sending a direct HTTP `PUT/POST` request to the backend approval endpoint using a non-Super Admin token returns a strict `403 Forbidden` status.
+## Testing and Outcome
 
-### 3. Date Boundary & Sequence Clashing
+**Checks performed:** Creation, automatic numbering, first and final approval, automated posting, debit-credit balance, role restriction, and interface consistency.
 
-In **TC-BKK-007**, boundary testing around month-end transitions confirmed that sequence counters (`XXX`) must either reset or increment cleanly alongside Roman numeral month updates (`XX`). Concurrency handling must be verified so simultaneous submissions at 23:59 do not generate duplicate document numbers.
+**Outcome:** PASS for the six documented test cases. Results show functional coverage of the reported scope, not proof of every failure mode.
 
----
+**Proposed improvement (optional):** Keep approval and accounting writes atomic, enforce authorization on the server, lock posted records, and retain an approval audit trail.
 
-## Why This Matters
+**Unresolved follow-up (optional):** Add failure-injection coverage for partial ledger writes, direct API authorization tests, simultaneous numbering, month-boundary numbering, duplicate submission, and posting idempotency.
 
-### User Impact
+## Lesson Learned
 
-* Prevents unauthorized cash disbursements by ensuring financial vouchers cannot bypass mandatory tier-2 authorization.
-
-### System Impact
-
-* Non-atomic posting logic risks creating orphan records—where a BKK voucher is marked as `Approved 2`, but missing corresponding Debit/Credit rows in Journal Info or GL.
-
-### Data Impact
-
-* Incorrect document sequence formatting breaks document traceability and causes financial indexing errors during internal and external audits.
-
-### Business Impact
-
-* Direct financial risk from unrecorded petty cash outflows or inaccurate balance sheet calculations in the General Ledger.
-
----
-
-## System & Engineering Recommendations
-
-* **Backend Transaction Wrappers:** Wrap state transitions and ledger insertions inside explicit database transaction blocks to ensure zero data divergence between BKK status and General Ledger tables.
-* **Backend RBAC Middleware:** Apply role checks strictly at the API controller layer rather than relying on frontend conditional rendering.
-* **Immutable Posted State:** Ensure that once a BKK record reaches `Approved 2 / Posted`, all form fields become read-only to preserve financial auditability.
-* **Visual Audit Trail:** Display approval timestamps, reviewer IDs, and direct hyperlink references to generated Journal IDs on the BKK detail view.
-
----
-
-## Key Takeaway
-
-Designing test architecture for workflow-driven financial modules requires testing the complete chain: UI layout, authorization boundaries, dynamic number formatting, and atomic database persistence. Verifying that approval status changes cleanly trigger corresponding accounting entries is essential for preventing silent ledger imbalances.
+Financial approval testing must connect workflow state, authorization, numbering, journal creation, and ledger balance. Passing happy-path screens alone does not prove accounting integrity.

@@ -1,109 +1,52 @@
-# QA Lesson Learned - Verifying Sorting Functionality
+# QA Lesson Learned — Verifying Sorting Functionality
 
-## Scenario
+**Area:** Reporting and Data Validation
 
-A reporting module provided sorting functionality across multiple table columns.
+**Scope:** Table sorting, filtering, pagination, and export behavior
 
-The expected behavior was that users could sort data in ascending or descending order on supported columns without affecting report functionality or data accuracy.
+## Context
 
-The feature being tested was the report sorting mechanism, including its interaction with filtering, pagination, and overall data retrieval.
+A reporting module allowed users to sort several table columns in ascending or descending order. Testing needed to confirm that sorting changed only the display order and continued to work with filters, pagination, and exports.
 
----
+## Finding and Evidence
 
-## Observation
+**Expected behavior:** Every visible sorting control should return correctly ordered rows without changing the filtered dataset. Unsupported columns should not display sorting controls.
 
-During testing, sorting behavior was not consistent across all columns.
+**Actual behavior:** Some columns sorted correctly, while others returned empty results or triggered an application or query error. Some unsupported columns also displayed sorting controls.
 
-Several findings were identified:
+**Evidence / reproduction:**
 
-- Some columns sorted correctly and returned data in the expected order.
-- Some columns caused the table to display empty results after sorting.
-- Certain sorting actions triggered application or query errors.
-- Some columns exposed sorting controls even though sorting was not required or properly supported.
+1. Open a report containing multiple rows and pages.
+2. Record the initial row count and active filters.
+3. Sort each supported column in ascending and descending order.
+4. Compare row order, row count, active filters, pagination, and exported output.
+5. Check whether unsupported columns expose sorting controls.
 
-These findings indicated that sorting functionality was not consistently implemented across all report columns.
+> **Portfolio evidence notice:** This is a sanitized reconstruction using fictional column names and generalized outcome descriptions. It is not an original internal-system screenshot.
 
----
+| Evidence ID | Reconstructed check | Expected | Observed finding |
+| --- | --- | --- | --- |
+| SORT-E01 | Sort `Reference` ascending and descending | Rows follow correct lexical order | Sorting worked as expected. |
+| SORT-E02 | Sort a joined or calculated column | Rows remain visible in correct order | Report returned an error or empty result. |
+| SORT-E03 | Apply a status filter, then sort | Filter and matching row count remain unchanged | Some sorting actions cleared the visible result. |
+| SORT-E04 | Inspect an unsupported action column | No sorting control appears | Sorting control was visible despite unsupported behavior. |
 
-## Why This Matters
+**Suspected cause (optional):** Column mappings or server-side query definitions may differ between supported and unsupported fields. No confirmed root cause is published.
 
-### User Impact
+## Impact
 
-- Users may lose confidence in report accuracy when sorting produces incorrect results or errors.
-- Report usability decreases when expected sorting behavior does not work reliably.
+Incorrect sorting can hide valid rows, disrupt report analysis, and reduce confidence in exported or paginated results. Query errors can also block users from accessing operational information.
 
-### System Impact
+## Testing and Outcome
 
-- Sorting failures may indicate issues in query generation or backend processing.
-- Incorrect sorting implementation can cause report instability.
+**Checks performed:** Individual column sorting, ascending and descending behavior, result visibility, error behavior, and sorting-control visibility.
 
-### Data Impact
+**Outcome:** Finding documented. Public evidence does not claim that every affected column was fixed or retested.
 
-- Users may interpret data incorrectly if sorting does not reflect the actual order of records.
-- Query failures can prevent users from accessing required information.
+**Proposed improvement (optional):** Maintain an explicit allowlist of sortable fields and map each UI control to a validated server-side column.
 
-### Business Impact
+**Unresolved follow-up (optional):** Retest every supported column after correction. Include filters, pagination, exports, and null values, then attach sanitized results without internal screenshots or production data.
 
-- Reports are often used for operational and decision-making purposes.
-- Inaccurate or unreliable sorting can affect data analysis and business decisions.
+## Lesson Learned
 
----
-
-## QA Learning
-
-When testing sorting functionality in reporting modules:
-
-- Verify each sortable column individually.
-- Confirm that ascending and descending sorting produce the correct order.
-- Validate that sorted results remain accurate after applying filters.
-- Verify sorting behavior together with pagination.
-- Confirm sorting does not introduce errors or empty results.
-- Check whether non-sortable columns incorrectly display sorting controls.
-- Validate that sorting aligns with business requirements and intended functionality.
-
-### Validation Points
-
-- Ascending sorting
-- Descending sorting
-- Sorting with filters applied
-- Sorting with pagination
-- Sorting with exported results
-- Sorting on required columns only
-
-### Edge Cases
-
-- Sorting large datasets
-- Sorting columns containing null or empty values
-- Sorting after multiple filters are applied
-- Sorting on joined or calculated fields
-
-### Business Rules
-
-- Only designated columns should support sorting.
-- Sorting should not alter the underlying dataset.
-- Sorted results should remain consistent across pages.
-
-### System Behavior Expectations
-
-- Sorting should execute without errors.
-- Data should remain visible and accurate after sorting.
-- User-applied filters should remain intact.
-
----
-
-## UX / System Consideration
-
-Potential improvements include:
-
-- Display sorting controls only on supported columns.
-- Provide clear feedback when sorting cannot be performed.
-- Maintain consistent sorting behavior across all report pages.
-- Validate column mappings during development to prevent query failures.
-
----
-
-## Key Takeaway
-
-Sorting functionality should be validated as a complete workflow rather than a standalone feature.
-
-Even simple actions such as sorting can reveal underlying issues related to query generation, data mapping, and business rule implementation. Comprehensive report testing should verify that sorting continues to work correctly alongside filtering, pagination, and other reporting features.
+Sorting is a reporting workflow, not an isolated UI action. QA should verify order, dataset stability, filters, pagination, exports, and supported-field boundaries together.

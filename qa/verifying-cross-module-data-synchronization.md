@@ -1,99 +1,51 @@
-# QA Lesson Learned - Verifying Cross-Module Data Synchronization
+# QA Lesson Learned — Verifying Cross-Module Data Synchronization
 
-## Scenario
+**Area:** Integration and Data Integrity
 
-A transaction was successfully created in one module and stored by the system.
+**Scope:** Transaction creation, dependent-module visibility, and shared-record consistency
 
-The expected workflow was that the newly created data would also be available in other related modules that reference the same information.
+## Context
 
-The feature being tested was the synchronization and visibility of shared transaction data across multiple modules.
+A transaction was created successfully in its source module. The business workflow required the same record to become available in another module that depended on the transaction.
 
----
+## Finding and Evidence
 
-## Observation
+**Expected behavior:** A successfully stored transaction should appear in every authorized dependent module according to the approved workflow and synchronization timing.
 
-During testing, the transaction was successfully created and persisted in the system.
+**Actual behavior:** The transaction existed in the source module but did not appear in a related module. This separated successful data creation from successful downstream availability.
 
-The data appeared correctly in the module responsible for managing the transaction.
+**Evidence / reproduction:**
 
-However, the same record did not appear in another related module where users would also expect to access it.
+1. Create a transaction with a unique fictional reference.
+2. Confirm that the source module stores and displays the record.
+3. Open the related module that should consume the record.
+4. Search using the same fictional reference and applicable filters.
+5. Compare record identity, status, values, and visibility across both modules.
 
-This indicated that:
+> **Portfolio evidence notice:** This is a sanitized reconstruction using fictional module names, references, and values. It is not an original internal-system screenshot.
 
-* The transaction was successfully saved.
-* The issue was related to data synchronization or data retrieval between modules rather than data creation.
+| Evidence ID | Reconstructed checkpoint | Expected | Observed finding |
+| --- | --- | --- | --- |
+| SYNC-E01 | Create `TXN-DEMO-001` in `Source Module` | Record saves and receives a reference | Record was created and visible. |
+| SYNC-E02 | Search `TXN-DEMO-001` in `Dependent Module` | Same authorized record appears | Record was not available. |
+| SYNC-E03 | Compare source and dependent states | Identity and workflow state remain consistent | Cross-module visibility was inconsistent. |
 
----
+**Suspected cause (optional):** Synchronization timing, retrieval filters, status eligibility, or authorization rules may affect visibility. No confirmed implementation cause is published.
 
-## Why This Matters
+## Impact
 
-### User Impact
+Users may recreate valid transactions, delay dependent work, or rely on manual verification. Conflicting module views also reduce trust in record completeness and workflow status.
 
-* Users may assume the transaction failed because it is not visible in all expected locations.
-* Additional time may be spent searching for or recreating existing data.
+## Testing and Outcome
 
-### System Impact
+**Checks performed:** Source creation, persistence confirmation, dependent-module search, and cross-module visibility comparison.
 
-* Related modules may display inconsistent information.
-* Data synchronization issues reduce confidence in system reliability.
+**Outcome:** Cross-module visibility finding documented. Public evidence does not claim a completed fix or successful retest.
 
-### Data Impact
+**Proposed improvement (optional):** Define record-eligibility rules, synchronization timing, and user-facing feedback when dependent availability is delayed.
 
-* The same transaction may exist in the database but not be accessible through all relevant workflows.
-* Cross-module inconsistencies can make transaction tracking more difficult.
+**Unresolved follow-up (optional):** Retest after correction with multiple transaction types, user roles, statuses, filters, refresh behavior, and any documented synchronization delay.
 
-### Business Impact
+## Lesson Learned
 
-* Operational workflows may be interrupted when users cannot locate previously created records.
-* Business processes that rely on shared transaction data may become inefficient or require manual verification.
-
----
-
-## QA Learning
-
-Testing should verify not only whether data is successfully created, but also whether it is consistently available throughout the entire business workflow.
-
-### Validation Points
-
-* Verify that the transaction is successfully saved.
-* Confirm the record appears in every module that should reference it.
-* Validate consistency between source and dependent modules.
-* Verify that related data is synchronized after creation.
-
-### Edge Cases
-
-* Newly created transactions.
-* Cross-module data references.
-* Different transaction types using separate workflows.
-* Delayed synchronization or cached data.
-
-### Business Rules
-
-* Shared transaction data should be consistently available across all related modules.
-* Data visibility should align with the intended business workflow.
-* Modules referencing the same transaction should present consistent information.
-
-### System Behavior Expectations
-
-* Successfully created records should be accessible wherever they are required.
-* Related modules should remain synchronized after transaction updates.
-* Users should experience consistent data regardless of the module being accessed.
-
----
-
-## UX / System Consideration
-
-Potential improvements include:
-
-* Strengthening synchronization between related modules.
-* Implementing validation to ensure shared data is available across dependent features.
-* Providing clearer feedback when synchronization is delayed or incomplete.
-* Reducing inconsistencies between transaction management and information display modules.
-
----
-
-## Key Takeaway
-
-Successful data creation does not guarantee successful data availability across the application.
-
-QA should validate the complete lifecycle of shared data, ensuring that records are not only stored correctly but also synchronized and visible in every module that depends on them.
+Successful creation proves only the source write. QA should follow shared data through every dependent module and verify identity, status, values, permissions, and timing.

@@ -1,107 +1,50 @@
-# QA Lesson Learned - Validation Consistency Between Create and Edit
+# QA Lesson Learned — Validation Consistency Between Create and Edit
 
-## Scenario
+**Area:** Business Rules and Regression Testing
 
-A feature allowed users to create a record using identical values in two related date fields.
+**Scope:** Create, edit, and record-lifecycle validation
 
-The record was created successfully without any validation errors.
+## Context
 
-However, when editing the same record, the system rejected the update and displayed a validation message indicating that the two date fields could not contain the same value.
+A feature used two related date fields. The Create workflow accepted identical values, but the Edit workflow rejected the same record because the dates matched.
 
-The feature being tested was the validation logic applied during record creation and record modification.
+## Finding and Evidence
 
----
+**Expected behavior:** The same business rule should produce a consistent result across Create and Edit unless an approved requirement defines different behavior.
 
-## Observation
+**Actual behavior:** Create accepted the values, while Edit rejected the same values. The validation message stated that the dates could not match.
 
-During testing, validation behavior differed between Create and Edit operations.
+**Evidence / reproduction:**
 
-The same data input produced different outcomes:
+1. Create a record with both fictional date fields set to `2026-01-15`.
+2. Confirm that the record saves successfully.
+3. Open the same record in Edit.
+4. Submit the unchanged values.
+5. Compare the Create and Edit results and validation messages.
 
-* Create operation accepted the data.
-* Edit operation rejected the same data.
-* Validation rules appeared to be implemented differently across workflows.
+> **Portfolio evidence notice:** This is a sanitized reconstruction. Field names, dates, record identifiers, and system details are fictional. No original internal-system screenshot is published.
 
-This created an inconsistency in how business rules were enforced throughout the application.
+| Evidence ID | Operation | Sanitized input | Expected consistency | Observed finding |
+| --- | --- | --- | --- | --- |
+| VAL-E01 | Create | `Start Date = 2026-01-15`, `End Date = 2026-01-15` | Result follows approved date rule | Record was accepted. |
+| VAL-E02 | Edit unchanged record | Same fictional values | Result matches Create behavior | Record was rejected with a date-equality validation message. |
 
----
+**Suspected cause (optional):** Create and Edit may use different validation definitions. The implementation cause and intended business rule were not confirmed in the public evidence.
 
-## Why This Matters
+## Impact
 
-### User Impact
+Users can create records that later become impossible to maintain. Inconsistent validation also creates unclear data rules, unpredictable regression behavior, and avoidable support work.
 
-* Users may become confused when data accepted during creation cannot be modified later.
-* Existing records may become difficult or impossible to maintain.
+## Testing and Outcome
 
-### System Impact
+**Checks performed:** Create and Edit comparison, unchanged-value submission, validation-message review, and record-lifecycle analysis. Duplicate, import, and bulk-update paths should receive the same rule when available.
 
-* Inconsistent validation behavior can lead to unpredictable system behavior.
-* Different validation logic across operations increases maintenance complexity.
+**Outcome:** Validation inconsistency documented. Final expected behavior requires confirmation of whether equal dates are valid or prohibited. No public fix or retest result is claimed.
 
-### Data Impact
+**Proposed improvement (optional):** Define one approved business rule and reuse the same server-side validation across Create, Edit, import, and bulk-update paths.
 
-* Records created under one set of rules may later violate another set of rules.
-* Data management becomes more difficult when validation requirements are unclear.
+**Unresolved follow-up (optional):** Confirm the intended date rule, correct the inconsistent path, and execute positive, negative, boundary, and regression tests.
 
-### Business Impact
+## Lesson Learned
 
-* Business rules become harder for users and support teams to understand.
-* Additional support requests may occur due to unexpected validation failures.
-
----
-
-## QA Learning
-
-When testing validation rules, verification should not stop at the Create process.
-
-Validation behavior should also be checked across related operations:
-
-* Create
-* Edit
-* Duplicate
-* Import (if available)
-* Bulk Update (if available)
-
-### Validation Points
-
-* Consistency of validation rules across operations
-* Error message accuracy
-* Validation behavior after data modification
-* Handling of previously accepted records
-
-### Edge Cases
-
-* Editing records created before validation changes
-* Updating records without modifying validated fields
-* Duplicate records using the same values
-* Importing records with equivalent data
-
-### Business Rules
-
-* Validation rules should remain consistent unless documented business requirements specify otherwise.
-* Similar user actions should follow the same business constraints.
-
-### System Behavior Expectations
-
-* Identical input should produce consistent validation outcomes.
-* Validation messages should clearly explain the business rule being enforced.
-* Users should be able to understand why an action succeeds or fails.
-
----
-
-## UX / System Consideration
-
-Potential improvements include:
-
-* Centralizing validation logic to ensure consistency across Create and Edit operations.
-* Using shared validation rules for related workflows.
-* Providing clear documentation when business rules intentionally differ between operations.
-* Ensuring validation messages accurately describe the enforced restriction.
-
----
-
-## Key Takeaway
-
-A successful Create test does not guarantee that the same validation logic has been implemented correctly in Edit functionality.
-
-Validation testing should cover the entire lifecycle of a record to ensure business rules are enforced consistently across all related operations.
+A successful Create test does not prove lifecycle consistency. QA should apply the same rule and test data across every operation that can create or modify the record.
