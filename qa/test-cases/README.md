@@ -14,3 +14,4 @@ This folder contains structured test-case matrices for feature workflows, author
 | [Overpaid deletion journal integrity](overpaid-deletion-journal-integrity-test-cases.md) | Reversal logic and financial consistency. |
 | [Receivable overpayment journal and balance synchronization](receivable-overpayment-journal-and-balance-synchronization-test-cases.md) | Bank-entry uniqueness, overpaid allocation, remaining balance, and PPh consistency. |
 | [RBAC consignment integrity](rbac-consignment-integrity-test-cases.md) | Role permissions and relational data integrity. |
+| [SPS Report Initial Totals](sps-report-initial-totals-test-cases.md) | Initial totals in SPS connected reports issues. |
