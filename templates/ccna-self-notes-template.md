@@ -2,111 +2,40 @@
 
 ## Overview
 
-*Brief introduction of the topic and its role in computer networking.*
+Brief explanation of the topic in my own words.
 
----
+## Main Notes
 
-## Key Concepts
+### Key Concept / Step
 
-*Explain the fundamental concepts covered in this topic.*
+Notes, examples, or a short diagram when useful.
 
-### Concept 1
+### Another Point
 
-*Description...*
+Add more sections only when they fit the topic.
 
-### Concept 2
+## Comparison (Optional)
 
-*Description...*
-
----
-
-## How It Works
-
-*Explain the workflow or operation step-by-step.*
-
-```text
-ASCII diagram or flowchart
-
-```
-
----
-
-## Components / Structure
-
-*Describe the important components, fields, or architecture.*
-
-```text
-Structure / Packet / Frame / Header
-
-```
-
-***or***
-
-| Component | Description |
-| --- | --- |
-| ... | ... |
-
----
-
-## Comparison
-
-*If applicable, compare related technologies.*
-
-| Feature | A | B |
+| Feature | Option A | Option B |
 | --- | --- | --- |
-| ... | ... | ... |
+| Example | ... | ... |
 
----
-
-## Commands (If Applicable)
-
-### Windows
-
-```bash
-# Windows command
-
-```
-
-### Linux
-
-```bash
-# Linux command
-
-```
-
-### Cisco IOS
+## Commands (Optional)
 
 ```text
 Router# configure terminal
 Router(config)# command
-
 ```
 
----
+## Calculation Example (Optional)
 
-## Example
-
-*Provide a practical example or scenario.*
-
-```text
-Example topology / packet flow / process
-
-```
-
----
-
-## Important Notes
-
-* **Important point 1**
-* **Important point 2**
-* **Important point 3**
-
----
+1. Identify the known values.
+2. Apply the relevant formula or subnetting method.
+3. Show the intermediate result.
+4. State the final answer.
 
 ## My Takeaways
 
-* **Takeaway 1**
-* **Takeaway 2**
-* **Takeaway 3**
-* **Takeaway 4**
-* **Takeaway 5**
+- Key point to remember.
+- Another key point to remember.
+- Common mistake or detail worth reviewing.

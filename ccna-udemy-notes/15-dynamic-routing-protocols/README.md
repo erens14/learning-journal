@@ -6,3 +6,4 @@
 2. [Routing Protocol Types](02-routing-protocol-types.md)
 3. [Routing Protocol Metrics](03-routing-protocol-metrics.md)
 4. [Equal Cost Multi Path](04-equal-cost-multi-path.md)
+5. [Administrative Distance](05-administrative-distance.md)
