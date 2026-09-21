@@ -4,7 +4,6 @@
 **Channel / Speaker:** freeCodeCamp.org / Dr. David J. Malan  
 **Link:** [YouTube video](https://youtu.be/9HOpanT0GRs?si=08euJMhCuU_T18zm)  
 **Chapter:** Securing Accounts (00:03:11–01:16:18)  
-**Evidence note:** This note follows the video's auto-generated transcript. Obvious caption errors were normalized, while technical claims remain limited to the lecture.
 
 ---
 
