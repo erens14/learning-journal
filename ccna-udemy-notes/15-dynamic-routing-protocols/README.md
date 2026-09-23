@@ -8,3 +8,4 @@
 4. [Equal Cost Multi Path](04-equal-cost-multi-path.md)
 5. [Administrative Distance](05-administrative-distance.md)
 6. [Loopback Interfaces](06-loopback-interfaces.md)
+7. [Adjacencies and Passive Interfaces](07-adjacencies-and-passive-interfaces.md)
