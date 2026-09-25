@@ -15,3 +15,4 @@ This folder contains structured test-case matrices for feature workflows, author
 | [Receivable overpayment journal and balance synchronization](receivable-overpayment-journal-and-balance-synchronization-test-cases.md) | Bank-entry uniqueness, overpaid allocation, remaining balance, and PPh consistency. |
 | [RBAC consignment integrity](rbac-consignment-integrity-test-cases.md) | Role permissions and relational data integrity. |
 | [SPS Report Initial Totals](sps-report-initial-totals-test-cases.md) | Initial totals in SPS connected reports issues. |
+| [Side navigation to top navigation](side-nav-to-top-nav-test-cases.md) | Navigation, authorization, responsive layout, accessibility, and route regression checks. |
