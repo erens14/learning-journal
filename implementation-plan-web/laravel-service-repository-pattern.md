@@ -1,57 +1,70 @@
-# 📓 Lessons Learned: Standardizing Laravel Master Modules via Service-Repository Pattern
+# PRD: Standardize a Laravel Master Module with the Service-Repository Pattern
 
-**Topic :** Software Architecture, Codebase Standardization & Refactoring  
-**Context :** Standardizing and refactoring the **Master Vehicle Module** to align with enterprise architectural standards used across other master entities (Driver, Vehicle Category, Bank, Customer).
+> **Portfolio sanitization notice:** Entity names, class names, database fields, routes, and business identifiers are generalized. No production records, internal URLs, or confidential schema details are included.
 
-## 💡 Executive Summary
+## Problem
 
-The primary takeaway from this implementation is the necessity of **architectural consistency** across enterprise applications. By establishing a strict **Separation of Concerns** between Controller, Service, Repository, and Model layers, the codebase becomes significantly more maintainable, testable, and resilient against data corruption.
+A legacy master-data module mixed HTTP handling, business rules, data access, table formatting, and persistence behavior. This increased duplication, allowed inconsistent soft-delete handling, created partial-write risk, and made related-record loading vulnerable to N+1 queries.
 
-## 🏗️ Architectural Layer Breakdown
+The module needed to follow the same layered architecture used by comparable master-data features without changing its public behavior.
 
-### 1. Model Layer (Data Definition & Casting)
+## Goal
 
-* **Custom Conventions:** Explicitly declare `$table`, `$primaryKey`, and custom `$timestamps` (`created` & `updated`) when working with legacy or custom database schemas.
-* **Type Safety via Casting:** Always utilize `$casts` for numeric values (`liter_muat`, `liter_kosong`) and `status` flags to ensure strict return types from Eloquent and prevent type-coercion bugs.
-* **Explicit Relationships:** Explicitly define `belongsTo` relations (`VehicleCategory` & `Driver`) to enable seamless eager loading.
+- Separate HTTP, business, and data-access responsibilities.
+- Keep controllers thin and move workflow orchestration into a service.
+- Isolate queries and persistence in a repository.
+- Protect multi-step mutations with database transactions.
+- Preserve CRUD, soft-delete, restore, table listing, and document-export behavior.
+- Reuse shared interface components and existing authorization rules.
 
-### 2. Repository Layer (Data Access Isolation)
+## Target Users
 
-* **Single Responsibility:** Restrict Repositories strictly to data retrieval and persistence, keeping them free from business rules.
-* **Preventing N+1 Queries:** Always enforce eager loading (`with(['category', 'driver'])`) in base queries such as `getDataTablesQuery()` or `findById()`.
-* **Reusability:** Encapsulate common query logic (e.g., `searchByNopol()`) into dedicated methods to eliminate code duplication across different entry points.
-* **Soft Delete Abstraction:** Standardize data deletion states (e.g., `status = 0` for soft deletes, `status = 1` for active records) within the repository to ensure consistent lifecycle management.
+- Operational users maintaining master records
+- Administrators restoring inactive records
+- Developers maintaining Laravel master-data modules
 
-### 3. Service Layer (Business Logic & Orchestration)
+## Functional Requirements
 
-* **Atomic DB Transactions:** Wrap all mutation operations (`store`, `update`, `delete`, `restore`) inside `DB::transaction()` blocks to maintain data integrity if an execution fails midway.
-* **Automated Audit Logging:** Handle metadata auto-filling (`createdby`, `updatedby`) and normalize empty string inputs to `null` before persistence.
-* **Data Presentation Formatting:** Process Yajra DataTables integration at the Service level to format output data (mapping relation names, action buttons, and numeric values) before passing it to the UI.
+- Authorized users can create, view, update, soft-delete, and restore a master record.
+- Listing and detail views display related category and assigned-party information without missing labels.
+- Default active-record searches exclude soft-deleted records.
+- Restore operations return an inactive record to the active dataset.
+- Empty optional inputs are stored as `null` according to the existing data contract.
+- Create and update operations populate the existing audit metadata from the authenticated session.
+- Table responses contain formatted relation labels, numerical values, and permitted action controls.
+- Destructive actions require user confirmation through the existing interface pattern.
+- The existing printable document remains available with its expected data and layout.
 
-### 4. Controller Layer (Thin Controllers)
+## Technical Rules
 
-* **Dependency Injection:** Inject `VehicleService` via the controller constructor.
-* **Delegation:** Keep controllers lean—their sole responsibility is accepting HTTP Requests, invoking the Service layer, and returning JSON or View responses.
+- The model explicitly defines legacy table, primary-key, timestamp, casting, and relationship conventions.
+- The repository contains only retrieval and persistence logic.
+- Repository queries eager-load required relationships and centralize reusable searches.
+- The service owns business rules, input normalization, table-response formatting, and workflow orchestration.
+- Create, update, soft-delete, and restore operations execute inside database transactions.
+- The controller receives the service through dependency injection and only coordinates requests and responses.
+- Views reuse shared buttons, confirmation dialogs, and loading-state components.
+- Printable-document styling remains isolated from interactive page templates.
+- Existing routes, request contracts, permissions, and database schemas remain unchanged.
 
-### 5. View Layer (Component-Driven UI)
+## Acceptance Criteria
 
-* **Blade Components:** Leverage reusable UI components (`components.buttons.button-show`, `button-basic-edit`) to maintain visual and functional consistency across modules.
-* **User Experience (UX):**
-  * Implement **AJAX submissions** with loading indicators for responsive, seamless form handling without page reloads.
-  * Integrate **SweetAlert2** modals for destructive action confirmations (Delete/Restore).
-* **Document Generation:** Isolate print templates (`pdf.blade.php`) with styling tailored specifically for DomPDF rendering.
+- Authorized users can complete the full create, read, update, soft-delete, and restore lifecycle.
+- A failed multi-step mutation rolls back every write and leaves no partial record state.
+- Listing and detail pages display required related labels without per-row lazy-loading queries.
+- Soft-deleted records are absent from the default active list and return after restore.
+- Optional blank inputs persist as `null` where defined by the existing data contract.
+- Audit metadata reflects the authenticated user after create and update operations.
+- Table responses preserve existing columns, formatting, and authorized action controls.
+- Controllers delegate business and persistence operations to the service.
+- Repository methods contain no presentation formatting or workflow decisions.
+- PHP syntax validation, CRUD regression tests, and printable-document rendering complete without errors.
 
-## 🛡️ Pitfalls Avoided & Solutions Applied
+## Out of Scope
 
-| Problem / Potential Issue | Applied Architectural Solution |
-| :--- | :--- |
-| **N+1 Query Bottleneck** on listing pages | Implemented explicit eager loading (`with()`) in the Repository query layer. |
-| **Data Inconsistency** on partial database writes | Enclosed all multi-step mutation methods within `DB::transaction()`. |
-| **Duplicate DataTables Code** across controllers | Centralized Yajra DataTables configuration within `VehicleService`. |
-| **Accidental Soft Delete Bypass** | Restricted default search methods to records with `status = 1`. |
-
-## 🧪 Verification & Quality Control
-
-* **Static Analysis & Linting:** Run PHP Linter to verify zero syntax errors, type mismatches, or unimported namespaces.
-* **CRUD Lifecycle Testing:** Verify Create, Read, Update, Soft Delete, and Restore operations via DataTables AJAX.
-* **Document Export Validation:** Confirm DomPDF output renders layout and tables accurately.
+- Refactoring every master-data module in the application
+- Database schema or route changes
+- Replacement of soft delete with permanent deletion
+- Authentication or authorization redesign
+- Introduction of a new frontend framework
+- Redesign of the printable document beyond compatibility fixes

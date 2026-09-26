@@ -1,70 +1,69 @@
-# 📓 Lessons Learned: Centralized Laravel Audit Trail & Production Validation
+# PRD: Centralize Laravel Audit Trail and Production Validation
 
-**Topic:** Laravel Model Architecture, Audit Integrity & Regression Validation  
-**Context:** A legacy Laravel application stored audit values inconsistently because models did not share a reliable audit lifecycle, the authenticated user's canonical login identifier was not used consistently, and several write paths bypassed model events. The completed implementation centralizes compatible audit behavior; this plan records its contracts, boundaries, and the remaining production-validation gate. This is a sanitized portfolio reconstruction: system-specific identifiers, schema labels, and business-module names are intentionally omitted.
+> **Portfolio sanitization notice:** Model names, table names, routes, schema fields, and business-module identifiers are generalized. No production data, credentials, or internal URLs are included.
 
-## 💡 Executive Summary
+## Problem
 
-The implementation moves audit ownership to a single model-level contract instead of duplicating it across repositories and controllers. Compatible models inherit the audit lifecycle through a shared base model, while a specialized inventory-ledger model retains its native timestamp behavior and uses mapped audit fields required by its existing schema.
+A legacy Laravel application recorded audit actors inconsistently. Models did not share one reliable audit lifecycle, some authenticated writes used the wrong user attribute, and direct bulk updates bypassed model events.
 
-The repair is not complete merely because unit tests pass. Audit data is trustworthy only when a real authenticated write route persists the logged-in user's canonical identifier, update paths continue to fire model events, and schema-incompatible models remain explicitly excluded until their data contracts are repaired. The current implementation status is therefore **code changes complete; final production validation pending**.
+These gaps could store a system fallback instead of the authenticated user, omit update actors, or create different audit behavior across modules. Unit tests alone did not prove that a real authorized request persisted the correct actor in the database.
 
-## 🏗️ Technical / Architectural Breakdown
+## Goal
 
-### 1. Audit Identity Contract
+- Centralize audit ownership in a reusable model lifecycle.
+- Record the authenticated user's canonical login identifier during supported create and update operations.
+- Preserve a fixed system actor for jobs and unauthenticated processes.
+- Prevent request input from controlling audit fields.
+- Preserve schema-specific behavior for models that cannot use the common contract directly.
+- Require authenticated route and database validation before declaring production readiness.
 
-* **Authenticated identity:** Read the application's canonical login identifier rather than an absent display-name property. This avoids silently recording the fallback actor for signed-in users.
-* **Background and guest behavior:** When no authenticated user exists, write a fixed system actor. This preserves a non-null, traceable actor for jobs, seeders, and guest-context writes.
-* **Trust boundary:** The audit actor is derived server-side from the authenticated session. Request input must never be allowed to set audit-actor fields.
+## Target Users
 
-### 2. Centralized Model Lifecycle
+- Application users whose changes require traceability
+- Administrators and auditors reviewing record history
+- Developers maintaining Laravel models and write paths
 
-* **Base contract:** The shared base model loads the audit trait. The trait sets both actor fields during creation and refreshes the update actor on later writes.
-* **Compatible model migration:** Dozens of legacy models, including a representative master-data model, now inherit the centralized lifecycle when their tables support the shared audit contract.
-* **Schema-specific exception:** A specialized inventory-ledger model retains its native timestamp configuration and maps the trait to alternate audit fields. This avoids breaking its existing schema while keeping audit ownership consistent.
+## Functional Requirements
 
-### 3. Mutation-Path Integrity
+- Creating a compatible record stores both creation and update actors from the authenticated session.
+- Updating a compatible record preserves the creation actor and refreshes only the update actor.
+- Background or guest-context writes use a fixed non-null system actor.
+- Client input cannot override creation or update actor fields.
+- Compatible models inherit the shared audit lifecycle through the common base model.
+- A schema-specific ledger model uses mapped audit fields without changing its existing timestamp behavior.
+- Audited update paths persist through lifecycle-aware model operations so model events execute.
+- Models without compatible audit fields remain excluded until their schemas are handled separately.
+- Unauthorized write attempts do not change business data or audit fields.
 
-* **Model-event requirement:** A direct bulk update bypasses model events and therefore bypasses the audit lifecycle.
-* **Applied correction:** Audited writes load the target model and persist through its lifecycle-aware update method. This pattern was applied to master data, inventory, finance, procurement, payment, operational, and user-management paths that were in scope.
-* **Operational consequence:** Any future bulk update against an audited model must either use an explicit audited domain operation or accept and document that it cannot populate per-record audit fields.
+## Technical Rules
 
-### 4. Compatibility Boundaries and Remaining Defects
+- Implement audit callbacks through a reusable trait owned by the shared base model.
+- Derive audit identity server-side from the authenticated session's canonical login identifier.
+- Use a fixed system actor only when no authenticated identity exists.
+- Do not use direct query-builder bulk updates for writes that require per-record audit events.
+- Preserve custom timestamp and field mappings for schema-specific models.
+- Migrate only models whose tables satisfy the shared audit-field contract.
+- Keep unrelated schema mismatches, route defects, and incompatible models in separately scoped remediation work.
+- Require database assertions in addition to HTTP success messages or redirects.
+- Repository changes must pass whitespace validation.
 
-* **No unsafe inheritance migration:** Models without a compatible audit-field contract stay outside the shared-base-model migration. The known exclusions include contact configuration, system-counter, automatic-numbering, and inventory-count records.
-* **Separate defects:** A contact-configuration schema issue, an inventory-count model/table mismatch, and a legacy route naming defect are independent fixes. They are not resolved by the central audit trait and must not be hidden inside the final validation task.
-* **Remaining mutation review:** The remaining contact configuration, access-control, and legacy order paths require individual classification: migrate to an audited lifecycle-aware write, retain an intentional non-audited bulk operation, or repair the underlying schema/path first.
+## Acceptance Criteria
 
-## 📋 Implementation Sequence & Status
+- An authenticated create stores the current user's canonical identifier in both audit-actor fields.
+- An authenticated update preserves the creation actor and changes the update actor to the current user.
+- A background or guest write stores the fixed system actor.
+- Submitted audit-field values are ignored or rejected according to the existing validation policy.
+- The specialized ledger model writes its mapped audit fields while preserving native timestamp behavior.
+- Audited write paths execute model events and persist both the business change and correct audit actor.
+- An unauthorized user receives the existing denial response and causes no database mutation.
+- The focused audit suite covers create, update, shared inheritance, mapped fields, and system fallback with nine passing tests.
+- Production validation remains incomplete until one representative authenticated create-and-edit flow verifies persisted audit fields in the database.
 
-| Step | Status | Outcome / Completion Gate |
-| :--- | :--- | :--- |
-| 1. Correct audit identity | Complete | Audit callbacks read the authenticated login identifier; jobs and guests use the fixed system actor. |
-| 2. Centralize lifecycle behavior | Complete | The shared base model owns audit callbacks through the reusable lifecycle trait. |
-| 3. Migrate compatible models | Complete | Compatible legacy models, including a representative master-data model, inherit the shared lifecycle. |
-| 4. Preserve special schemas | Complete | The inventory-ledger model maps alternate audit fields without changing timestamp behavior. |
-| 5. Replace event-bypassing writes | Complete | In-scope audited update paths use lifecycle-aware model persistence rather than direct bulk updates. |
-| 6. Add regression coverage | Complete | Unit coverage verifies creation, update, a migrated model, alternate field mapping, and guest fallback. |
-| 7. Validate real authenticated writes | Pending | Create and edit a representative master-data record through an authorized browser route or authenticated integration test, then verify the persisted actor fields in the database. |
-| 8. Classify incompatible paths | Pending | Open separate remediation work for the remaining schema and route defects; add integration coverage only where the schema and route contract are valid. |
+## Out of Scope
 
-## 🛡️ Pitfalls Avoided & Solutions Applied
-
-| Problem / Potential Issue | Applied Solution / Best Practice |
-| :--- | :--- |
-| Audit identity falls back to the system actor for an authenticated user | Use the canonical login identifier instead of an absent user property. |
-| Audit callbacks vary or disappear across models | Put the lifecycle trait on the shared base model, then migrate only models whose schemas satisfy the shared contract. |
-| A direct bulk update silently skips audit fields | Load the model and persist through its lifecycle-aware update method so update events execute. |
-| A specialized ledger model breaks after a generic inheritance migration | Preserve its native timestamps and map the trait to its alternate audit fields. |
-| A unit-only pass is reported as an end-to-end fix | Keep authenticated route and database assertions as an explicit release gate. |
-| Schema defects are obscured by a broad refactor | Keep incompatible schema and route defects as separately scoped remediation items. |
-
-## 🧪 Verification & Quality Control
-
-* **Completed focused regression suite:** The unit suite passed with 9 tests, covering audit creation, update behavior, shared-base-model inheritance, alternate audit-field mapping, and the guest fallback.
-* **Completed patch hygiene:** `git diff --check` passed for the audit changes.
-* **Required authenticated master-data flow:** Sign in as a non-system user, create a representative master-data record, edit it through the normal authorized route, and assert that its actor fields equal that user's canonical login identifier. Confirm that an edit preserves the creation actor and changes only the update actor.
-* **Required database verification:** Inspect the persisted record after both operations; a success message or HTTP redirect alone is insufficient evidence of audit integrity.
-* **Required authorization check:** Attempt the same write as an unauthorized user and assert rejection, with no audit row mutation. This prevents audit correctness from masking an IDOR or permission regression.
-* **Required mutation-path coverage:** Add targeted integration tests for each remaining compatible write path that was previously a query-builder update. Assert the business update and actor-field update together.
-* **Release boundary:** Do not label the audit rollout fully production-validated until the authenticated route/database test and the selected remaining-path integration tests pass. Do not claim unrelated schema and route defects are fixed by this rollout.
+- Database migrations for incompatible legacy models
+- Repair of unrelated table or model mismatches
+- Repair of unrelated route naming defects
+- Audit-history user interface redesign
+- Replacement of the authentication system
+- Automatic auditing for intentionally non-model bulk operations

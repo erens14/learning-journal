@@ -1,44 +1,65 @@
-# 📓 Lessons Learned: Master Data UI Standardization & Long-Text Overflow Safeguards
+# PRD: Standardize Master Data UI and Prevent Long-Text Overflow
 
-**Topic:** Frontend Architecture, UI/UX Consistency & Blade Template Refactoring  
-**Context:** Standardizing all Master Data UI views (Bank, Company, Customer, Product, Warehouse, etc.) to align with the 2-column layout and UI standards established in Master Vehicle and Master Driver, while implementing CSS safeguards for long text/description fields.
+> **Portfolio sanitization notice:** Entity names, component paths, routes, labels, and styling identifiers are generalized where they could reveal internal structure. All example content is fictional.
 
-## 💡 Executive Summary
+## Problem
 
-Maintaining UI/UX consistency across a large enterprise application requires strict adherence to standardized view structures. This refactoring resolved visual fragmentation across legacy Master modules by introducing a **standardized 2-column Detail layout**, unifying page headers with Blade action components, and applying a **responsive text-wrapping strategy** to prevent layout breaking caused by unformatted or excessively long description and address fields.
+Legacy master-data pages used inconsistent detail layouts, headers, action controls, breadcrumbs, and theme styles. Long addresses, notes, and descriptions could also overflow cards or distort the page grid.
 
-## 🏗️ Technical / Architectural Breakdown
+The inconsistency increased navigation effort, reduced visual predictability, and made shared interface maintenance more difficult.
 
-### 1. Standardized 2-Column Detail Layout
+## Goal
 
-* **Left Column (Profile & Audit Log):** Houses visual avatar/badges, high-level status indicators, and system activity timestamps (`createdby`, `updatedby`).
-* **Right Column (Main Attributes & Sub-Entities):** Groups primary specifications, contact information, tax details, and related child data into theme-compliant AdminLTE cards (`card-outline card-primary`, `card-info`, `card-success`).
+- Apply one responsive two-column detail layout across master-data pages.
+- Standardize page headers, breadcrumbs, and detail/edit actions.
+- Preserve readable long text without breaking cards or the responsive grid.
+- Replace one-off inline colors with existing theme utilities.
+- Preserve current data, routes, permissions, and business behavior.
 
-### 2. Long-Text & Description Overflow Protection
+## Target Users
 
-* **Dedicated Text Container:** Replaced raw table cells and inline text spans for long inputs (addresses, notes, NPWP locations, descriptions) with a dedicated container block.
-* **CSS Wrapping Rules:** Enforced `word-break: break-word`, `white-space: pre-wrap`, and `line-height: 1.6` on all description wrappers to ensure unbroken strings or multi-line text remain neatly contained within card boundaries without distorting the layout.
+- Operational users maintaining master data
+- Administrators reviewing record details and audit metadata
+- Developers maintaining server-rendered interface templates
 
-### 3. Header & Navigation Componentization
+## Functional Requirements
 
-* **Unified Action Buttons:** Replaced ad-hoc action links with reusable Blade button components (`button-basic-detail`, `button-basic-edit`).
-* **Consistent Breadcrumbs:** Standardized top-level navigation headers and breadcrumb paths across all master index, edit, and detail views.
+- Each standardized detail page displays summary, status, and audit information in the left section.
+- Primary attributes and related information appear in grouped cards in the right section.
+- The two-column layout collapses into one readable column on supported mobile widths.
+- Long single-line text wraps inside its container without horizontal overflow.
+- Multi-line text preserves intentional line breaks while remaining inside its card.
+- Detail and edit actions use shared interface components.
+- Breadcrumbs show a consistent path from the master-data list to the current page.
+- Existing field values, related records, actions, and authorization remain available after the layout change.
 
-### 4. Legacy Theme Refactoring
+## Technical Rules
 
-* **Standard Utility Classes:** Eliminated legacy inline hardcoded hex colors (e.g., `#179ea8`) in favor of AdminLTE contextual utility classes (`card-outline card-primary`, `card-info`).
+- Reuse the application's existing grid, card, button, and breadcrumb components.
+- Use dedicated long-text containers instead of unbounded inline text or raw table-cell output.
+- Apply wrapping rules equivalent to `overflow-wrap: anywhere`, `word-break: break-word`, and `white-space: pre-wrap` where appropriate.
+- Replace hardcoded colors with existing contextual theme classes.
+- Keep view logic presentational; do not move business rules into templates.
+- Preserve existing routes, controller contracts, database schemas, and authorization checks.
+- Validate template syntax and route references for every modified page.
 
-## 🛡️ Pitfalls Avoided & Solutions Applied
+## Acceptance Criteria
 
-| Problem / Potential Issue | Applied Solution / Best Practice |
-| :--- | :--- |
-| **Unbroken long strings breaking layout grid** | Wrapped description fields in a container with `word-break: break-word` and `white-space: pre-wrap`. |
-| **Visual inconsistency across detail views** | Refactored single-card/legacy views to the standard 2-column layout pattern. |
-| **Inconsistent header actions and breadcrumbs** | Integrated standardized header components (`button-basic-detail`, `button-basic-edit`). |
-| **Hardcoded inline styling (`#179ea8`)** | Migrated all card styling to native AdminLTE classes (`card-outline card-primary`). |
+- Representative master-data detail pages use the same two-column structure and shared header actions.
+- Summary and audit information appears in the left section; primary and related data appears in the right section.
+- A fictional unbroken string longer than 100 characters remains inside its card without causing horizontal page scrolling.
+- Multi-line fictional text preserves line breaks and remains readable.
+- The layout collapses to a single column without overlap on supported mobile widths.
+- Detail, edit, and breadcrumb links open their expected authorized routes.
+- No modified page relies on a one-off hardcoded color when an existing theme utility provides the required style.
+- Existing fields, related records, and permitted actions remain available.
+- All modified server-rendered templates pass syntax validation.
 
-## 🧪 Verification & Quality Control
+## Out of Scope
 
-* **Blade Syntax & Route Integrity:** Verify all modified `.blade.php` files pass linter checks and match valid routes in `routes/web.php`.
-* **Long-Text Stress Testing:** Test description and address containers using single-line, multi-line, and 100+ character unbroken strings to confirm zero card overflow.
-* **Responsive Grid Stack:** Validate that 2-column detail layouts collapse cleanly into a single column on mobile and lower-resolution displays.
+- Database schema or stored-data changes
+- Business-rule or validation changes
+- Route, controller, API, or permission changes
+- Replacement of the application's full visual theme
+- Redesign of non-master-data modules
+- New master-data fields or relationships
