@@ -10,6 +10,16 @@ The expected behavior was that certain fields should become read-only or locked 
 
 ---
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Edit-control checking across business states |
+| Evidence basis | Existing QA observations; the evidence summary below reconstructs them with generalized conditions |
+| Result scope | Reported findings only. This reconstruction adds no new execution result, confirmed root cause, or successful retest. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Observation
 
 During testing, several transaction fields remained editable even after critical business events had occurred.
@@ -27,6 +37,16 @@ Technically, the edit functionality worked as designed.
 However, the issue was not whether editing was possible, but whether editing should still be permitted according to the application's business rules.
 
 ---
+
+## Portfolio Evidence
+
+**Reconstruction notice:** These checkpoints summarize observations already described in this note. Conditions and example references are generalized or fictional. No original screenshot, internal log, or new test run is represented.
+
+| Evidence ID | Reconstructed checkpoint | Expected behavior | Observation recorded in the source note |
+| --- | --- | --- | --- |
+| STATELOCK-E01 | Attempt customer or price edits after payment | Fields governed by the payment lock remain read-only | Customer and price fields remained editable. |
+| STATELOCK-E02 | Attempt quantity changes after delivery processing starts | The delivery dependency prevents prohibited changes | Quantity remained editable. |
+| STATELOCK-E03 | Attempt editing after the permitted time window | The time-based rule prevents further changes | Customer data could still be modified. |
 
 ## Why This Matters
 

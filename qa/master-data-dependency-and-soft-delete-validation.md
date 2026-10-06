@@ -14,6 +14,16 @@ The feature being tested was the lifecycle of master data records and their impa
 
 ---
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Master-data lifecycle and dependent-selection checking |
+| Evidence basis | Existing QA observations; the evidence summary below reconstructs them with generalized conditions |
+| Result scope | Reported findings only. This reconstruction adds no new execution result, confirmed root cause, or successful retest. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Observation
 
 During testing, the delete operation appeared successful from the user interface.
@@ -28,6 +38,15 @@ However, further validation revealed two inconsistencies:
 These findings suggested that the deletion was not consistently reflected throughout the application.
 
 ---
+
+## Portfolio Evidence
+
+**Reconstruction notice:** These checkpoints summarize observations already described in this note. Conditions and example references are generalized or fictional. No original screenshot, internal log, or new test run is represented.
+
+| Evidence ID | Reconstructed checkpoint | Expected behavior | Observation recorded in the source note |
+| --- | --- | --- | --- |
+| DELETE-E01 | Remove a fictional master record from the active list | The record disappears from active selections | It disappeared from the master list but remained selectable in a dependent module. |
+| DELETE-E02 | Try reusing its name where the stated rule permits reuse | Name reuse follows the approved deleted-record rule | The deleted record still prevented reuse. |
 
 ## Why This Matters
 

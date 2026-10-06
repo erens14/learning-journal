@@ -15,6 +15,16 @@ The feature being tested was the bulk import parser's ability to process dataset
 
 ---
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Bulk-import completeness and field-mapping checking |
+| Evidence basis | Existing QA observations; the evidence summary below reconstructs them with generalized conditions |
+| Result scope | Reported findings only. This reconstruction adds no new execution result, confirmed root cause, or successful retest. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Observation
 
 During testing, the bulk import operation appeared successful from the user interface.
@@ -30,6 +40,16 @@ However, further validation of the database revealed three critical inconsistenc
 These findings suggested that a successful UI response did not guarantee accurate backend data processing.
 
 ---
+
+## Portfolio Evidence
+
+**Reconstruction notice:** These checkpoints summarize observations already described in this note. Conditions and example references are generalized or fictional. No original screenshot, internal log, or new test run is represented.
+
+| Evidence ID | Reconstructed checkpoint | Expected behavior | Observation recorded in the source note |
+| --- | --- | --- | --- |
+| IMPORT-E01 | Compare submitted valid rows with saved records | Every valid row is accounted for, or rejection is explained | Some rows were missing despite a success notification. |
+| IMPORT-E02 | Compare each source column with its saved field | Values retain their intended field association | Some saved fields contained shifted or mismatched values. |
+| IMPORT-E03 | Import an optional blank value | Blank remains empty unless an approved default applies | Unintended default values appeared in optional fields. |
 
 ## Why This Matters
 

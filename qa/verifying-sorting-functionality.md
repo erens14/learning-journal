@@ -8,6 +8,16 @@
 
 A reporting module allowed users to sort several table columns in ascending or descending order. Testing needed to confirm that sorting changed only the display order and continued to work with filters, pagination, and exports.
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Column sorting and result-visibility checking |
+| Evidence basis | Recorded sorting behavior illustrated with fictional column names |
+| Result scope | Some columns sorted correctly while others errored or returned empty results; comprehensive fix verification is not claimed. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Finding and Evidence
 
 **Expected behavior:** Every visible sorting control should return correctly ordered rows without changing the filtered dataset. Unsupported columns should not display sorting controls.

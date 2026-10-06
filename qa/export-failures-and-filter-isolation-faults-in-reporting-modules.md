@@ -14,6 +14,16 @@ The feature being tested was the query builder logic for single/multi-parameter 
 
 ---
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Report filtering and export retesting |
+| Evidence basis | Existing QA observations; the evidence summary below reconstructs them with generalized conditions |
+| Result scope | Reported findings only. This reconstruction adds no new execution result, confirmed root cause, or successful retest. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Observation
 
 During retesting, the reporting and export features revealed several critical query construction and file generation failures:
@@ -25,6 +35,16 @@ During retesting, the reporting and export features revealed several critical qu
 These findings suggested that the reporting engine suffered from broken backend query parameter handling and export execution errors.
 
 ---
+
+## Portfolio Evidence
+
+**Reconstruction notice:** These checkpoints summarize observations already described in this note. Conditions and example references are generalized or fictional. No original screenshot, internal log, or new test run is represented.
+
+| Evidence ID | Reconstructed checkpoint | Expected behavior | Observation recorded in the source note |
+| --- | --- | --- | --- |
+| FILTER-E01 | Export the selected report dataset | A downloadable file is produced | The export returned a failure result without the expected file. |
+| FILTER-E02 | Select a parent group without an individual child filter | All eligible records in the selected group are returned | The parent-only filter returned incorrect results although the combined selection worked. |
+| FILTER-E03 | Select one fictional vehicle reference | Only records matching that reference remain | Records for other vehicle references remained visible. |
 
 ## Why This Matters
 

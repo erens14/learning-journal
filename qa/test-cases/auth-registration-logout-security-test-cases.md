@@ -6,6 +6,16 @@
 > **Disclaimer & Data Sanitization Notice**  
 > Documented test scenarios, ticket references, and database relations within this repository have been sanitized and generalized for educational and portfolio purposes. Confidential company identifiers and ticket numbers have been replaced.
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Recorded QA checking and result documentation |
+| Evidence basis | Sanitized recorded QA observations; original internal evidence is not published |
+| Result scope | 4 PASS, 0 FAIL, 0 NOT RUN as recorded; no new execution is claimed by this documentation revision |
+
+Original application screenshots and confidential artifacts are excluded. Written observations and labeled reconstructions follow the [NDA-safe evidence standard](../../portfolio-standards.md#nda-safe-portfolio-evidence).
+
 ## Requirement Overview
 
 * **Feature Goal:** Disable public self-registration routes (directing user creation exclusively through developers/administrators) and ensure complete session invalidation upon user logout.

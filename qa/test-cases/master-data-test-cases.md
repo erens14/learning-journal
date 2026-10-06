@@ -6,6 +6,16 @@
 > **Disclaimer & Data Sanitization Notice**  
 > Documented test scenarios, API endpoints, ticket references, and database schema representations within this repository have been fully sanitized, anonymized, and generalized for educational and portfolio purposes. No proprietary business logic, sensitive production data, or company-confidential information are disclosed.
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Test design; execution is not recorded |
+| Evidence basis | Test design; no execution results recorded |
+| Result scope | Design-only matrix without execution statuses; no PASS or FAIL is claimed |
+
+Original application screenshots and confidential artifacts are excluded. Written observations and labeled reconstructions follow the [NDA-safe evidence standard](../../portfolio-standards.md#nda-safe-portfolio-evidence).
+
 ## Overview
 
 Standardized test case documentation for verifying Master Data modules in enterprise web applications. The testing scope covers the full data lifecycle: record creation (*Create*), input validation, searching and filtering (*Read*), data modification (*Update*), soft deletion (*Soft Delete*), data recovery (*Restore*), and document exporting (*Export PDF*).

@@ -8,6 +8,17 @@ The expected workflow was that the updated UI would be reflected in the staging 
 
 ---
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Post-deployment UI and form regression checking |
+| Environment | Staging, as described in the source note |
+| Evidence basis | Existing QA observations; the evidence summary below reconstructs them with generalized conditions |
+| Result scope | Reported findings only. This reconstruction adds no new execution result, confirmed root cause, or successful retest. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Observation
 
 The expected UI changes were not reflected in the staging environment after deployment.
@@ -17,6 +28,15 @@ Additionally, a form field that was previously available during the create proce
 This suggested that the deployment was either incomplete or that the UI changes introduced side effects affecting existing functionality.
 
 ---
+
+## Portfolio Evidence
+
+**Reconstruction notice:** These checkpoints summarize observations already described in this note. Conditions and example references are generalized or fictional. No original screenshot, internal log, or new test run is represented.
+
+| Evidence ID | Reconstructed checkpoint | Expected behavior | Observation recorded in the source note |
+| --- | --- | --- | --- |
+| DEPLOY-E01 | Open the page expected to contain the deployed enhancement | The approved UI change is visible | The expected change was not reflected in staging. |
+| DEPLOY-E02 | Inspect previously available create-form fields | Existing required fields remain available | A previously available field was missing. |
 
 ## Why This Matters
 

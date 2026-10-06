@@ -15,6 +15,16 @@ The feature being tested was the end-to-end reliability of form-triggered sheet 
 
 ---
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Form-trigger, spreadsheet-layout, and formula checking |
+| Evidence basis | Existing QA observations; the evidence summary below reconstructs them with generalized conditions |
+| Result scope | The note records failures and describes script changes. A public implementation is linked; no new run or independent verification of those changes is claimed here. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Observation
 
 During the testing phase, the automation successfully triggered, but several advanced runtime, logic, and structural bugs were identified from a Quality Assurance perspective:
@@ -25,6 +35,17 @@ During the testing phase, the automation successfully triggered, but several adv
 * **Sheet Name Syntax Conflicts:** Retaining spaces in monthly tab names (e.g., "Juli 2026") led to downstream formula syntax errors, requiring manual single-quote (`'`) encapsulation when referencing those tabs later on.
 
 ---
+
+## Portfolio Evidence
+
+**Reconstruction notice:** These checkpoints summarize observations already described in this note. Conditions and example references are generalized or fictional. No original screenshot, internal log, or new test run is represented.
+
+| Evidence ID | Reconstructed checkpoint | Expected behavior | Observation recorded in the source note |
+| --- | --- | --- | --- |
+| SHEET-E01 | Append an entry to a sheet containing expanded array formulas | The entry occupies the next intended data row | The entry was pushed below the formula-expanded area. |
+| SHEET-E02 | Initialize formulas in a localized spreadsheet | Formulas parse under the selected locale | The note records a formula parse failure. |
+| SHEET-E03 | Open a newly created empty monthly sheet | Balance calculations handle the empty state | The initial formula returned an empty-input calculation error. |
+| SHEET-E04 | Reference a monthly tab containing spaces | The sheet reference remains valid | Unquoted tab names caused formula-reference problems. |
 
 ## Why This Matters
 

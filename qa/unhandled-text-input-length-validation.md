@@ -10,6 +10,16 @@ The expected behavior was that the application would either save the extended na
 
 ---
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Input-length boundary and persistence checking |
+| Evidence basis | Existing QA observations; the evidence summary below reconstructs them with generalized conditions |
+| Result scope | Reported findings only. This reconstruction adds no new execution result, confirmed root cause, or successful retest. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Observation
 
 Upon submitting the updated account name, the application returned a false-positive success response (*"Data updated successfully"*). However, upon refreshing the page or checking the grid, the changes were not saved.
@@ -21,6 +31,15 @@ Technical analysis identified a triple-layer validation failure:
 3. **Backend API Layer:** The controller lacked payload validation rules (`max:50`) and caught the SQL string truncation error without failing the request, returning an HTTP `200 OK` status code instead of rolling back with an error response.
 
 ---
+
+## Portfolio Evidence
+
+**Reconstruction notice:** These checkpoints summarize observations already described in this note. Conditions and example references are generalized or fictional. No original screenshot, internal log, or new test run is represented.
+
+| Evidence ID | Reconstructed checkpoint | Expected behavior | Observation recorded in the source note |
+| --- | --- | --- | --- |
+| LENGTH-E01 | Submit a fictional account name beyond the documented length limit | The application saves an allowed value or reports a clear validation failure | The UI reported success, but the edited value was not retained. |
+| LENGTH-E02 | Refresh and compare the saved name with the submitted value | Displayed success corresponds to persisted data | The refreshed view still showed the previous value. |
 
 ## Why This Matters
 

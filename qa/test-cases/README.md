@@ -2,6 +2,14 @@
 
 This folder contains structured test-case matrices for feature workflows, authorization, financial integrity, redirects, master data, and cash approval processes.
 
+## Reading the Results
+
+Each matrix includes activity, evidence basis, and result scope. PASS and FAIL describe recorded checks, not current application behavior or a new execution. Execution dates were not collected for these records; unknown dates, build identifiers, and tester details are omitted. NOT RUN and design-only cases are planned coverage.
+
+Original application screenshots and confidential artifacts are excluded under NDA. Public evidence uses written observations, existing test IDs, and explicitly labeled reconstructions. See the [NDA-safe evidence standard](../../portfolio-standards.md#nda-safe-portfolio-evidence).
+
+For mixed initial and retest results, read the document's status history or execution notes. The [financial journal matrix](financial-journal-integrity-test-cases.md#status-history) preserves the original failure separately from its related retest. UI-only checks do not establish server-side authorization.
+
 ## Contents
 
 | Test case set | Focus |

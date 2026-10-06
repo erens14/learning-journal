@@ -2,15 +2,21 @@
 
 This folder contains sanitized QA lessons from workflow testing, regression checks, data-integrity validation, integrations, and user-facing defects.
 
-## Featured Evidence
+## How to Read the Evidence
+
+Each note includes execution context and a written evidence summary. Original application screenshots and confidential development artifacts are excluded under NDA. Reconstructed tables explain the recorded findings with generalized conditions; they are not raw captures or new test executions.
+
+Execution dates were not collected for these QA records. Context focuses on the activity, evidence basis, and result scope. Confirmed results remain separate from proposed checks. See the [portfolio evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence).
+
+## Featured Case Studies
 
 | Note | What it demonstrates |
 | --- | --- |
-| [Verifying sorting functionality](verifying-sorting-functionality.md) | Reporting validation across sorting, filters, pagination, exports, and data visibility. |
-| [Requirement gathering reveals more than bugs](requirement-gathering-reveals-more-than-bugs.md) | Requirement analysis as part of quality assurance. |
-| [Validation consistency between create and edit](validation-consistency-between-create-and-edit.md) | Regression coverage across related workflows. |
-| [Verifying cross-module data synchronization](verifying-cross-module-data-synchronization.md) | End-to-end data availability across dependent modules. |
-| [Multi-tier approval and automated ledger posting](multi-tier-approval-and-automated-ledger-posting.md) | Business-process and accounting-workflow testing. |
+| [Access-control boundaries and data integrity](access-control-boundaries-and-data-integrity.md) | Role-based UI checks, a dependency-rule failure, and explicit limits on backend authorization evidence. |
+| [Investigating a failed report stream](unhandled-eventsource-mime-type-mismatch-and-export-latency.md) | Browser diagnostics, authentication hypotheses, and separation of observed behavior from unverified causes. |
+| [Receivable overpayment investigation and retest](receivable-overpayment-journal-and-balance-synchronization.md) | Cross-record integrity checks, six confirmed retest results, and two unexecuted regression checks. |
+
+These case studies connect my QA background with an entry-level cybersecurity transition. Each summarizes my contribution and evidence boundaries; they do not claim SOC or penetration-testing experience.
 
 ## Test Case Portfolio
 
@@ -63,7 +69,7 @@ Every lesson appears once under its primary topic.
 | [Export failures and filter-isolation faults in reporting modules](export-failures-and-filter-isolation-faults-in-reporting-modules.md) | Export reliability and filter boundaries. |
 | [Post-save redirect routing and entity-ID misassignment](post-save-redirect-routing-and-id-misassignment.md) | Redirect correctness and record identity. |
 | [Report testing beyond data display](report-testing-beyond-data-display.md) | Report logic beyond visible rows. |
-| [EventSource MIME mismatch and export performance bottlenecks](unhandled-eventsource-mime-type-mismatch-and-export-latency.md) | Real-time updates and large-export behavior. |
+| [Investigating a failed report stream and slow export](unhandled-eventsource-mime-type-mismatch-and-export-latency.md) | Browser diagnostics, stream-response handling, and export timing evidence. |
 | [Unhandled text-input-length validation](unhandled-text-input-length-validation.md) | Cross-layer boundary validation. |
 | [Unresponsive UI grid components](unresponsive-ui-grid-components.md) | Event handling and grid interaction. |
 | [Verifying sorting functionality](verifying-sorting-functionality.md) | Sorting, filters, pagination, and exports. |

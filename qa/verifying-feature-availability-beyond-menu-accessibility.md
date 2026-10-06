@@ -10,6 +10,16 @@ The feature being tested was the accessibility and completeness of a deployed mo
 
 ---
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Deployed menu-to-feature availability checking |
+| Evidence basis | Existing QA observations; the evidence summary below reconstructs them with generalized conditions |
+| Result scope | Reported findings only. This reconstruction adds no new execution result, confirmed root cause, or successful retest. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Observation
 
 During testing, the feature could not be accessed even though its menu was visible in the application.
@@ -23,6 +33,15 @@ Further investigation revealed that:
 This demonstrated that the application's navigation configuration and the deployed application code were not synchronized.
 
 ---
+
+## Portfolio Evidence
+
+**Reconstruction notice:** These checkpoints summarize observations already described in this note. Conditions and example references are generalized or fictional. No original screenshot, internal log, or new test run is represented.
+
+| Evidence ID | Reconstructed checkpoint | Expected behavior | Observation recorded in the source note |
+| --- | --- | --- | --- |
+| FEATURE-E01 | Select the visible feature menu | The corresponding feature opens and is usable | The menu was visible, but the feature could not be accessed. |
+| FEATURE-E02 | Compare the navigation entry with the deployed module | Navigation points to a deployed implementation | The note reports that the supporting module was absent. |
 
 ## Why This Matters
 

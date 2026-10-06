@@ -2,9 +2,19 @@
 
 **Category:** Quality Assurance, Financial Accounting, Integration, and Regression
 **Target Scope:** Receivable Payment — Bank Posting, Overpaid Allocation, Remaining Balance, and PPh Synchronization
-**Environment:** Target regression environment
 
 > Documented scenarios, references, and data in this repository are sanitized for portfolio use. Customer identities, bank-receipt numbers, transaction dates, amounts, and internal ticket references are generalized or omitted.
+
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Tester-confirmed retesting and additional regression design |
+| Environment | Target regression environment |
+| Evidence basis | Sanitized defect narrative and explicit tester-confirmed retest results |
+| Result scope | TC-ROP-001 through TC-ROP-006 passed retesting; TC-ROP-007 and TC-ROP-008 remain NOT RUN |
+
+Original application screenshots and confidential artifacts are excluded. Written observations and labeled reconstructions follow the [NDA-safe evidence standard](../../portfolio-standards.md#nda-safe-portfolio-evidence).
 
 ## Preconditions
 

@@ -2,17 +2,23 @@
 
 ## Scenario
 
-Describe the feature / module being tested and the context of the issue.
-
 A reporting feature is being tested where users can view, filter, and export operational data.
 
 The main focus is to ensure that the report is not only displaying data correctly, but also supports accurate interaction through filtering, sorting, and exporting.
 
 ---
 
-## Observation
+## Execution Context
 
-Describe what actually happens during testing.
+| Field | Value |
+| --- | --- |
+| Activity | Report interaction, export, sorting, and filter checking |
+| Evidence basis | Existing QA observations; the evidence summary below reconstructs them with generalized conditions |
+| Result scope | Reported findings only. This reconstruction adds no new execution result, confirmed root cause, or successful retest. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
+## Observation
 
 At first glance, the report appears to function correctly because data is displayed as expected.
 
@@ -38,6 +44,16 @@ However, deeper testing reveals inconsistencies in supporting functionalities:
 - Data accuracy is not guaranteed even when UI shows filtered output.
 
 ---
+
+## Portfolio Evidence
+
+**Reconstruction notice:** These checkpoints summarize observations already described in this note. Conditions and example references are generalized or fictional. No original screenshot, internal log, or new test run is represented.
+
+| Evidence ID | Reconstructed checkpoint | Expected behavior | Observation recorded in the source note |
+| --- | --- | --- | --- |
+| REPORT-E01 | Compare a visible report with its export action | The export follows the agreed flow and produces output | Some export actions produced no file; prompts differed between reports. |
+| REPORT-E02 | Inspect sorting controls and supported fields | Sorting is offered only where supported | Some unsupported columns exposed sorting controls. |
+| REPORT-E03 | Compare selected filters with returned records | Every returned record satisfies the selected criteria | Some results included unrelated records. |
 
 ## Why This Matters
 

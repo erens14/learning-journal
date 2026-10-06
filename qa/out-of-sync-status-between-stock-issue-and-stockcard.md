@@ -12,6 +12,16 @@ The context of this business workflow is:
 
 ---
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Goods-issue and stock-ledger consistency checking |
+| Evidence basis | Existing QA observations; the evidence summary below reconstructs them with generalized conditions |
+| Result scope | Reported findings only. This reconstruction adds no new execution result, confirmed root cause, or successful retest. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Observation
 
 The system successfully processed the initial "Turun Gudang" action, but a systemic failure occurred during downstream logistics logging:
@@ -22,6 +32,15 @@ The system successfully processed the initial "Turun Gudang" action, but a syste
 - This created an inconsistent state: on one hand, the document/status indicated the goods had left the warehouse, but on the other hand, the physical stock count in the system was never reduced.
 
 ---
+
+## Portfolio Evidence
+
+**Reconstruction notice:** These checkpoints summarize observations already described in this note. Conditions and example references are generalized or fictional. No original screenshot, internal log, or new test run is represented.
+
+| Evidence ID | Reconstructed checkpoint | Expected behavior | Observation recorded in the source note |
+| --- | --- | --- | --- |
+| STOCK-E01 | Complete a goods-issue action for a fictional transaction | The issued state has a corresponding stock-ledger entry | The action completed without the expected stockcard entry. |
+| STOCK-E02 | Compare the issued state with the inventory movement | The required quantity reduction accompanies the completed workflow | Stock was not reduced for the affected transaction. |
 
 ## Why This Matters
 

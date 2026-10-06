@@ -14,6 +14,16 @@ The feature being tested was the integration of Discord Webhooks, trigger object
 
 ---
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Form-trigger and webhook reliability checking |
+| Evidence basis | Existing QA observations; the evidence summary below reconstructs them with generalized conditions |
+| Result scope | Trigger, input, and notification failures are documented. Suggested error-handling changes and outage checks are not a confirmed regression pass. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Observation
 
 During testing, the spreadsheet routing worked, but the automated notification and parsing system revealed several critical bugs and runtime errors:
@@ -26,6 +36,16 @@ During testing, the spreadsheet routing worked, but the automated notification a
 These findings suggested that the automation flow lacked the necessary isolation, data type validation, and exception handling required for production reliability.
 
 ---
+
+## Portfolio Evidence
+
+**Reconstruction notice:** These checkpoints summarize observations already described in this note. Conditions and example references are generalized or fictional. No original screenshot, internal log, or new test run is represented.
+
+| Evidence ID | Reconstructed checkpoint | Expected behavior | Observation recorded in the source note |
+| --- | --- | --- | --- |
+| HOOK-E01 | Run a form-event handler manually without an event object | The manual path supplies a test event or handles its absence | Access to the missing event range caused a runtime error. |
+| HOOK-E02 | Compare successful sheet routing with notification delivery | The notification path runs after eligible submissions | A guard comparison skipped the notification block. |
+| HOOK-E03 | Submit non-numeric input to the amount field | Invalid input is rejected or handled without an unexpected crash | Formatting the non-numeric value caused an exception. |
 
 ## Why This Matters
 

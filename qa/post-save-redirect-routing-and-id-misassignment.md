@@ -4,11 +4,21 @@
 
 The **Bon Sangu** (Driver Allowance/Cash Advance) module allows logistics coordinators to issue financial disbursement vouchers for driver operational trips.
 
-Upon submitting a newly created Bon Sangu form, the application architecture is designed to complete a `POST` transaction, retrieve the newly generated primary key (`id`), and automatically redirect the user to its specific detail page (`/bon_sangu/view/{id}`).
+Upon submitting a new voucher form, the application is expected to complete a `POST` transaction, retrieve the new record identifier, and redirect to its detail page. The fictional route `/vouchers/view/DEMO-001` illustrates this relationship without reproducing an internal route.
 
 The expected behavior was that the user would always land on the exact detail view of the newly generated voucher record.
 
 ---
+
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Post-fix routing and record-identity retesting |
+| Evidence basis | Existing QA observations; the evidence summary below reconstructs them with generalized conditions |
+| Result scope | Two routing checks were reported passed after a patch. This confirms the recorded scenarios, not every route or authorization boundary. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
 
 ## Observation
 
@@ -22,6 +32,17 @@ Following the developer patch, QA executed targeted verification:
 Both scenarios verified **PASSED**, confirming that post-save routing and entity ID binding were fully resolved.
 
 ---
+
+## Portfolio Evidence
+
+**Reconstruction notice:** These checkpoints summarize observations already described in this note. Conditions and example references are generalized or fictional. No original screenshot, internal log, or new test run is represented.
+
+| Evidence ID | Reconstructed checkpoint | Expected behavior | Observation recorded in the source note |
+| --- | --- | --- | --- |
+| ROUTE-E01 | Create fictional voucher DEMO-001 and follow the redirect | The detail view identifies DEMO-001 | The initial finding opened another record; the recorded post-fix check matched the newly created record. |
+| ROUTE-E02 | Open existing records in the states covered by the test | The route resolves the intended record without mixing identities | The recorded post-fix check reported correct record identity. |
+
+[Recorded routing checks](test-cases/bon-sangu-redirect-routing-test-cases.md). Fictional DEMO-001 illustrates identity comparison, not an actual executed record.
 
 ## Why This Matters
 

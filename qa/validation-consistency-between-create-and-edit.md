@@ -8,6 +8,16 @@
 
 A feature used two related date fields. The Create workflow accepted identical values, but the Edit workflow rejected the same record because the dates matched.
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Create-versus-edit validation comparison |
+| Evidence basis | Recorded workflow discrepancy illustrated with fictional date inputs |
+| Result scope | Create accepted values that Edit rejected; the intended rule, implementation cause, and successful retest remain unverified. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Finding and Evidence
 
 **Expected behavior:** The same business rule should produce a consistent result across Create and Edit unless an approved requirement defines different behavior.
@@ -21,6 +31,8 @@ A feature used two related date fields. The Create workflow accepted identical v
 3. Open the same record in Edit.
 4. Submit the unchanged values.
 5. Compare the Create and Edit results and validation messages.
+
+The example dates are fictional business inputs, not execution dates.
 
 > **Portfolio evidence notice:** This is a sanitized reconstruction. Field names, dates, record identifiers, and system details are fictional. No original internal-system screenshot is published.
 

@@ -8,6 +8,16 @@ The expected workflow was that referenced transaction data would be populated co
 
 ---
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Referenced-data and privileged-action checking |
+| Evidence basis | Existing QA observations; the evidence summary below reconstructs them with generalized conditions |
+| Result scope | Reported findings only. This reconstruction adds no new execution result, confirmed root cause, or successful retest. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Observation
 
 Two issues were identified during testing:
@@ -18,6 +28,15 @@ Two issues were identified during testing:
 These findings indicated potential issues with cross-module data integration and permission validation.
 
 ---
+
+## Portfolio Evidence
+
+**Reconstruction notice:** These checkpoints summarize observations already described in this note. Conditions and example references are generalized or fictional. No original screenshot, internal log, or new test run is represented.
+
+| Evidence ID | Reconstructed checkpoint | Expected behavior | Observation recorded in the source note |
+| --- | --- | --- | --- |
+| REFROLE-E01 | Create a transaction using a referenced document | The required quantity is populated | The quantity was missing and the workflow could not continue. |
+| REFROLE-E02 | Attempt the administrative action with the expected privileged role | Access follows the approved role permissions | The action returned an authorization error despite the reported sufficient privileges. |
 
 ## Why This Matters
 

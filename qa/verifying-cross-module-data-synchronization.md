@@ -8,6 +8,16 @@
 
 A transaction was created successfully in its source module. The business workflow required the same record to become available in another module that depended on the transaction.
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Source-write and dependent-module visibility comparison |
+| Evidence basis | Recorded cross-module finding illustrated with a fictional transaction reference |
+| Result scope | Source creation succeeded but dependent visibility failed; implementation cause and successful retest remain unconfirmed. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Finding and Evidence
 
 **Expected behavior:** A successfully stored transaction should appear in every authorized dependent module according to the approved workflow and synchronization timing.

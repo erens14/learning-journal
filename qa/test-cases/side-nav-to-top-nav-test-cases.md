@@ -2,9 +2,19 @@
 
 **Category:** Quality Assurance, UI, Authorization, and Regression
 **Target Scope:** Web navigation refactor from a side navigation bar to a top navigation bar
-**Environment:** Local
 
 > Documented scenarios, references, and data in this repository must be sanitized for portfolio use. Do not include confidential identifiers, credentials, customer data, or production URLs.
+
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Recorded QA checking and result documentation |
+| Environment | Local |
+| Evidence basis | Sanitized manual-check notes and explicit tester confirmation for all 12 scenarios |
+| Result scope | 12 PASS, 0 FAIL, 0 NOT RUN as recorded; no new execution is claimed by this documentation revision |
+
+Original application screenshots and confidential artifacts are excluded. Written observations and labeled reconstructions follow the [NDA-safe evidence standard](../../portfolio-standards.md#nda-safe-portfolio-evidence).
 
 ## Preconditions
 
@@ -41,7 +51,7 @@
 
 - Tester confirmed that all 12 scenarios passed manual checking.
 - Internal screenshots, real routes, account names, and system identifiers are intentionally excluded from this public portfolio document.
-- Record execution date, tester, browser, viewport, input method, and result context.
+- Include browser, viewport, input method, and result context when captured and safe to disclose. Omit unknown metadata.
 - Confirm the approved menu hierarchy, supported browsers, and responsive breakpoints before execution.
 - Use fictional local data and sanitized evidence only.
 - For failed cases, record observable behavior and a sanitized defect reference.

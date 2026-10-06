@@ -2,19 +2,38 @@
 
 ## Scenario
 
-An Expedition Management module was updated to support soft-deletion / inactivation functionality ("Delete Expedition" workflow). Under this rule, when an expedition entity or its associated delivery mapping (`expedition_shipping_use_do`) is deleted, its status is updated to inactive (`status = 0`) rather than being hard-deleted from the database.
+A shipment-management module was updated to support soft deletion. When a shipment or its associated mapping (represented by the fictional table `shipment_links`) is deleted, its status changes to inactive (`status = 0`) rather than being physically removed from the database.
 
 The expected behavior was that any soft-deleted or inactive expedition entries would be automatically filtered out across all downstream reporting views, specifically within the **Franco Column** of the **Delivery Order (DO) Report** module.
 
 ---
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Soft-delete propagation and downstream-report checking |
+| Evidence basis | Existing QA observations; the evidence summary below reconstructs them with generalized conditions |
+| Result scope | Reported findings only. This reconstruction adds no new execution result, confirmed root cause, or successful retest. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Observation
 
-During retesting and data maintenance execution (#1688), soft-deleted expedition records (`expedition_shipping_use_do.status = 0`) continued to appear on the UI layer of the DO Report under the Franco column.
+During retesting and data maintenance, inactive shipment relationships continued to appear in the related report. Internal ticket references are omitted; schema names in this note are generalized examples.
 
 Further technical investigation revealed that while the deletion workflow successfully set `status = 0` in the database, the reporting engine's SQL query lacked an explicit status clause (`WHERE status > 0`) on the joined relational table. As a result, inactive records bled into active operational views.
 
 ---
+
+## Portfolio Evidence
+
+**Reconstruction notice:** These checkpoints summarize observations already described in this note. Conditions and example references are generalized or fictional. No original screenshot, internal log, or new test run is represented.
+
+| Evidence ID | Reconstructed checkpoint | Expected behavior | Observation recorded in the source note |
+| --- | --- | --- | --- |
+| SOFT-E01 | Mark a fictional shipment relationship inactive | Its stored status reflects inactivation | The note records that the relationship became inactive. |
+| SOFT-E02 | Reload the report containing that relationship | Inactive relationships are excluded from the active report | The inactive entry remained visible in the report. |
 
 ## Why This Matters
 

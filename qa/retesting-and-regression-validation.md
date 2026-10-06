@@ -8,6 +8,16 @@ The objective was not only to confirm the fixes but also to ensure that related 
 
 ---
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Retesting reported corrections and adjacent workflows |
+| Evidence basis | Existing QA observations; the evidence summary below reconstructs them with generalized conditions |
+| Result scope | Mixed outcomes were reported: some corrections worked and other issues persisted. No case-level totals or complete regression pass are recorded. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Observation
 
 During retesting, some issues were resolved successfully, while others remained partially fixed or revealed new inconsistencies.
@@ -22,6 +32,16 @@ Several patterns were observed:
 These observations demonstrated that verifying a fix requires more than confirming that a feature is accessible.
 
 ---
+
+## Portfolio Evidence
+
+**Reconstruction notice:** These checkpoints summarize observations already described in this note. Conditions and example references are generalized or fictional. No original screenshot, internal log, or new test run is represented.
+
+| Evidence ID | Reconstructed checkpoint | Expected behavior | Observation recorded in the source note |
+| --- | --- | --- | --- |
+| RETEST-E01 | Exercise a feature after its reported correction | The original expected behavior is restored | Some features were available but still failed to produce the expected result. |
+| RETEST-E02 | Check failure feedback and restricted controls | Failures are visible and unavailable actions remain restricted | Some operations failed silently and some controls remained accessible unexpectedly. |
+| RETEST-E03 | Compare report criteria with returned records after the change | Results match the selected criteria | Some reports still returned mismatched records. |
 
 ## Why This Matters
 

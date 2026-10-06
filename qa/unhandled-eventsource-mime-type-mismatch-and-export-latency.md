@@ -1,81 +1,83 @@
-# QA Lesson Learned - EventSource SSE MIME Type Mismatch & Export Performance Bottlenecks
+# Case Study — Investigating a Failed Report Stream and Slow Export
 
-## Scenario
+**Area:** Browser Diagnostics, Authentication Boundaries, and Availability
 
-The **Report Vehicle Order** module was designed to process large historical datasets (including date range filters exceeding 1 year) using two data retrieval streams:
+**Scope:** A report using Server-Sent Events (SSE) and a separate spreadsheet export
 
-1. **Real-time Web UI Display:** Fetching and rendering report data using Server-Sent Events (`EventSource` / SSE) for continuous data streaming.
-2. **Data Export:** Generating `.xlsx` spreadsheet files directly from backend queries.
+## At a Glance
 
-The expected behavior was that the Web UI would stream data smoothly via text/event-stream headers, and the Excel export would execute within an acceptable performance response window (< 10 seconds).
+| Item | Summary |
+| --- | --- |
+| Problem | A report remained blank while an export for a long date range took approximately 30 seconds. |
+| My contribution | Inspected browser Network and Console observations, compared the UI and export behavior, and documented the findings. |
+| Approach | Separate the stream failure from export latency, then distinguish observations from possible causes. |
+| Recorded outcome | Findings documented; no confirmed authentication root cause, implemented fix, or successful retest is recorded. |
+| Security relevance | Authentication-boundary investigation, availability assessment, and careful evidence reporting. |
+| Evidence | Sanitized observations below; original internal responses and screenshots are not published. |
 
----
+## Context
 
-## Observation
+The report used an SSE connection for its web display and a separate path for spreadsheet exports. The recorded test used a date range exceeding one year. The original note described an export target below 10 seconds, but did not include an approved SLA, dataset size, or benchmark method. Treat that target as unverified context.
 
-During testing with a data filter interval exceeding 1 year, two distinct technical issues were identified across rendering and performance layers:
+## Execution Context
 
-1. **EventSource Authentication & Header Handling Failure (Web UI):**
-   The Web UI displayed a blank/empty report. Inspection of the browser's Network tab revealed a JSON error response (`Unauthorized Access`), while the Console logged:
-   `EventSource's response has a MIME type ("application/json") that is not "text/event-stream". Aborting the connection.`
-   The SSE handler failed to pass or maintain authentication tokens, causing the backend to throw a 401/403 JSON exception instead of an event stream response.
+| Field | Value |
+| --- | --- |
+| Activity | Browser diagnostics and report/export comparison |
+| Evidence basis | Recorded Network, Console, and export observations summarized without original captures |
+| Result scope | Stream rejection and approximate export latency were recorded; root cause, correction, and successful retest remain unconfirmed. |
 
-2. **Excel Export Latency (Performance Bottleneck):**
-   The Excel report generated successfully and matched the applied filters accurately. However, execution latency reached **~30 seconds**, blocking the browser connection thread during processing.
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
 
----
+## Finding and Evidence
 
-## Why This Matters
+> **Portfolio evidence notice:** This is a sanitized account of previously documented QA observations, not a newly executed security lab. Module details are generalized; no credentials, production URLs, or original internal screenshots are included.
 
-### User Impact
+| Evidence ID | Recorded observation | Evidence boundary |
+| --- | --- | --- |
+| SSE-E01 | The web report remained blank. Browser Network inspection showed a JSON response indicating unauthorized access. | The exact HTTP status and full request context were not retained in the public note. |
+| SSE-E02 | The browser rejected an `application/json` response where an event stream was expected. | Establishes a response-format mismatch for the stream; it does not establish why authentication or authorization failed. |
+| SSE-E03 | The spreadsheet export completed and reportedly matched the selected filters after approximately 30 seconds. | A reported timing observation; no repeated benchmark, resource profile, or row-count evidence is available. |
 
-* Users see a blank, non-responsive screen on the web UI with no user-facing error notifications explaining token or stream connection failures.
-* Users face noticeable UI lag and extended waiting times (~30s) when exporting large historical reports, creating the perception that the application has frozen.
+The recorded browser diagnostic was:
 
-### System Impact
+```text
+EventSource's response has a MIME type ("application/json") that is not "text/event-stream". Aborting the connection.
+```
 
-* Unhandled EventSource connection aborts trigger repeated reconnect loops, swelling client-server connection pools.
-* Synchronous heavy query execution for large Excel exports hogs memory allocations on active web server worker threads.
+**Suspected causes:** Missing or expired credentials, an authorization decision, or incorrect routing/middleware could explain the stream response. Query execution, file generation, or transfer time could contribute to export latency. None is confirmed by the published evidence.
 
-### Data Impact
+**Evidence limits:** The available observations do not establish failed token propagation, browser main-thread blocking, repeated reconnect loops, worker exhaustion, or a database indexing defect.
 
-* Users might repeatedly click the export button during the 30-second delay, triggering duplicate memory-intensive database queries.
+## Impact
 
-### Business Impact
+The blank report prevented users from viewing results. The export delay increased waiting time. Repeated export submissions could add load, but duplicate requests and resource saturation were not measured.
 
-* Decreased operational efficiency for logistics and finance teams requiring fast access to historical vehicle order metrics.
+## Testing and Outcome
 
----
+**Evidence type:** Sanitized recorded QA observations, summarized without original application captures.
 
-## QA Learning
+**Checks documented:** Report display, browser Network and Console inspection, and export completion against the selected filters.
 
-Testing streaming interfaces and heavy reporting modules requires validating network protocol headers, authentication persistence, error fallback states, and strict performance response SLAs.
+**Outcome:** Open investigation in the public record. No implementation correction or successful retest is documented. This is not evidence of an intrusion or a confirmed exploitable vulnerability.
 
-### Validation Points
+## Proposed Verification
 
-* **Protocol & MIME Type Compliance:** Ensure SSE endpoints consistently return `Content-Type: text/event-stream` even when handling authorization checks or exceptions.
-* **Authentication Propagation:** Confirm that bearer tokens or session cookies are correctly bound to EventSource or WebSocket handshake connections.
-* **UI Error State Handling:** Verify that stream connection aborts immediately render human-readable toast notifications or empty state placeholders instead of a blank UI.
-* **Performance Benchmark Testing:** Measure response time SLAs on large dataset queries (e.g., records spanning > 1 year).
+1. In an authorized test environment, record the response status, content type, session state, and matching server-side diagnostic evidence without publishing credentials.
+2. Compare valid, expired, and unauthorized sessions. Confirm that rejected requests disclose no protected report data.
+3. For an accepted stream, verify HTTP 200 and `text/event-stream`. Preserve appropriate authentication and authorization failures; do not relabel a rejected JSON response as an event stream.
+4. Verify a visible client error state and recovery through the application's established session flow. Native `EventSource.onerror` does not provide a response object with HTTP status or headers; inspect those through appropriate diagnostics.
+5. Repeat export measurements using a documented dataset size and environment. Separate server processing from download time before selecting an optimization.
 
-### Edge Cases
+These are planned checks, not completed results. Background exports or query changes require profiling evidence and an agreed performance target.
 
-* Expired session tokens during an active SSE connection stream.
-* Concurrent users triggering simultaneous 30-second Excel exports for multi-year data ranges.
-* Interrupted connection streams mid-transfer during large payload rendering.
+## Lesson Learned
 
----
+A browser symptom narrows an investigation; it does not prove a root cause. Separate access-control decisions, stream handling, and performance measurements before proposing a fix.
 
-## UX / System Consideration
+## Technical References
 
-* **Stream Error Catching:** Update the frontend SSE error listener to catch `401 Unauthorized` or non-`text/event-stream` headers and trigger a automatic token refresh or redirect to login.
-* **Asynchronous Chunking / Background Export:**
-  * Convert long-running synchronous Excel exports (~30s) into asynchronous background queue jobs (e.g., Redis/RabbitMQ worker).
-  * Implement file chunking or send an email/in-app notification once the large file is ready for download.
-* **DB Query & Indexing Optimization:** Optimize the underlying report query with proper composite index coverage on date range fields to reduce execution latency below 5 seconds.
+- [WHATWG HTML Standard: Server-sent events](https://html.spec.whatwg.org/multipage/server-sent-events.html): response requirements, connection failures, and error-event behavior.
+- [MDN: Using server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events): stream format and client error handling.
 
----
-
-## Key Takeaway
-
-A successful data export is incomplete if execution latency degrades user experience, and streaming data layers must handle authentication failures gracefully. Quality Assurance must evaluate network protocol headers and performance response times alongside functional correctness.
+These references support protocol guidance, not the historical application observations.

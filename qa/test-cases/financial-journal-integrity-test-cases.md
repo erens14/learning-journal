@@ -6,10 +6,31 @@
 > **Disclaimer & Data Sanitization Notice**  
 > Documented test scenarios, ticket references, customer details, and financial values within this repository have been sanitized and generalized for educational and portfolio purposes. Confidential company identifiers and ticket numbers have been replaced.
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Recorded QA checking and result documentation |
+| Evidence basis | Sanitized recorded QA observations; original internal evidence is not published |
+| Result scope | Mixed initial and retest records; use Status History below instead of treating the matrix as one release run |
+
+Original application screenshots and confidential artifacts are excluded. Written observations and labeled reconstructions follow the [NDA-safe evidence standard](../../portfolio-standards.md#nda-safe-portfolio-evidence).
+
 ## Requirement Overview
 
 * **Feature Goal:** Ensure all automated accounting journal entries (Receivables, Payments, and Credit Notes) maintain strict double-entry balance (Total Debit = Total Credit) and prevent unbalance journal entries in Trial Balance reports.
 * **Integrity Constraint:** Credit Note (CN) transactions must dynamically auto-generate matching Debit entry lines; PPh 23 tax withholding must synchronize accurately across views; and multi-tranche partial payments must handle rounding adjustments to guarantee exact zero-balance settlement (Rp 0.00).
+
+## Status History
+
+This matrix combines initial findings with a later recorded retest. The sequence below follows the original case descriptions; no execution timestamps are inferred.
+
+| Test reference | Recorded phase | Recorded result | Interpretation |
+| --- | --- | --- | --- |
+| `TC-FINCN-001`, `TC-FINCN-002` | Functional checks; timing relative to the fix is not recorded | PASS | Balanced posting and Trial Balance checks passed within their documented scope. |
+| `TC-FINCN-003` | Initial PPh synchronization finding | FAIL | Historical amount mismatch; retain this failure as part of the defect record. |
+| `TC-FINCN-004` | Post-fix PPh synchronization retest | PASS | The related PPh synchronization scenario passed re-verification. This does not close the separate settlement-rounding findings. |
+| `TC-FINCN-005`, `TC-FINCN-006` | Settlement-rounding findings | FAIL | No successful retest is recorded. Current application behavior is not established by this historical matrix. |
 
 ## Test Execution Matrix
 

@@ -2,9 +2,19 @@
 
 **Category:** Quality Assurance  
 **Target Scope:** Back Office → SPS → Detail; unit-price and remaining-payment display  
-**Environment:** Local
 
 > Documented scenarios, references, and data in this repository must be sanitized for portfolio use. Do not include confidential identifiers, credentials, customer data, or production URLs.
+
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Test design; execution is not recorded |
+| Environment | Planned: Local; execution not recorded |
+| Evidence basis | Test design; no execution results recorded |
+| Result scope | 4 NOT RUN; expected results are requirements, not observed outcomes |
+
+Original application screenshots and confidential artifacts are excluded. Written observations and labeled reconstructions follow the [NDA-safe evidence standard](../../portfolio-standards.md#nda-safe-portfolio-evidence).
 
 ## Preconditions
 
@@ -28,5 +38,5 @@
 
 ## Execution Notes
 
-- Record the execution date, tester, and result context when the matrix is run.
+- Record the tested condition, observed result, and confirmation scope when the matrix is run; omit unknown metadata.
 - For failed cases, include the observed behavior and a sanitized defect or ticket reference.

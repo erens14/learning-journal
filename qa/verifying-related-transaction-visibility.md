@@ -14,6 +14,16 @@ The feature being tested was the visibility and traceability of transactions acr
 
 ---
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Payment-to-overpayment visibility checking |
+| Evidence basis | Existing QA observations; the evidence summary below reconstructs them with generalized conditions |
+| Result scope | Reported findings only. This reconstruction adds no new execution result, confirmed root cause, or successful retest. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Observation
 
 During testing, the payment transaction was successfully processed and created an overpayment condition.
@@ -28,6 +38,15 @@ This created a disconnect between:
 The system appeared to process the transaction successfully, but the resulting record was not visible where users would expect to find it.
 
 ---
+
+## Portfolio Evidence
+
+**Reconstruction notice:** These checkpoints summarize observations already described in this note. Conditions and example references are generalized or fictional. No original screenshot, internal log, or new test run is represented.
+
+| Evidence ID | Reconstructed checkpoint | Expected behavior | Observation recorded in the source note |
+| --- | --- | --- | --- |
+| VISIBLE-E01 | Process a payment that exceeds the amount due | The payment completes according to the workflow | The payment was processed with an overpayment condition. |
+| VISIBLE-E02 | Find the corresponding credit in the overpayment view | The related credit is visible and traceable | The corresponding record did not appear in that view. |
 
 ## Why This Matters
 

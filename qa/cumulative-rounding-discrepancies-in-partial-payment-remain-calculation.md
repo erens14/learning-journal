@@ -12,6 +12,16 @@ $$\text{Total Remain} = \text{Gross Invoice Amount} - \sum (\text{Net Payment Re
 
 ---
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Partial-payment reconciliation and precision checking |
+| Evidence basis | Existing QA observations; the evidence summary below reconstructs them with generalized conditions |
+| Result scope | Individual payment calculations were reported correct; the aggregate balance showed a discrepancy. No successful aggregate-balance retest is recorded. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Observation
 
 During regression testing on multi-stage partial payments, QA observed a decoupling between component-level accuracy and aggregate-level balance integrity:
@@ -22,6 +32,16 @@ During regression testing on multi-stage partial payments, QA observed a decoupl
 Technical analysis indicated floating-point rounding divergence during database aggregation (`SUM()`) queries vs. backend application layer rounding implementations (`round() / floor()`).
 
 ---
+
+## Portfolio Evidence
+
+**Reconstruction notice:** These checkpoints summarize observations already described in this note. Conditions and example references are generalized or fictional. No original screenshot, internal log, or new test run is represented.
+
+| Evidence ID | Reconstructed checkpoint | Expected behavior | Observation recorded in the source note |
+| --- | --- | --- | --- |
+| ROUND-E01 | Inspect one payment and its withholding calculation | Payment and tax amounts follow the configured rule | Individual payment values and balanced entries were reported correct. |
+| ROUND-E02 | Compare the parent balance after multiple payments with the component totals | Remaining balance equals invoice value minus recorded settlement components | The parent view showed a fractional discrepancy. |
+| ROUND-E03 | Separate observed variance from implementation explanation | A confirmed cause requires calculation or query evidence | The note attributes the difference to rounding paths, but publishes no trace or query output to independently verify that cause. |
 
 ## Why This Matters
 

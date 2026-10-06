@@ -8,6 +8,16 @@ The expected workflow was that certain fields would become read-only once predef
 
 ---
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Regression checking after transaction-state changes |
+| Evidence basis | Existing QA observations; the evidence summary below reconstructs them with generalized conditions |
+| Result scope | Reported findings only. This reconstruction adds no new execution result, confirmed root cause, or successful retest. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Observation
 
 Several transaction fields remained editable even though they should have been locked according to business rules.
@@ -22,6 +32,16 @@ It was observed that:
 * Previously resolved validation behavior had regressed after subsequent system changes.
 
 ---
+
+## Portfolio Evidence
+
+**Reconstruction notice:** These checkpoints summarize observations already described in this note. Conditions and example references are generalized or fictional. No original screenshot, internal log, or new test run is represented.
+
+| Evidence ID | Reconstructed checkpoint | Expected behavior | Observation recorded in the source note |
+| --- | --- | --- | --- |
+| REGLOCK-E01 | Inspect protected fields after a critical business event | Fields governed by the completed event are locked | Some fields remained editable. |
+| REGLOCK-E02 | Attempt editing after the allowed modification window | Time-based restrictions prevent the prohibited edit | Time-based restrictions were applied inconsistently. |
+| REGLOCK-E03 | Compare edit availability with linked workflow state | Dependent records are considered before allowing changes | Some edit paths did not reflect related-module dependencies. |
 
 ## Why This Matters
 

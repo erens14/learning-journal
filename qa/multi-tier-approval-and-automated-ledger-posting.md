@@ -8,6 +8,16 @@
 
 A cash-disbursement workflow required record creation, first-level approval, restricted final approval, and automatic posting to the journal and general ledger. QA needed to verify the complete state transition rather than test each screen independently.
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Approval-state, role-restriction, and ledger checking |
+| Evidence basis | Six recorded QA cases linked below; the evidence table is a text reconstruction |
+| Result scope | All six recorded scenarios passed; additional API, concurrency, and failure-injection checks remain proposed. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Finding and Evidence
 
 **Expected behavior:** Each authorized approval should advance the document by one valid state. Final approval should create balanced accounting entries once. Unauthorized users should not complete the restricted approval.

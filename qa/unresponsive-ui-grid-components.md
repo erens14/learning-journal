@@ -12,17 +12,37 @@ The expected behavior was that clicking any interactive UI element would trigger
 
 ---
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Interaction checking on a populated data grid |
+| Evidence basis | Existing QA observations; the evidence summary below reconstructs them with generalized conditions |
+| Result scope | Reported findings only. This reconstruction adds no new execution result, confirmed root cause, or successful retest. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Observation
 
 During test execution, while the main data table successfully loaded records, all secondary UI controls became completely unresponsive (*unclickable UI*):
 
-* Clicking transaction IDs (`ID 560`, `559`, etc.) failed to open detail modals or navigate to detail views.
+* Clicking transaction links (represented here by fictional `DEMO-ROW-A` and `DEMO-ROW-B`) failed to open detail modals or navigate to detail views.
 * Action buttons (**SCAN QRCODE**, **EXCEL**) failed to trigger modal pop-ups or download scripts.
 * Interactive inputs (**BBK DATE** picker) failed to expand dropdown controls.
 
 Investigation revealed that while the DOM rendered visually, frontend event listeners failed to attach to dynamically loaded table rows, or JavaScript runtime errors caused silent failures without feedback.
 
 ---
+
+## Portfolio Evidence
+
+**Reconstruction notice:** These checkpoints summarize observations already described in this note. Conditions and example references are generalized or fictional. No original screenshot, internal log, or new test run is represented.
+
+| Evidence ID | Reconstructed checkpoint | Expected behavior | Observation recorded in the source note |
+| --- | --- | --- | --- |
+| GRID-E01 | Select fictional record DEMO-ROW-A | Its detail view or modal opens | The record link did not respond. |
+| GRID-E02 | Use the scan and export actions | The relevant scanner or download flow starts | The action controls did not trigger the expected behavior. |
+| GRID-E03 | Open the date filter | The picker expands and accepts input | The filter control remained unresponsive. |
 
 ## Why This Matters
 

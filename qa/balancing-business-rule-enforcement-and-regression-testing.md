@@ -8,6 +8,16 @@ The expected workflow was that certain fields would become read-only only when s
 
 ---
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Regression checking of conditional edit restrictions |
+| Evidence basis | Existing QA observations; the evidence summary below reconstructs them with generalized conditions |
+| Result scope | Reported findings only. This reconstruction adds no new execution result, confirmed root cause, or successful retest. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Observation
 
 The updated validation successfully prevented edits in several scenarios where restrictions were expected.
@@ -24,6 +34,16 @@ Examples included:
 These findings indicated that the validation logic was functioning, but its scope was broader than the documented requirements.
 
 ---
+
+## Portfolio Evidence
+
+**Reconstruction notice:** These checkpoints summarize observations already described in this note. Conditions and example references are generalized or fictional. No original screenshot, internal log, or new test run is represented.
+
+| Evidence ID | Reconstructed checkpoint | Expected behavior | Observation recorded in the source note |
+| --- | --- | --- | --- |
+| LOCKSCOPE-E01 | Attempt an edit before its locking condition is met | Eligible fields remain editable | Fields became locked before the prerequisite condition was met. |
+| LOCKSCOPE-E02 | Compare the permitted editing window with actual availability | Editing remains available until the documented cutoff | Time restrictions blocked edits earlier than expected. |
+| LOCKSCOPE-E03 | Compare eligible and restricted transaction states | Read-only behavior follows the transaction state | Some fields remained permanently read-only across states. |
 
 ## Why This Matters
 

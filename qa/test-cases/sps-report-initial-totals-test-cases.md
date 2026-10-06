@@ -2,9 +2,19 @@
 
 **Category:** Quality Assurance  
 **Target Scope:** Report SPS, Report SPS Detail, and Report SPS Payment initial totals  
-**Environment:** Local  
 
 > Documented scenarios, references, and data in this repository must be sanitized for portfolio use. Do not include confidential identifiers, credentials, customer data, or production URLs.
+
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Test design; execution is not recorded |
+| Environment | Planned: Local; execution not recorded |
+| Evidence basis | Test design; no execution results recorded |
+| Result scope | 5 NOT RUN; expected results are requirements, not observed outcomes |
+
+Original application screenshots and confidential artifacts are excluded. Written observations and labeled reconstructions follow the [NDA-safe evidence standard](../../portfolio-standards.md#nda-safe-portfolio-evidence).
 
 ## Preconditions
 
@@ -30,5 +40,5 @@
 
 ## Execution Notes
 
-- Record execution date, tester, browser, and test-data context.
+- Record observed results and relevant browser/test-data conditions when available; omit unknown metadata.
 - For failed cases, record observed behavior and sanitized defect reference.

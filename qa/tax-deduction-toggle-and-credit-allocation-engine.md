@@ -16,6 +16,16 @@ The feature being tested was the end-to-end multi-line settlement logic, dynamic
 
 ---
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Multi-invoice settlement and credit-allocation retesting |
+| Evidence basis | Existing QA observations; the evidence summary below reconstructs them with generalized conditions |
+| Result scope | Reported findings only. This reconstruction adds no new execution result, confirmed root cause, or successful retest. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Observation
 
 During retesting, while the multi-invoice grid layout and basic full payment flows worked as expected, several critical accounting, UI, and backend logic failures were identified:
@@ -28,6 +38,17 @@ During retesting, while the multi-invoice grid layout and basic full payment flo
 These findings revealed that multi-line payment processing lacked comprehensive integration between UI grid arrays, dynamic tax calculation hooks, and automated credit voucher creation engines.
 
 ---
+
+## Portfolio Evidence
+
+**Reconstruction notice:** These checkpoints summarize observations already described in this note. Conditions and example references are generalized or fictional. No original screenshot, internal log, or new test run is represented.
+
+| Evidence ID | Reconstructed checkpoint | Expected behavior | Observation recorded in the source note |
+| --- | --- | --- | --- |
+| ALLOC-E01 | Post a payment with withholding enabled | The required withholding journal line is present | The expected tax debit line was missing. |
+| ALLOC-E02 | Pay more than the selected invoices require | The excess has a corresponding customer credit record | The journal recorded the payment but no overpaid voucher was created. |
+| ALLOC-E03 | Apply more than one existing credit voucher | The stated multi-credit workflow accepts multiple selections | The form allowed only one credit voucher. |
+| ALLOC-E04 | Calculate withholding for a partial payment | The deduction follows the paid taxable portion under the stated rule | The note describes a need for proportional recalculation; a final retest is not recorded. |
 
 ## Why This Matters
 

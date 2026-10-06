@@ -8,6 +8,16 @@ The expected workflow was that changes to field labels, transaction states, and 
 
 ---
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Cross-view label, value, and transaction-state comparison |
+| Evidence basis | Existing QA observations; the evidence summary below reconstructs them with generalized conditions |
+| Result scope | Reported findings only. This reconstruction adds no new execution result, confirmed root cause, or successful retest. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Observation
 
 Several inconsistencies were identified during testing:
@@ -19,6 +29,15 @@ Several inconsistencies were identified during testing:
 These findings indicated that the user interface, backend data mapping, and reporting layer were not fully synchronized.
 
 ---
+
+## Portfolio Evidence
+
+**Reconstruction notice:** These checkpoints summarize observations already described in this note. Conditions and example references are generalized or fictional. No original screenshot, internal log, or new test run is represented.
+
+| Evidence ID | Reconstructed checkpoint | Expected behavior | Observation recorded in the source note |
+| --- | --- | --- | --- |
+| LABEL-E01 | Compare a changed label with the meaning of its displayed value | Label and value describe the same business concept | The label changed while the value still represented the earlier data source. |
+| LABEL-E02 | Compare a transaction's changed state with its summary view | The corresponding summary reflects the required state | The transaction was not represented correctly in the report or summary. |
 
 ## Why This Matters
 

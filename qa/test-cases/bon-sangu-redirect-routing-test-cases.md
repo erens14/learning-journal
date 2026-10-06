@@ -6,6 +6,16 @@
 > **Disclaimer & Data Sanitization Notice**  
 > Documented test scenarios, ticket references, and database relations within this repository have been sanitized and generalized for educational and portfolio purposes. Confidential company identifiers and ticket numbers have been replaced.
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Recorded QA checking and result documentation |
+| Evidence basis | Sanitized recorded QA observations; original internal evidence is not published |
+| Result scope | 2 PASS, 0 FAIL, 0 NOT RUN as recorded; no new execution is claimed by this documentation revision |
+
+Original application screenshots and confidential artifacts are excluded. Written observations and labeled reconstructions follow the [NDA-safe evidence standard](../../portfolio-standards.md#nda-safe-portfolio-evidence).
+
 ## Requirement Overview
 
 * **Feature Goal:** Resolve the post-save redirect flaw in the Bon Sangu creation workflow so that upon saving, the system redirects specifically to the newly generated transaction's detail view.

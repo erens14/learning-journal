@@ -11,14 +11,35 @@ The financial logic dictates two critical side-effects during payment posting:
 
 ---
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Payment-side-effect and journal checking |
+| Evidence basis | Existing QA observations; the evidence summary below reconstructs them with generalized conditions |
+| Result scope | Reported findings only. This reconstruction adds no new execution result, confirmed root cause, or successful retest. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Observation
 
 During test execution on payment settlements, two separate integration bugs were identified:
 
-* **Issue 1 (PPh 23 Journal Omission):** [Dummy Data] On Invoice `FMT/002/DIV-ANG/VII/2026` (DPP: Rp 1.850.000, PPh 23: Rp 37.000), toggling `"Potong PPh = YA"` failed to generate the `(D) By Pajak PPh 23` line item in General Ledger. The system posted `(D) Bank/Kas = Rp 2.453.500` instead of the net value `Rp 2.416.500`.
+* **Issue 1 (PPh 23 Journal Omission):** In the fictional reconstruction `DEMO-INVOICE-001`, enabling withholding omitted the expected tax debit line. The bank entry did not reflect the intended net amount. This summary retains the recorded mismatch without reproducing an internal invoice number or transaction values.
 * **Issue 2 (Missing Overpaid Entity):** When processing an overpayment, the GL journal recorded the excess amount, but the application failed to instantiate a new **Overpaid Record** in the master database table.
 
 ---
+
+## Portfolio Evidence
+
+**Reconstruction notice:** These checkpoints summarize observations already described in this note. Conditions and example references are generalized or fictional. No original screenshot, internal log, or new test run is represented.
+
+| Evidence ID | Reconstructed checkpoint | Expected behavior | Observation recorded in the source note |
+| --- | --- | --- | --- |
+| TAXPOST-E01 | Post fictional invoice DEMO-INVOICE-001 with withholding enabled | The required withholding line and net bank value are represented | The note records an omitted withholding debit and an incorrect bank value. |
+| TAXPOST-E02 | Process a payment with an excess amount | An overpaid credit record accompanies the excess posting | The journal reflected the excess but no overpaid master record was created. |
+
+DEMO-INVOICE-001 is a fictional label. This summary does not claim that a separate overpayment retest covers this earlier finding.
 
 ## Why This Matters
 

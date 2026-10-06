@@ -8,6 +8,16 @@
 
 Users described operational problems encountered during daily work. The QA objective was to distinguish software defects from missing requirements, inefficient workflows, performance concerns, and enhancement requests before proposing technical changes.
 
+## Execution Context
+
+| Field | Value |
+| --- | --- |
+| Activity | Requirement clarification and workflow analysis |
+| Evidence basis | Recorded feedback categories illustrated with fictional user concerns |
+| Result scope | Concerns were classified into investigation questions and testable requirements; implementation and stakeholder approval are not claimed. |
+
+Original application screenshots and confidential development artifacts are excluded under the [NDA-safe evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence). Reconstructed examples illustrate the written record; they are not independent execution proof.
+
 ## Finding and Evidence
 
 **Expected behavior:** Each reported problem should be linked to a business objective, classified correctly, and converted into a testable requirement or investigation question.
