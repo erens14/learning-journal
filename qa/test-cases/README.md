@@ -4,7 +4,7 @@ This folder contains structured test-case matrices for feature workflows, author
 
 ## Reading the Results
 
-Each matrix includes activity, evidence basis, and result scope. PASS and FAIL describe recorded checks, not current application behavior or a new execution. Many older records have no collected execution date; dated source reports retain their supplied date, including the SPS UI report dated 13 October 2026. Unknown dates, build identifiers, and tester details are omitted. NOT RUN and design-only cases are planned coverage. PARTIAL means the broader case has unfinished variants or evidence, while BLOCKED means an execution path was unavailable.
+Each matrix includes activity, evidence basis, and result scope. PASS and FAIL describe recorded checks, not current application behavior or a new execution. Many older records have no collected execution date; dated source reports retain their supplied date, including the SPS and Sales UI reports dated 13 October 2026. Unknown dates, build identifiers, and tester details are omitted. NOT RUN and design-only cases are planned coverage. PARTIAL means the broader case has unfinished variants or evidence, while BLOCKED means an execution path was unavailable.
 
 Original application screenshots and confidential artifacts are excluded under NDA. Public evidence uses written observations, existing test IDs, and explicitly labeled reconstructions. See the [NDA-safe evidence standard](../../portfolio-standards.md#nda-safe-portfolio-evidence).
 
@@ -22,6 +22,7 @@ For mixed initial and retest results, read the document's status history or exec
 | [Overpaid deletion journal integrity](overpaid-deletion-journal-integrity-test-cases.md) | Reversal logic and financial consistency. |
 | [Receivable overpayment journal and balance synchronization](receivable-overpayment-journal-and-balance-synchronization-test-cases.md) | Bank-entry uniqueness, overpaid allocation, remaining balance, and PPh consistency. |
 | [RBAC consignment integrity](rbac-consignment-integrity-test-cases.md) | Role permissions and relational data integrity. |
+| [Sales UI validation and invoice lifecycle](sales-ui-validation-and-invoice-lifecycle-test-cases.md) | Four partial source cases, two recorded failures, and unexecuted request, ledger, concurrency, and lifecycle follow-ups. |
 | [SPS Report Initial Totals](sps-report-initial-totals-test-cases.md) | Initial totals in SPS connected reports issues. |
 | [SPS UI validation and reconciliation](sps-ui-validation-and-reconciliation-test-cases.md) | 18 recorded UI passes, one blocked deletion, six unexecuted follow-ups, and preserved original-case mapping. |
 | [Side navigation to top navigation](side-nav-to-top-nav-test-cases.md) | Navigation, authorization, responsive layout, accessibility, and route regression checks. |

@@ -6,7 +6,7 @@ This folder contains sanitized QA lessons from workflow testing, regression chec
 
 Each note includes execution context and a written evidence summary. Original application screenshots and confidential development artifacts are excluded under NDA. Reconstructed tables explain the recorded findings with generalized conditions; they are not raw captures or new test executions.
 
-Many older QA records have no collected execution date. Include a date only when the source explicitly supplies it, as in the SPS UI report dated 13 October 2026; omit unknown dates, build identifiers, and tester details. Context focuses on the activity, evidence basis, and result scope. Confirmed results remain separate from proposed checks. See the [portfolio evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence).
+Many older QA records have no collected execution date. Include a date only when the source explicitly supplies it, as in the SPS and Sales UI reports dated 13 October 2026; omit unknown dates, build identifiers, and tester details. Context focuses on the activity, evidence basis, and result scope. Confirmed results remain separate from proposed checks. See the [portfolio evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence).
 
 ## Featured Case Studies
 
@@ -57,6 +57,7 @@ Every lesson appears once under its primary topic.
 | [Master-data dependency and soft-delete validation](master-data-dependency-and-soft-delete-validation.md) | Linked-record safety and lifecycle controls. |
 | [Out-of-sync status between stock issue and stockcard](out-of-sync-status-between-stock-issue-and-stockcard.md) | Cross-module inventory-state consistency. |
 | [Soft-deletion filtering in multi-entity reporting queries](soft-deletion-filtering-in-multi-entity-reporting-queries.md) | Preventing inactive records from appearing in reports. |
+| [Sales invoice duplication and deletion boundaries](sales-ui-invoice-duplication-and-deletion-boundaries.md) | Sequential invoice repetition, linked-record deletion, cross-view reconciliation, and unresolved archival rules. |
 | [Tax deduction toggle and credit allocation engine](tax-deduction-toggle-and-credit-allocation-engine.md) | Tax, allocation, and multi-invoice integrity. |
 | [Unhandled tax journaling and missing overpayment entity creation](unhandled-tax-journaling-and-overpayment-entity-creation.md) | Financial posting and missing-entity detection. |
 | [Receivable overpayment journal and balance synchronization](receivable-overpayment-journal-and-balance-synchronization.md) | Bank-entry uniqueness, overpaid classification, remaining balance, and PPh consistency. |
