@@ -6,7 +6,7 @@ This folder contains sanitized QA lessons from workflow testing, regression chec
 
 Each note includes execution context and a written evidence summary. Original application screenshots and confidential development artifacts are excluded under NDA. Reconstructed tables explain the recorded findings with generalized conditions; they are not raw captures or new test executions.
 
-Execution dates were not collected for these QA records. Context focuses on the activity, evidence basis, and result scope. Confirmed results remain separate from proposed checks. See the [portfolio evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence).
+Many older QA records have no collected execution date. Include a date only when the source explicitly supplies it, as in the SPS UI report dated 13 October 2026; omit unknown dates, build identifiers, and tester details. Context focuses on the activity, evidence basis, and result scope. Confirmed results remain separate from proposed checks. See the [portfolio evidence standard](../portfolio-standards.md#nda-safe-portfolio-evidence).
 
 ## Featured Case Studies
 
@@ -42,6 +42,7 @@ Every lesson appears once under its primary topic.
 | [Multi-tier approval and automated ledger posting](multi-tier-approval-and-automated-ledger-posting.md) | Approval states, posting rules, and workflow coverage. |
 | [Requirement gathering reveals more than bugs](requirement-gathering-reveals-more-than-bugs.md) | Turning requirement gaps into testable expectations. |
 | [Retesting and regression validation](retesting-and-regression-validation.md) | Confirming fixes without breaking surrounding behavior. |
+| [SPS UI validation and evidence boundaries](sps-ui-validation-and-evidence-boundaries.md) | Create/edit checks, controlled input retesting, cross-view reconciliation, and limits of UI-only evidence. |
 | [Validation consistency between create and edit](validation-consistency-between-create-and-edit.md) | Matching validation rules across related forms. |
 | [Verifying business rules and data locking](verifying-business-rules-and-data-locking.md) | State-based controls and prohibited changes. |
 | [Verifying feature availability beyond menu accessibility](verifying-feature-availability-beyond-menu-accessibility.md) | Verifying usable access beyond navigation visibility. |
