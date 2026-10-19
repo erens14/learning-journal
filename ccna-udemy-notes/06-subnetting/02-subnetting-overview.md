@@ -2,7 +2,7 @@
 
 ## Overview
 
-This lesson introduces **subnetting**, one of the most fundamental concepts in networking. Subnetting divides a larger network into multiple smaller logical networks, making IP address allocation more efficient and improving network organization.
+**Subnetting** divides a larger network into smaller logical networks so address allocation can match network requirements.
 
 Originally, organizations could purchase a single public network and split it into multiple subnets instead of purchasing several separate address blocks.
 

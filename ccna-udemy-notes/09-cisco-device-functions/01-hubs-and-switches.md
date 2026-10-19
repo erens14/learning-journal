@@ -29,7 +29,7 @@
 
 Both **hubs** and **switches** are networking devices used to connect end devices such as PCs, servers, and printers within a **Local Area Network (LAN)**.
 
-Although they serve a similar purpose, switches are significantly more efficient, intelligent, and secure than hubs. Today, **switches have completely replaced hubs** in modern networks.
+A hub repeats incoming signals, while a switch learns MAC addresses and uses them to make forwarding decisions.
 
 ## Hub vs Switch
 
@@ -311,10 +311,10 @@ Today, **hubs are considered obsolete** and are rarely found in production netwo
 ## My Takeaways
 
 - A **hub** is a Layer 1 device that blindly repeats signals to every connected device.
-- A **switch** is a Layer 2 device that learns MAC addresses and forwards frames intelligently.
+- A **switch** is a Layer 2 device that learns MAC addresses and uses its MAC table to forward frames.
 - Hubs operate only in **half-duplex**, while switches normally operate in **full-duplex**.
 - Hubs create **one shared collision domain**, whereas switches provide **one collision domain per port**.
 - **CSMA/CD** is only required for half-duplex Ethernet because collisions can occur.
 - Switches maintain a **MAC Address Table** to determine the correct forwarding port.
 - Unknown unicast and broadcast frames are flooded, but known unicast frames are forwarded only to the destination port.
-- Modern Ethernet networks exclusively use **switches** due to their superior performance, efficiency, and security.
+- Switches avoid sending known unicast frames to every connected host, reducing unnecessary traffic compared with hubs.

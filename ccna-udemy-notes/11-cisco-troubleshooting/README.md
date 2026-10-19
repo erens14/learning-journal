@@ -1,4 +1,4 @@
-# 11 — Cisco Troubleshooting Methodology
+# 11: Cisco Troubleshooting Methodology
 
 ## Contents
 

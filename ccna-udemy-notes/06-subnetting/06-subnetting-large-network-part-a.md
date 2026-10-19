@@ -7,35 +7,35 @@
   - [Overview](#overview)
   - [Key Concepts](#key-concepts)
     - [Subnetting a Class B Network](#subnetting-a-class-b-network)
-    - [Step 1 — Calculate Host Bits](#step-1--calculate-host-bits)
-    - [Step 2 — Calculate Usable Hosts](#step-2--calculate-usable-hosts)
-    - [Step 3 — Calculate Borrowed Bits](#step-3--calculate-borrowed-bits)
-    - [Step 4 — Calculate Number of Subnets](#step-4--calculate-number-of-subnets)
+    - [Step 1: Calculate Host Bits](#step-1-calculate-host-bits)
+    - [Step 2: Calculate Usable Hosts](#step-2-calculate-usable-hosts)
+    - [Step 3: Calculate Borrowed Bits](#step-3-calculate-borrowed-bits)
+    - [Step 4: Calculate Number of Subnets](#step-4-calculate-number-of-subnets)
   - [Finding Network Information (/29 Example)](#finding-network-information-29-example)
-    - [Step 1 — Determine Block Size](#step-1--determine-block-size)
-    - [Step 2 — Find Network Address](#step-2--find-network-address)
-    - [Step 3 — Find Broadcast Address](#step-3--find-broadcast-address)
-    - [Step 4 — Find Valid Hosts](#step-4--find-valid-hosts)
+    - [Step 1: Determine Block Size](#step-1-determine-block-size)
+    - [Step 2: Find Network Address](#step-2-find-network-address)
+    - [Step 3: Find Broadcast Address](#step-3-find-broadcast-address)
+    - [Step 4: Find Valid Hosts](#step-4-find-valid-hosts)
     - [Final Result](#final-result)
   - [Magic Number Method](#magic-number-method)
     - [Formula](#formula)
   - [Subnetting a Class A Network](#subnetting-a-class-a-network)
-    - [Step 1 — Calculate Host Bits](#step-1--calculate-host-bits-1)
-    - [Step 2 — Calculate Hosts](#step-2--calculate-hosts)
-    - [Step 3 — Calculate Borrowed Bits](#step-3--calculate-borrowed-bits-1)
-    - [Step 4 — Calculate Subnets](#step-4--calculate-subnets)
+    - [Step 1: Calculate Host Bits](#step-1-calculate-host-bits-1)
+    - [Step 2: Calculate Hosts](#step-2-calculate-hosts)
+    - [Step 3: Calculate Borrowed Bits](#step-3-calculate-borrowed-bits-1)
+    - [Step 4: Calculate Subnets](#step-4-calculate-subnets)
   - [Finding Network Information (/28 Example)](#finding-network-information-28-example)
-    - [Step 1 — Determine Block Size](#step-1--determine-block-size-1)
-    - [Step 2 — Network Address](#step-2--network-address)
-    - [Step 3 — Broadcast Address](#step-3--broadcast-address)
-    - [Step 4 — Valid Hosts](#step-4--valid-hosts)
+    - [Step 1: Determine Block Size](#step-1-determine-block-size-1)
+    - [Step 2: Network Address](#step-2-network-address)
+    - [Step 3: Broadcast Address](#step-3-broadcast-address)
+    - [Step 4: Valid Hosts](#step-4-valid-hosts)
     - [Final Result](#final-result-1)
   - [Magic Number Method (/28)](#magic-number-method-28)
   - [My Takeaways](#my-takeaways)
 
 ## Overview
 
-Subnetting does not only apply to **Class C** networks. The same subnetting principles also apply to **Class A** and **Class B** networks.
+The same subnetting principles apply to **Class A**, **Class B**, and **Class C** networks.
 
 The main difference is:
 
@@ -60,7 +60,7 @@ Subnet mask:
 /29
 ```
 
-### Step 1 — Calculate Host Bits
+### Step 1: Calculate Host Bits
 
 IPv4 contains 32 bits.
 
@@ -69,7 +69,7 @@ Host Bits = 32 − 29
           = 3
 ```
 
-### Step 2 — Calculate Usable Hosts
+### Step 2: Calculate Usable Hosts
 
 Formula:
 
@@ -85,7 +85,7 @@ Calculation:
 8 − 2 = 6 usable hosts
 ```
 
-### Step 3 — Calculate Borrowed Bits
+### Step 3: Calculate Borrowed Bits
 
 Default Class B mask:
 
@@ -99,7 +99,7 @@ Borrowed bits:
 29 − 16 = 13
 ```
 
-### Step 4 — Calculate Number of Subnets
+### Step 4: Calculate Number of Subnets
 
 ```text
 2¹³
@@ -135,7 +135,7 @@ IP Address
 135.15.10.138/29
 ```
 
-### Step 1 — Determine Block Size
+### Step 1: Determine Block Size
 
 A /29 mask means the subnet boundary is after:
 
@@ -159,7 +159,7 @@ Meaning network addresses increase by:
 ...
 ```
 
-### Step 2 — Find Network Address
+### Step 2: Find Network Address
 
 138 belongs to the block:
 
@@ -175,7 +175,7 @@ Network Address
 135.15.10.136
 ```
 
-### Step 3 — Find Broadcast Address
+### Step 3: Find Broadcast Address
 
 Next network:
 
@@ -189,7 +189,7 @@ Broadcast is one address before:
 135.15.10.143
 ```
 
-### Step 4 — Find Valid Hosts
+### Step 4: Find Valid Hosts
 
 ```text
 135.15.10.137
@@ -296,13 +296,13 @@ First convert:
 255.255.255.240 = /28
 ```
 
-### Step 1 — Calculate Host Bits
+### Step 1: Calculate Host Bits
 
 ```text
 32 − 28 = 4
 ```
 
-### Step 2 — Calculate Hosts
+### Step 2: Calculate Hosts
 
 ```text
 2⁴ = 16
@@ -310,7 +310,7 @@ First convert:
 16 − 2 = 14 usable hosts
 ```
 
-### Step 3 — Calculate Borrowed Bits
+### Step 3: Calculate Borrowed Bits
 
 Default Class A:
 
@@ -324,7 +324,7 @@ Borrowed bits:
 28 − 8 = 20
 ```
 
-### Step 4 — Calculate Subnets
+### Step 4: Calculate Subnets
 
 ```text
 2²⁰ = 1,048,576 subnets
@@ -340,7 +340,7 @@ Given:
 60.15.10.75/28
 ```
 
-### Step 1 — Determine Block Size
+### Step 1: Determine Block Size
 
 A /28 mask means subnet increments of:
 
@@ -367,13 +367,13 @@ Possible network addresses:
 64 – 79
 ```
 
-### Step 2 — Network Address
+### Step 2: Network Address
 
 ```text
 60.15.10.64
 ```
 
-### Step 3 — Broadcast Address
+### Step 3: Broadcast Address
 
 Next subnet:
 
@@ -387,7 +387,7 @@ Broadcast:
 60.15.10.79
 ```
 
-### Step 4 — Valid Hosts
+### Step 4: Valid Hosts
 
 ```text
 60.15.10.65

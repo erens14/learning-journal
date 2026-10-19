@@ -2,9 +2,7 @@
 
 ## Overview
 
-This lesson introduces the original **IPv4 Classful Addressing** model, focusing on **Class A addresses**. It explains why IPv4 addresses were divided into classes, how Class A networks allocate network and host bits, and why IPv4 eventually ran out of public addresses.
-
-The lesson also introduces the roles of **IANA**, reserved address ranges, loopback addresses, and subnetting within large enterprise networks.
+The original **IPv4 Classful Addressing** model divided addresses into classes with fixed network and host portions. These notes focus on **Class A**, address allocation, reserved ranges, and subnetting.
 
 ## Key Concepts
 

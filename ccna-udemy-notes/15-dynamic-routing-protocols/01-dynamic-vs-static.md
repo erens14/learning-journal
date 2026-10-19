@@ -2,17 +2,17 @@
 
 ## Overview
 
-Dynamic routing protocols enable routers to automatically share information about remote networks, discover the most efficient paths to destinations, and dynamically adapt to network topology changes. This system replaces the manual overhead of static routing, ensuring scalable, resilient, and automated traffic path management across computer networks.
+Dynamic routing protocols exchange network information and select paths using their routing rules. They can update routes after topology changes, reducing the number of routes an administrator must maintain manually.
 
 ## Key Concepts
 
 ### Dynamic Route Discovery
 
-Routers running a dynamic routing protocol automatically advertise their best paths to known networks to their directly connected neighbors. Neighboring routers ingest this data to map out the network structure and determine their own optimal paths to remote destinations.
+Routers exchange routing information with neighbors running the same protocol. Each router uses the received information to calculate its paths to remote networks.
 
 ### Automatic Reconvergence
 
-When the state of a network changes—such as a link failing, a down link recovering, or a new subnet being added—routers automatically broadcast update packets to alert each other. The receiving routers immediately use this information to recalculate optimal paths and update their routing tables dynamically.
+When a link fails, recovers, or a subnet is added, the routing protocol exchanges updates and recalculates paths. The update mechanism and convergence time depend on the protocol.
 
 ### Next-Hop Behavior
 
@@ -59,7 +59,7 @@ Route summarization (or aggregation) combines multiple specific subnets into a s
 
 | Feature | Dynamic Routing Protocols | Static Routing |
 | --- | --- | --- |
-| **Scalability** | High; easily scales across medium to massive networks. | Low; manageable only in very small or test environments. |
+| **Administration as the network grows** | Exchanges route information automatically. | Requires maintaining the configured routes manually. |
 | **Administrative Effort** | Low; paths are discovered automatically. | High; tedious manual entry required on every device. |
 | **Topology Adaptability** | Automatic; reconverges and finds alternative paths. | Manual; requires admin intervention to re-route during failures. |
 | **Resource Utilization** | High; consumes CPU, memory, and bandwidth for updates. | Extremely low; zero protocol overhead. |
@@ -137,8 +137,8 @@ C        10.1.0.0/24 is directly connected, FastEthernet0/0
 
 ## My Takeaways
 
-* **Functional success can hide configuration logic slips;** an interface ping can succeed perfectly, but checking the underlying routing table is vital to ensure paths are learned dynamically rather than relying on forgotten static assignments.
-* **Orchestration templates minimize deployment errors;** writing repetitive CLI blocks in a text editor before deployment cuts out manual syntax slips and standardizes environmental baselines.
-* **Isolated testing prevents systemic resource fatigue;** verifying that configurations like `no auto-summary` are set properly helps prevent unexpected route behavior and keeps processing loads isolated when distant subnets change.
-* **Real-time verification requires strict control;** utilizing live debugging streams gives immediate visibility into data payloads, but we must follow proper cleanup routines (`undebug all`) to maintain target system stability.
-* **Data pipelines rely on next-hop accuracy;** whether validating an automated data table relationship or tracking an IP routing entry, mapping the immediate neighbor relationship is essential for verifying end-to-end flow integrity.
+* A successful ping does not show how the route was learned. Check the routing table for leftover static routes.
+* Prepare repeated CLI blocks in a text editor, then check the device prompt and command feedback when applying them.
+* Verify `no auto-summary` where the lab requires individual subnet routes.
+* Stop debugging with `undebug all` after collecting output.
+* Inspect next-hop addresses when tracing the forwarding path.

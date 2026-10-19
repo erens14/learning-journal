@@ -2,9 +2,9 @@
 
 ## Overview
 
-Equal Cost Multi Path (ECMP) allows a router to install multiple best paths to same destination when those paths have equal metric. Router load balances outbound traffic across installed next hops, improving path use and resilience without choosing a single equal-cost route.
+Equal Cost Multi Path (ECMP) lets a router install multiple equally preferred paths to the same destination prefix. It can distribute outbound traffic across those installed next hops.
 
-Common CCNA IGPs—RIP, OSPF, IS-IS, and EIGRP—support ECMP by default. Static routes can also provide ECMP when identical destination prefixes use different next hops.
+Common CCNA IGPs; RIP, OSPF, IS-IS, and EIGRP; support ECMP by default. Static routes can also provide ECMP when identical destination prefixes use different next hops.
 
 ---
 
@@ -12,15 +12,15 @@ Common CCNA IGPs—RIP, OSPF, IS-IS, and EIGRP—support ECMP by default. Static
 
 ### Equal-Cost Routes
 
-Paths must reach same prefix and have same best metric within routing protocol. Router can then install multiple next hops, subject to platform and protocol maximum-path settings.
+Paths must reach the same prefix and tie at the best metric within the routing protocol. The number installed depends on platform and protocol maximum-path settings.
 
 ### Per-Flow Load Balancing
 
-Router normally selects one ECMP path for a traffic flow using a hash. Packets from same flow stay on selected path; different flows can use different paths.
+The router normally hashes a flow to one ECMP path. Packets in that flow stay on the selected path; other flows can use different paths.
 
 ### Packet Ordering
 
-Keeping one flow on one path reduces risk of out-of-order delivery. Different paths can have different latency, so sending packets from same flow over alternating links could disrupt applications or transport performance.
+Keeping a flow on one path reduces reordering caused by different path delays. Alternating its packets between paths can affect application or transport performance.
 
 ### Unequal-Cost Load Balancing
 
@@ -146,8 +146,7 @@ If R5 links remain 10 Mbps while top links are 100 Mbps, RIP still treats paths 
 
 ## My Takeaways
 
-* **ECMP installs multiple equally best paths:** It uses available network capacity without sacrificing route preference.
-* **Metrics decide ECMP eligibility:** Same destination alone is insufficient; paths must tie at best metric.
-* **Flow consistency protects applications:** Same traffic flow stays on one path, avoiding reordering from different path delays.
-* **Protocol metric changes outcome:** RIP sees equal hops, while OSPF evaluates cost based on bandwidth by default.
-* **Route output proves ECMP:** Multiple `via` entries for one prefix confirm multiple paths are installed.
+* ECMP installs multiple paths tied at the best metric for the same prefix.
+* Keeping each flow on one path reduces reordering from different path delays.
+* RIP compares hop count, while OSPF uses bandwidth-derived cost by default, so their equal-cost paths can differ.
+* Multiple `via` entries for one prefix show that multiple paths are installed; they do not measure the traffic split.

@@ -1,4 +1,4 @@
-# 16 — Connectivity Troubleshooting
+# 16: Connectivity Troubleshooting
 
 ## Contents
 

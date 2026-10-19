@@ -1,8 +1,8 @@
-# CCNA Self Notes — Cisco System Configuration Dialog (Setup Wizard)
+# CCNA Self Notes: Cisco System Configuration Dialog (Setup Wizard)
 
 ## Overview
 
-The Cisco System Configuration Dialog, commonly known as the **Setup Wizard**, is an interactive, text-based CLI utility designed to guide an administrator through the initial baseline configuration of a brand-new or factory-reset Cisco router or switch. It triggers automatically upon booting a device with an empty Non-Volatile RAM (NVRAM) configuration file or can be invoked manually from the privileged EXEC prompt. While practically all enterprise network engineers bypass this automated script in production environments in favor of manual configurations or deployment templates, understanding its sequence, logic, and functional defaults is highly critical for the CCNA certification blueprint.
+The Cisco System Configuration Dialog (**Setup Wizard**) asks questions to create an initial configuration. The lesson shows it starting without a saved configuration and being launched manually from privileged EXEC mode.
 
 ## Key Concepts
 
@@ -20,7 +20,7 @@ The wizard forces the configuration of administrative access keys:
 
 ### SVI Management Constraints on Switches
 
-When run on a Layer 2 switch, the wizard assigns the management IP footprint onto a logical virtual boundary interface (**VLAN 1 SVI**) rather than a physical interface slot.
+On the lab's Layer 2 switch, the wizard assigns the management IP to the **VLAN 1 SVI** rather than a physical switchport.
 
 ## How It Works
 
@@ -68,7 +68,7 @@ When run on a Layer 2 switch, the wizard assigns the management IP footprint ont
 
 | Metric / Parameter | Setup Wizard Configuration (`setup`) | Manual CLI Configuration (`config t`) |
 | --- | --- | --- |
-| **Interface Execution** | Structured, rigid step-by-step prompt loop. | Highly flexible freeform text inputs. |
+| **Interface** | Step-by-step prompts. | Commands entered directly. |
 | **Real-World Preference** | Uniformly avoided by production network deployment groups. | Universally preferred choice for enterprise engineering. |
 | **Error Resiliency** | Requires restarting the loop if errors are summarized at the end. | Immediate correction via typing the negative `no` prefix form of commands. |
 | **Feature Accessibility** | Restricted to basic naming, passwords, and a single management IP. | Grants access to advanced security, routing protocols, and VLAN segment mappings. |
@@ -88,7 +88,7 @@ Would you like to enter the initial configuration dialog? [yes/no]: yes
 
 #### 2. Manual Remediation Required After Switch Setup Wizard Ends
 
-Because the Layer 2 switch wizard provides no option to configure a default gateway path, the routing exit point must be added via standard configuration terminal sub-modes:
+The switch wizard shown here omits the default gateway. Add it in global configuration mode:
 
 ```text
 Switch# configure terminal
@@ -144,9 +144,9 @@ Building configuration...
 
 ## Important Notes
 
-- **Exam Relevance vs. Production Value:** Although practically zero production deployments use the Setup Wizard in enterprise spaces, CCNA testing paths evaluate knowledge on how options map out inside the questionnaire framework.
-- **The SVI Gateway Omission:** The setup script on Layer 2 switches enables full IP parameter configuration on the internal SVI interface, but leaves out a prompt for the critical `ip default-gateway` parameter. Consequently, the switch remains isolated to its local subnet until an administrator enters global configuration mode to apply it manually.
-- **Bypassing the Loop:** At any initial boot prompt message tracking the dialog window, entering `no` safely exits the setup sequence, placing the admin immediately onto the standard user EXEC CLI mode prompt (`Router>`).
+- These notes cover the wizard's prompts and defaults; manual configuration is an alternative.
+- The switch wizard shown here configures the SVI but omits `ip default-gateway`. Add the gateway separately for management traffic to other subnets.
+- Answer `no` at the initial setup question to continue to the standard user EXEC prompt (`Router>`).
 
 ## My Takeaways
 
@@ -154,4 +154,4 @@ Building configuration...
 - Pressing the Enter key during the questionnaire automatically accepts whichever parameter value is presented inside the trailing brackets `[ ]`.
 - The script forces administrators to define an Enable Secret (encrypted MD5/SHA) and an Enable Password (plaintext legacy) to establish standard secure device baselines.
 - Layer 2 switch implementations map wizard addresses onto logical Switched Virtual Interfaces (SVIs) since individual switch access ports lack direct Layer 3 attributes.
-- Finalizing the script selection requires selecting choice option `2` to securely save the generated variables into the persistent running configuration files inside NVRAM.
+- In the displayed menu, option `2` saves the generated configuration to NVRAM and exits the wizard.

@@ -92,7 +92,7 @@ Router# clear arp-cache
 
 ### Viewing the Router ARP Table Output
 
-Below is the typical layout displayed when issuing diagnostic commands on a Cisco router (`R1`) communicating across segments:
+Example ARP table on Cisco router `R1`:
 
 ```text
 Router-R1# show arp
@@ -119,6 +119,6 @@ Internet  10.10.10.2              5   000c.298c.b22b  ARPA   FastEthernet0/0
 
 * A host uses its subnet mask to calculate if a destination is remote, preventing it from performing useless direct ARP broadcasts to external networks.
 * When traffic crosses subnets, the destination MAC address is always pointed at the gateway interface handling the local segment.
-* The core mechanic of routing involves continually stripping off old Layer 2 headers and rebuilding new ones for the next physical medium link.
-* Understanding that IP addresses remain static while MAC addresses change hop-by-hop is a core prerequisite for tracing data patterns globally.
-* The command `show ip arp` on Cisco IOS provides crucial visibility into neighboring gateway nodes, tracking names, bindings, and hardware exit points.
+* A router removes the incoming Layer 2 header and builds a new frame for the next link.
+* In this routing example, IP addresses stay the same while MAC addresses change at each router.
+* Use `show ip arp` to inspect IP-to-MAC mappings and their interfaces on a Cisco router.

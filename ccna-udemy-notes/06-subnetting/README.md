@@ -1,4 +1,4 @@
-# 06 — Subnetting
+# 06: Subnetting
 
 ## Contents
 

@@ -25,7 +25,7 @@
 
 ## Overview
 
-This lesson continues the subnetting fundamentals by exploring common subnet masks used in IPv4 networks and how to calculate the number of subnets, usable hosts, network addresses, and broadcast addresses.
+These examples use common IPv4 subnet masks to calculate subnet counts, usable hosts, network addresses, and broadcast addresses.
 
 It also introduces **Variable Length Subnet Masking (VLSM)**, which allows different subnet sizes within the same network, improving IP address utilization compared to Fixed Length Subnet Masking (FLSM).
 

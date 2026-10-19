@@ -2,13 +2,13 @@
 
 ## Overview
 
-The Address Resolution Protocol (ARP) is a critical network protocol operating between Layer 2 (Data-Link) and Layer 3 (Network) of the OSI model. While application traffic and routing rely on logical IP addresses managed by administrators, data cannot be physically placed onto the wire without a physical hardware address (MAC address). ARP provides the mechanism to automatically discover and map a known destination IPv4 address to its corresponding, globally unique hardware MAC address.
+Address Resolution Protocol (ARP) maps a local IPv4 address to a MAC address. A host uses the mapping to build an Ethernet frame for a destination on its local network segment.
 
 ## Key Concepts
 
 ### Logical vs. Physical Addressing
 
-IP addresses are logical, hierarchical addresses easily configured or resolved via DNS. MAC addresses are flat, hardcoded physical identifiers on network interface cards (NICs). Because applications cannot pre-program dynamic destination MAC addresses, ARP bridges this gap dynamically.
+IP addresses identify network-layer destinations; MAC addresses identify interfaces on the local link. ARP lets the sender discover the MAC address associated with a known local IPv4 address.
 
 ### Layer 2 Broadcast (ARP Request)
 
@@ -137,8 +137,8 @@ Interface: 172.23.4.1 --- 0x2
 
 ## My Takeaways
 
-* ARP acts as the crucial translator mapping logical Layer 3 IP destinations to physical Layer 2 MAC addresses on a local network segment.
+* ARP maps local IPv4 addresses to Layer 2 MAC addresses.
 * ARP requests must use Layer 2 broadcasts because a sender has no way of predicting the physical port location or identity of a target host beforehand.
 * Switches efficiently manage replies because the response uses unicast, meaning it only passes through the port mapped to the initiating sender.
-* Caching via the local host ARP table dramatically optimizes network overhead by cutting down unnecessary broadcast storms.
-* Commands like `arp -a` (Windows) and `arp -n` (Linux) provide vital Layer 2 visibility for network engineers diagnostics during structural or physical line issues.
+* Caching IP-to-MAC mappings reduces repeated ARP broadcasts.
+* Use `arp -a` (Windows) and `arp -n` (Linux) to inspect cached mappings during troubleshooting.

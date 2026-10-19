@@ -1,4 +1,4 @@
-# 07 — Data Link Layer
+# 07: Data Link Layer
 
 ## Contents
 

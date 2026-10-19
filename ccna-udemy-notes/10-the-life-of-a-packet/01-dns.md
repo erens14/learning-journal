@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Domain Name System (DNS) is a foundational Layer 7 (Application Layer) protocol used to resolve human-readable Fully Qualified Domain Names (FQDNs), such as `www.cisco.com`, into numerical IP addresses. This resolution process is critical because network routing and packet encapsulation require Layer 3 IP addresses to successfully deliver data across a network.
+The Domain Name System (DNS) resolves Fully Qualified Domain Names (FQDNs), such as `www.cisco.com`, to IP addresses. DNS operates at Layer 7 (Application Layer); routing uses the resolved Layer 3 address.
 
 ## Key Concepts
 
@@ -38,7 +38,7 @@ When an application uses an FQDN, the system must resolve it to an IP address be
 
 ## Components / Structure
 
-DNS utilizes specific transport layer behaviors depending on the query status:
+DNS uses these transport protocols:
 
 | Component / Property | Description |
 | --- | --- |
@@ -108,13 +108,13 @@ Reply from 172.23.4.2: bytes=32 time=1ms TTL=64
 ## Important Notes
 
 * **Encapsulation Order:** During packet generation, the application data passes down to Layer 4 (e.g., specifying TCP/UDP ports) and requires successful DNS resolution before the Layer 3 IP header fields (Source/Destination IP) can be finalized.
-* **Forwarder Dependency:** Unconfigured forwarders on an internal DNS server will cause queries for external public websites to fail, even if internal resolution works perfectly.
+* **Forwarder Dependency:** In this setup, a missing forwarder can prevent external name resolution even when internal names still resolve.
 * **Caching:** Hosts and DNS servers temporarily cache resolved queries to avoid sending network traffic for the same destination repeatedly.
 
 ## My Takeaways
 
-* DNS acts as the bridge between human-friendly names (FQDNs) and network-routing configurations (IP addresses).
+* DNS maps names (FQDNs) to IP addresses.
 * By default, DNS prioritizes UDP Port 53 for speed but can switch to TCP Port 53 if reliability or larger payload constraints demand it.
 * An internal DNS environment allows local hostnames (like `EngineeringA`) to be easily mapped and managed inside a private domain infrastructure.
 * Troubleshooting DNS issues on a local workstation usually starts with verifying the configurations via `ipconfig /all` and checking connectivity with `nslookup`.
-* Network engineers must ensure proper DNS forwarders are specified on local servers to maintain seamless connectivity to outside internet resources.
+* In this forwarding setup, check the internal server's forwarders when external names fail to resolve.

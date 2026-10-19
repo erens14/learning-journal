@@ -1,4 +1,4 @@
-# 01 — Network Fundamentals
+# 01: Network Fundamentals
 
 ## Contents
 

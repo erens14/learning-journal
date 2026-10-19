@@ -1,4 +1,4 @@
-# 12 — Cisco Router And Switch Basics
+# 12: Cisco Router And Switch Basics
 
 ## Contents
 

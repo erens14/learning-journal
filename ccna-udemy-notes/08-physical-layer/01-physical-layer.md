@@ -1,4 +1,4 @@
-# OSI Layer 1 — Physical Layer
+# OSI Layer 1: Physical Layer
 
 ## Overview
 
@@ -14,7 +14,7 @@ Its primary responsibilities include:
 - Specifying signaling methods
 - Supporting physical network connectivity
 
-Layer 1 does **not** understand frames, packets, or IP addresses—it only handles **bits (0s and 1s)**.
+Layer 1 does **not** understand frames, packets, or IP addresses; it only handles **bits (0s and 1s)**.
 
 ## Responsibilities of Layer 1
 

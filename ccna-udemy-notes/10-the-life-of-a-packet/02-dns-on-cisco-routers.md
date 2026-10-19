@@ -11,7 +11,7 @@ While Cisco routers are typically managed using direct IP addresses, they can be
 
 ### DNS Client vs. Transit Router
 
-A router inherently routes packets containing DNS traffic (UDP/TCP Port 53) without special configuration. Configuring it as a DNS Client is only necessary if the router's own operating system needs to resolve names.
+A router can forward DNS traffic (UDP/TCP Port 53) without acting as a DNS client. Client configuration lets the router itself resolve names.
 
 ### `ip domain-lookup`
 
@@ -100,7 +100,7 @@ Router-R1(config)# end
 
 ### Verifying DNS Resolution on Client Router (R1)
 
-Once the configurations are complete, executing a ping from R1 triggers the DNS lookup process transparently:
+After configuration, a name-based ping from R1 triggers a DNS lookup:
 
 ```text
 Router-R1# ping R3
@@ -126,14 +126,14 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 1/3/4 ms
 
 ## Important Notes
 
-- **CLI Interruption:** If `ip domain-lookup` is enabled without a valid `ip name-server` configured, typing a typo in the CLI will cause the router to freeze for up to a minute while attempting to broadcast broadcast queries to find a DNS server.
-- **Suffix Appending:** The `ip domain-list` command allows clients to search multiple domain spaces systematically when short hostnames (like `R2`) are input.
-- **Scalability Limitations:** Utilizing a Cisco router as an authoritative DNS server is not scalable for enterprise environments because every single mapping must be manually typed out using separate `ip host` CLI lines.
+- If `ip domain-lookup` is enabled without a valid `ip name-server`, a CLI typo can trigger a lookup and delay the prompt while it times out.
+- The `ip domain-list` command supplies multiple suffixes to try when resolving short hostnames such as `R2`.
+- Maintaining a large static host database through individual `ip host` commands adds administrative work.
 
 ## My Takeaways
 
 - Configuring a router as a DNS client is completely optional and only matters if the administrator wants to reference domain terms directly within the IOS CLI prompt.
 - Enabling `ip domain-lookup` without an underlying DNS infrastructure can slow down administration due to timeout hangs on command typographical mistakes.
 - The `ip host` command serves a dual purpose: mapping static hosts locally on a single client device or populating the database when the device functions as an active DNS server.
-- Multiple domain search parameters can be sequentialized using the `ip domain-list` suffix list command to make device queries more flexible.
-- While Cisco IOS supports standalone server roles with `ip dns server`, production data networks universally rely on robust, centralized infrastructures like Windows Server or BIND on Linux.
+- `ip domain-list` defines a list of domain suffixes for name resolution.
+- Cisco IOS supports a DNS server role with `ip dns server`; the lesson also describes dedicated Windows and Linux DNS servers.

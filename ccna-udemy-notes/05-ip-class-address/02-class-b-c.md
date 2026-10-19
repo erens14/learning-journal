@@ -2,7 +2,7 @@
 
 ## Overview
 
-This lesson continues the discussion of **IPv4 Classful Addressing** by introducing **Class B** and **Class C** addresses. It explains their default subnet masks, network ranges, host capacities, and the concept of **private IP address ranges** reserved for internal networks.
+**Class B** and **Class C** use different default masks, network ranges, and host capacities. These notes compare them and list the private IPv4 ranges used for internal networks.
 
 ## Key Concepts
 

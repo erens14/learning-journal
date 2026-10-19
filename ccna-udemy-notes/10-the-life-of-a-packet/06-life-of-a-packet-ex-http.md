@@ -2,25 +2,25 @@
 
 ## Overview
 
-Once the Layer 7 DNS resolution phase concludes, the host successfully learns the destination IP address of the target system (`10.10.12.10`). This triggers the compilation and release of the primary web application data payload. Part 2 of the "Life of a Packet" examines the end-to-end traversal of an HTTP GET Request across multiple intermediary Layer 3 routers. It demonstrates how routing table entries, hop-by-hop hardware address modifications, and localized ARP discoveries combine to securely deliver data down to the application layer daemon on a remote web server.
+After DNS resolves the web server to `10.10.12.10`, Host A sends HTTP traffic through Router A and Router B. This example follows route lookups, ARP exchanges, and MAC-address changes along that path.
 
 ## Key Concepts
 
 ### Intermediary Next-Hop Routing
 
-When a packet hits a router whose local interfaces do not span the final target network space, the system cross-references its internal Routing Table. The path relies on an administrator-defined **Static Route** or a **Dynamic Routing Protocol** to establish the gateway IP address of the next physical device along the wire (the *Next-Hop Address*).
+For a remote destination, the router checks its routing table for the next hop. The route can be configured statically or learned through a dynamic routing protocol.
 
 ### Packet Buffering at the Network Boundaries
 
-Just like end hosts, routers freeze and buffer processing queues when they encounter a matching route but lack the corresponding Layer 2 destination hardware address in their local ARP cache. The router initiates an isolated ARP broadcast query on that specific interface link before rebuilding the outer frame.
+In this example, a router holds the packet while ARP resolves the next hop's MAC address. It sends the ARP request on the outgoing link, then builds the Ethernet frame using the reply.
 
 ### Steady State Flow Acceleration
 
-The intense broadcast waves (ARP queries) and switch flooding actions only occur on the *initial* packet exchange. Once all adjacent interfaces, switches, and hosts register baseline mappings into their local caches, subsequent session frames skip helper discoveries entirely and flow down optimized unicast physical paths.
+Once the ARP and MAC tables contain the required mappings, subsequent frames can be forwarded without repeating those discovery exchanges. The mappings remain usable until they change or expire.
 
 ## How It Works
 
-### Comprehensive Multi-Hop HTTP Delivery Workflow
+### Multi-Hop HTTP Delivery
 
 ```text
  [ Host A ]        [ Switch 1 ]        [ Router A ]                    [ Router B ]        [ Switch 2 ]     [ Web Server ]
@@ -61,9 +61,9 @@ The intense broadcast waves (ARP queries) and switch flooding actions only occur
 
 ## Components / Structure
 
-### Comprehensive Header Breakdown Across the Journey
+### Headers at Each Hop
 
-This table monitors how the inner and outer mapping frames structuralize throughout the topology layers during the initial and subsequent session flows:
+The table shows the source and destination addresses at each hop:
 
 | Hop Location | Outer Source MAC | Outer Destination MAC | Inner Source IP | Inner Destination IP | Transport Layer |
 | --- | --- | --- | --- | --- | --- |
@@ -84,9 +84,9 @@ This table monitors how the inner and outer mapping frames structuralize through
 
 ## Important Notes
 
-* **Universal IP Immutability:** Throughout the path across multiple subnets and transit segments, the core logical IP designations (`10.10.10.10` and `10.10.12.10`) remain completely untouched.
+* In this example, source IP `10.10.10.10` and destination IP `10.10.12.10` stay the same across the routed path.
 * **Mac Table Learning:** Intermediary switches do not execute active network polls; they populate their tables dynamically by reading the *Source MAC* field of any passing frames.
-* **Cache Sustainability:** Once the initial ARP exchanges occur, subsequent requests bypass these broadcast procedures entirely. Data passes instantly as unicast frames until the cache entries naturally expire.
+* While the required cache entries remain valid, later frames can use them without repeating ARP discovery.
 
 ## My Takeaways
 
@@ -94,4 +94,4 @@ This table monitors how the inner and outer mapping frames structuralize through
 * If a router's routing table lacks an explicit static or dynamic entry for a remote destination network, it drops the packet immediately.
 * Switches simply guide frames within a single subnet, whereas routers make advanced, long-distance path selections based on logical IP mappings.
 * ARP queries operate in isolated zones; they run independently on individual network segments and do not pass through Layer 3 boundaries.
-* Once cache infrastructure tables are fully built across a network, subsequent data transmission runs at full speed as targeted unicast streams.
+* Cached ARP and MAC mappings let later frames use unicast forwarding without repeating the initial discovery exchanges.

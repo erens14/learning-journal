@@ -2,7 +2,7 @@
 
 ## Overview
 
-Troubleshooting is a core operational skill for network engineers. Cisco recommends a structured, logical methodology to isolate and resolve network anomalies efficiently. While experienced engineers often troubleshoot organically, following a systematic blueprint ensures no stone is left unturned, particularly when managing complex, multi-hop environments. This note details the official Cisco troubleshooting stages, strategies based on the OSI model, and key verification utilities (`ping`, `traceroute`, and `telnet`).
+A troubleshooting method helps narrow a fault before changing configuration. These notes cover the stages taught in the lesson, OSI-based investigation strategies, and checks using `ping`, `traceroute`, and `telnet`.
 
 ## Key Concepts
 
@@ -16,7 +16,7 @@ A successful network exchange requires bidirectional verification. A breakdown o
 
 ### Documentation Lifecycle
 
-The final, crucial phase of troubleshooting. Logging the root cause and the specific resolution builds an organizational knowledge base that slashes recovery times for recurring incidents.
+Record the root cause, the fix, and verification results so others can refer to them when the problem recurs.
 
 ## How It Works
 
@@ -146,7 +146,7 @@ Router# telnet 10.10.12.10 80
 
 * **Bidirectional Reliance:** A `ping` failure does *not* automatically prove a packet didn't reach the target. The destination may have received the packet but failed to return it due to a missing return route.
 * **Firewall Interference:** Modern security policies frequently filter out ICMP traffic. Tools like `telnet <IP> <Port>` bypass this limitation by testing the explicit TCP application port directly.
-* **Shortcut Vectors:** If a specific problem signature has been analyzed and resolved before, engineers can skip tedious intermediate analysis steps and jump straight from gathering information to a targeted hypothesis test.
+* If the symptoms match a documented incident, test that explanation early rather than assuming the cause is identical.
 
 ## My Takeaways
 
@@ -154,4 +154,4 @@ Router# telnet 10.10.12.10 80
 * A strong understanding of the "life of a packet" makes it easy to run a *Divide and Conquer* troubleshooting strategy by starting directly at Layer 3.
 * The `ping` command checks two-way path health, making a complete return-path routing topology just as important as the outbound path.
 * `traceroute` speeds up cross-subnet isolation by pinpointing the exact router interface where traffic drops or latency spikes.
-* Maintaining accurate documentation saves hours of troubleshooting down the road, turning complex, past resolution paths into quick lookups for the whole team.
+* Document the symptoms, cause, fix, and verification for future troubleshooting.

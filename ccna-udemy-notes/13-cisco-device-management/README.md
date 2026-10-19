@@ -1,4 +1,4 @@
-# 13 — Cisco Device Management
+# 13: Cisco Device Management
 
 ## Contents
 

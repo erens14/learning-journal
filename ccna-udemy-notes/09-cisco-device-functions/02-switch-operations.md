@@ -1,27 +1,27 @@
-# OSI Layer 2 — Switch Operation & MAC Address Learning
+# OSI Layer 2: Switch Operation & MAC Address Learning
 
 ## Table of Contents
 
-- [OSI Layer 2 — Switch Operation \& MAC Address Learning](#osi-layer-2--switch-operation--mac-address-learning)
+- [OSI Layer 2: Switch Operation \& MAC Address Learning](#osi-layer-2-switch-operation--mac-address-learning)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [MAC Address Table (CAM Table)](#mac-address-table-cam-table)
   - [MAC Learning Process](#mac-learning-process)
   - [Single Switch Example](#single-switch-example)
     - [Initial State](#initial-state)
-    - [Step 1 — Host A Sends a Frame](#step-1--host-a-sends-a-frame)
-    - [Step 2 — Destination Unknown](#step-2--destination-unknown)
-    - [Step 3 — Host B Replies](#step-3--host-b-replies)
+    - [Step 1: Host A Sends a Frame](#step-1-host-a-sends-a-frame)
+    - [Step 2: Destination Unknown](#step-2-destination-unknown)
+    - [Step 3: Host B Replies](#step-3-host-b-replies)
   - [Multi-Switch Example](#multi-switch-example)
     - [Initial State](#initial-state-1)
-    - [Step 1 — Host A Sends to Host B](#step-1--host-a-sends-to-host-b)
+    - [Step 1: Host A Sends to Host B](#step-1-host-a-sends-to-host-b)
       - [Switch 1](#switch-1)
       - [Switch 2](#switch-2)
-    - [Step 2 — Host B Replies](#step-2--host-b-replies)
-    - [Step 3 — Host C Sends to Host B](#step-3--host-c-sends-to-host-b)
+    - [Step 2: Host B Replies](#step-2-host-b-replies)
+    - [Step 3: Host C Sends to Host B](#step-3-host-c-sends-to-host-b)
       - [Switch 2](#switch-2-1)
       - [Switch 1](#switch-1-1)
-    - [Step 4 — Host B Replies](#step-4--host-b-replies)
+    - [Step 4: Host B Replies](#step-4-host-b-replies)
   - [Multiple MAC Addresses on One Port](#multiple-mac-addresses-on-one-port)
   - [Unknown Unicast Forwarding](#unknown-unicast-forwarding)
   - [Known Unicast Forwarding](#known-unicast-forwarding)
@@ -96,7 +96,7 @@ MAC Address Table:
 | ------------- | ------ |
 | *(Empty)* | |
 
-### Step 1 — Host A Sends a Frame
+### Step 1: Host A Sends a Frame
 
 Source:
 
@@ -121,7 +121,7 @@ Updated MAC Table:
 | ------------- | ------ |
 | 1.1.1 | Port 1 |
 
-### Step 2 — Destination Unknown
+### Step 2: Destination Unknown
 
 The switch searches for:
 
@@ -148,7 +148,7 @@ Host B accepts the frame.
 
 Host C silently discards it because the destination MAC does not match.
 
-### Step 3 — Host B Replies
+### Step 3: Host B Replies
 
 Host B sends:
 
@@ -198,7 +198,7 @@ Both switches have empty MAC Address Tables.
 
 ---
 
-### Step 1 — Host A Sends to Host B
+### Step 1: Host A Sends to Host B
 
 Host A:
 
@@ -238,7 +238,7 @@ Floods to all local ports.
 
 Hosts C and D discard the frame.
 
-### Step 2 — Host B Replies
+### Step 2: Host B Replies
 
 Host B sends:
 
@@ -258,7 +258,7 @@ Since the destination is known, the frame is forwarded **only to Port 1**.
 
 No traffic reaches Switch 2.
 
-### Step 3 — Host C Sends to Host B
+### Step 3: Host C Sends to Host B
 
 Host C sends:
 
@@ -297,7 +297,7 @@ Learns:
 
 Since Host B is already known, Switch 1 forwards the frame only to Port 2.
 
-### Step 4 — Host B Replies
+### Step 4: Host B Replies
 
 Host B sends:
 

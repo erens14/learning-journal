@@ -2,17 +2,17 @@
 
 ## Overview
 
-Cisco Discovery Protocol (CDP) and Link Layer Discovery Protocol (LLDP) are Layer 2 neighbor discovery protocols that share operational metadata with directly connected network devices. These protocols provide administrators with critical information—such as the neighbor's hostname, local/remote interface connections, hardware platform, operating system version, and configured IP addresses. These tools are incredibly useful for dynamically mapping network topologies, validating physical cabling placement, and troubleshooting remote environments when accurate structural documentation is missing.
+Cisco Discovery Protocol (CDP) and Link Layer Discovery Protocol (LLDP) share information with directly connected devices at Layer 2. Neighbor details help identify devices and connected ports when checking cabling or troubleshooting a remote site.
 
 ## Key Concepts
 
 ### Layer 2 Operation
 
-Because both protocols function strictly at the Data-Link Layer (Layer 2), neighbor devices can detect and map one another even if the connecting interfaces completely lack Layer 3 IP address configurations.
+Both protocols operate at Layer 2, so discovery does not require IP addresses on the connecting interfaces.
 
 ### Footprinting Security Risk
 
-While highly advantageous for internal network mapping, discovery protocols present a notable security vulnerability. Unfiltered neighbors broadcast operational architecture summaries in cleartext, meaning malicious actors can intercept these packets on edge networks to identify system models, OS platforms, and targeting scopes.
+Discovery advertisements expose device details to neighbors on the link. Review where those details are needed and avoid exposing them on untrusted links.
 
 ### Vendor Proprietary vs. Open Standard
 
@@ -21,7 +21,7 @@ While highly advantageous for internal network mapping, discovery protocols pres
 
 ## How It Works
 
-Devices running discovery protocols generate periodic multi-destination Layer 2 frames out of all active interfaces. Directly connected neighbors intercept these frames, process the embedded metadata fields, populating an internal cache database, and discard the frame without forwarding it downstream.
+Devices send periodic Layer 2 discovery frames on enabled interfaces. Direct neighbors use the advertised information to update their caches without forwarding it to the next device.
 
 ```text
   [ Cisco Router R1 ]                                                  [ Cisco Switch SW1 ]
@@ -151,12 +151,12 @@ Cisco IOS Software, 2800 Software (C2811-ADVSECURITYK9-M), Version 12.4(15)T1
 
 - **The Security Balance:** Discovery protocols should generally be disabled on edge ports facing client PCs, public areas, or external networks to keep sensitive infrastructure details hidden from unauthorized network scans.
 - **Granular LLDP Tuning:** Unlike CDP's single toggle, LLDP allows you to customize port behavior independently (e.g., allowing a port to listen to incoming server announcements using `lldp receive` while stopping it from broadcasting internal network layouts via `no lldp transmit`).
-- **The Importance of Hostnames:** Discovery features pull neighboring configurations in real time. If devices are left with default naming variables like `Router` or `Switch`, mapping the path during an outage becomes significantly more confusing.
+- Set distinct hostnames so neighbor tables identify devices more clearly than repeated defaults such as `Router` or `Switch`.
 
 ## My Takeaways
 
-- CDP and LLDP run completely at Layer 2, meaning they can map neighboring infrastructure nodes even if Layer 3 IP parameters are completely missing or broken.
-- CDP is a proprietary protocol tailored for the Cisco ecosystem, whereas LLDP serves as an open-standard utility that can discover independent non-Cisco systems like Linux servers.
+- CDP and LLDP discover direct neighbors at Layer 2 without requiring working IP communication on the link.
+- CDP is Cisco proprietary; LLDP is an open standard used for multivendor discovery.
 - To secure external perimeter links from network footprinting, administrators should systematically disable discovery protocols on public or client-facing interfaces.
 - While the basic `neighbors` command generates a high-level summary table of adjacent links, adding the `detail` modifier exposes the exact management IP addresses needed for terminal hops.
-- Troubleshooting remote sites becomes significantly faster using discovery commands, allowing engineers to verify physical link connectivity and map device connections entirely through the CLI.
+- Use neighbor commands to check device and port connections from a remote CLI session.

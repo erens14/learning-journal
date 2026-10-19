@@ -1,4 +1,4 @@
-# 17 — IGP Interior Gateway Protocol Fundamentals
+# 17: IGP Interior Gateway Protocol Fundamentals
 
 ## Contents
 

@@ -2,18 +2,18 @@
 
 ## Overview
 
-Network connectivity troubleshooting is a fundamental day-to-day task for network engineers. When users report high-level application failures (e.g., "DNS is not working" or "the website is down"), a structured approach must be used to isolate the failure down the OSI stack. By using Layer 3 tools like `ping` and `traceroute` alongside Layer 4 tools like targeted `telnet`, an engineer can systematically differentiate between basic IP routing failures, service-level configuration omissions, or transport-layer port blocks.
+A reported DNS or website failure can involve routing, name resolution, or a blocked service port. This lab uses `ping`, `traceroute`, and a TCP-port test with `telnet` to investigate those dependencies separately.
 
 ## Key Concepts
 
 ### Verification vs. Report Trust
-A fundamental rule of troubleshooting is to independently verify the issue rather than blindly accepting a user's problem description. User reports often conflate application symptoms (e.g., browser errors) with the actual underlying root cause (e.g., a missing static route).
+Reproduce the reported symptom before choosing a cause. A browser error, for example, does not establish whether the fault is in DNS or routing.
 
 ### Isolating Protocol Dependencies
 When diagnosing high-level application services like DNS, testing via hostname binds the result to the functionality of name resolution. Troubleshooting by raw IP address removes the Application Layer dependency, letting you check basic Layer 3 connectivity in isolation.
 
 ### Traceroute Time-to-Live (TTL) Operation
-Traceroute exploits the IP header's **TTL (Time to Live)** field—originally designed as a loop-prevention mechanism—to map network paths hop-by-hop. 
+Traceroute uses the IP header's **TTL (Time to Live)** field to identify responding hops along a path. TTL also limits how long a looping packet can circulate.
 - The source sends packets starting with a **TTL of 1**.
 - The first router decrements the TTL to 0, drops the packet, and returns an **ICMP Time Exceeded** message.
 - The source increments the TTL sequentially (**TTL=2, TTL=3, etc.**) to map every successive router along the path until a drop or failure occurs.
@@ -136,4 +136,4 @@ Router-R1# telnet 10.10.30.1 53
 * Traceroute relies on the incremental manipulation of the IP header's TTL field to force intermediate routers to reveal their identities via ICMP timeout messages.
 * When a traceroute halts at a specific router, the next downstream hop or link is typically where the routing misconfiguration or physical line failure resides.
 * A router cannot pass traffic toward a destination network if it lacks a matching entry in its internal routing table, resulting in an immediate packet drop.
-* Targeted telnet commands act as vital Layer 4 diagnostic probes, confirming whether an application port is open even if security policies or firewalls block standard ICMP pings.
+* A targeted `telnet` command tests connectivity to a TCP port when ICMP ping results are insufficient.

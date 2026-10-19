@@ -1,8 +1,8 @@
-# Cisco Networking Products — Self Notes
+# Cisco Networking Products: Self Notes
 
 ## Table of Contents
 
-- [Cisco Networking Products — Self Notes](#cisco-networking-products--self-notes)
+- [Cisco Networking Products: Self Notes](#cisco-networking-products-self-notes)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Cisco Product Portfolio](#cisco-product-portfolio)
@@ -43,7 +43,7 @@
 
 ## Overview
 
-Cisco offers a wide range of networking and security products beyond routers and switches. These products cover **network security, wireless networking, collaboration, and data center infrastructure**, enabling organizations to build secure, scalable, and enterprise-grade networks.
+Cisco products beyond routers and switches include firewalls, wireless systems, collaboration tools, and data center equipment. These notes group them by function.
 
 ## Cisco Product Portfolio
 

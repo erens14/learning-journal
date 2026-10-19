@@ -1,8 +1,8 @@
-# Variable Length Subnet Masking (VLSM) Design — Part A
+# Variable Length Subnet Masking (VLSM) Design: Part A
 
 ## Table of Contents
 
-- [Variable Length Subnet Masking (VLSM) Design — Part A](#variable-length-subnet-masking-vlsm-design--part-a)
+- [Variable Length Subnet Masking (VLSM) Design: Part A](#variable-length-subnet-masking-vlsm-design-part-a)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Key Concepts](#key-concepts)
@@ -13,18 +13,16 @@
     - [Exam vs Real World](#exam-vs-real-world)
   - [Example VLSM Design](#example-vlsm-design)
     - [Network Topology](#network-topology)
-    - [Step 1 — Sort by Largest Network](#step-1--sort-by-largest-network)
-    - [Step 2 — Determine Required Subnet Mask](#step-2--determine-required-subnet-mask)
-    - [Step 3 — Allocate First Engineering Subnet](#step-3--allocate-first-engineering-subnet)
-    - [Step 4 — Allocate Second Engineering Subnet](#step-4--allocate-second-engineering-subnet)
+    - [Step 1: Sort by Largest Network](#step-1-sort-by-largest-network)
+    - [Step 2: Determine Required Subnet Mask](#step-2-determine-required-subnet-mask)
+    - [Step 3: Allocate First Engineering Subnet](#step-3-allocate-first-engineering-subnet)
+    - [Step 4: Allocate Second Engineering Subnet](#step-4-allocate-second-engineering-subnet)
     - [Allocation Summary (Current Progress)](#allocation-summary-current-progress)
   - [My Takeaways](#my-takeaways)
 
 ## Overview
 
-This lesson introduces the practical implementation of **Variable Length Subnet Masking (VLSM)**. Unlike Fixed Length Subnet Masking (FLSM), VLSM allows different subnet sizes within the same network, resulting in much more efficient IP address utilization.
-
-The lesson also demonstrates a step-by-step subnet design process based on real-world requirements, where each department receives a subnet sized according to its actual number of hosts.
+**Variable Length Subnet Masking (VLSM)** allows different subnet sizes within a parent network. In this design example, each department receives a subnet sized for its host requirement.
 
 ## Key Concepts
 
@@ -163,7 +161,7 @@ Requirements:
 | Boston Sales | 7 |
 | Router Link | 2 |
 
-### Step 1 — Sort by Largest Network
+### Step 1: Sort by Largest Network
 
 Arrange subnets from largest to smallest.
 
@@ -177,7 +175,7 @@ Arrange subnets from largest to smallest.
 
 Always allocate the largest subnet first.
 
-### Step 2 — Determine Required Subnet Mask
+### Step 2: Determine Required Subnet Mask
 
 Engineering requires:
 
@@ -213,7 +211,7 @@ Subnet mask:
 255.255.255.224
 ```
 
-### Step 3 — Allocate First Engineering Subnet
+### Step 3: Allocate First Engineering Subnet
 
 Available network:
 
@@ -255,7 +253,7 @@ First subnet:
 | Last Host | 200.15.10.30 |
 | Broadcast | 200.15.10.31 |
 
-### Step 4 — Allocate Second Engineering Subnet
+### Step 4: Allocate Second Engineering Subnet
 
 Next network starts at:
 

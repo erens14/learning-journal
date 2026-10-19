@@ -1,14 +1,14 @@
-# CCNA Self Notes — Layer 1 and Layer 2 Lab Diagnostics
+# CCNA Self Notes: Layer 1 and Layer 2 Lab Diagnostics
 
 ## Overview
 
-This note captures practical lab observations detailing how Cisco IOS interfaces respond to live Physical Layer (Layer 1) and Data-Link Layer (Layer 2) failure states. By explicitly manipulating interface administrative states, speed constraints, and duplex properties between a core router (`R1`) and a local switch (`SW1`), this session demonstrates how line status pairs shift dynamically and how to diagnose layer-specific communication blocks using real-time console behaviors.
+This lab changes administrative state, speed, and duplex on the link between `R1` and `SW1`. The examples show how those changes affect interface states, counters, and CDP messages.
 
 ## Key Concepts
 
 ### Remote Shutdown Reflection
 
-When a physical interface on one side of a link is manually disabled (`shutdown`), the local interface transitions to `administratively down / down`. However, the adjacent peer interface on the opposite end of the cable—which remains unconfigured and active—drops to a `down/down` state due to an immediate loss of physical layer signaling.
+In this lab, `shutdown` changes the local interface to `administratively down / down`. The enabled interface at the other end loses its physical signal and reports `down/down`.
 
 ### Speed Mismatch Link Drop
 
@@ -121,7 +121,7 @@ Interface                  IP-Address      OK? Method Status                Prot
 FastEthernet0/0            192.168.0.1     YES manual up                    down    
 ```
 
-*Observation:* The router registers active Layer 1 voltage (`up`), but the Layer 2 software protocol layer fails to initialize (`down`) due to the timing framing conflict.
+*Observation:* The displayed router state is `up/down`: physical status is up, but line protocol is down.
 
 #### Duplex Mismatch CDP Notification Capture
 
@@ -135,7 +135,7 @@ Router-R1#
 ## Important Notes
 
 - **Terminal Logging Constraint:** Automatic CDP duplex mismatch console warnings appear by default only on active **physical console connections**. If managing a device remotely via Telnet or SSH, these alerts must be read manually by issuing the `show logging` execution command.
-- **The Post-Fix Link Flap Routine:** When fixing an active speed mismatch, the line can occasionally lock up or delay synchronization. Explicitly cycling the interface (`shutdown` followed immediately by `no shutdown`) forces the hardware components to clean out error states and cleanly re-negotiate.
+- The lab cycles the interface with `shutdown` and `no shutdown` after correcting the mismatch, then checks link state again.
 - **Diagnostic Command Isolation:** Using `show ip interface brief` gives a quick overview of line availability, whereas executing `show interface <id>` exposes the explicit input/output error blocks and collision counters needed to confirm a duplex mismatch.
 
 ## My Takeaways

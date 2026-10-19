@@ -1,4 +1,4 @@
-# 05 — IP Address Class
+# 05: IP Address Class
 
 ## Contents
 

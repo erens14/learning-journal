@@ -1,4 +1,4 @@
-# 10 — Life of a Packet
+# 10: Life of a Packet
 
 ## Contents
 

@@ -2,7 +2,7 @@
 
 ## Overview
 
-This lesson introduces **CIDR (Classless Inter-Domain Routing)**, a method developed to improve IPv4 address allocation and routing efficiency.
+**CIDR (Classless Inter-Domain Routing)** allows IPv4 allocation and routing without fixed address-class boundaries.
 
 Originally, organizations could only receive entire **Class A (/8)**, **Class B (/16)**, or **Class C (/24)** networks. This often resulted in significant address waste. CIDR removes these fixed class boundaries by allowing more flexible subnet sizes based on actual requirements.
 

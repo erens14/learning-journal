@@ -1,4 +1,4 @@
-# 09 — Cisco Device Functions
+# 09: Cisco Device Functions
 
 ## Contents
 

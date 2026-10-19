@@ -2,7 +2,7 @@
 
 ## Overview
 
-For a physical network link to pass data efficiently, both connected interfaces must agree on transmission speed and duplex settings. By default, Cisco interfaces use auto-negotiation to determine these parameters dynamically. However, mixing manual and automated configurations can cause duplex mismatches, resulting in severe packet loss and link degradation. Once physical parameters are provisioned, network engineers must rely on core Cisco IOS verification commands to monitor interface health, inspect runtime statistics, and analyze operational traffic patterns.
+Both ends of an Ethernet link need compatible speed and duplex settings. These notes cover auto-negotiation, manual settings, duplex mismatches, and IOS commands for checking interface status and counters.
 
 ## Key Concepts
 
@@ -12,7 +12,7 @@ The default state (`auto`) where two connected endpoints automatically negotiate
 
 ### Duplex Mismatch
 
-A highly problematic condition that occurs when one side of a link is manually hardcoded (e.g., Full Duplex) and the other side is left on `auto`. The automated side usually defaults to half-duplex when negotiation fails, leading to frame collisions, massive input/output errors, and crippled throughput.
+The lab demonstrates a duplex mismatch with one side set manually to full-duplex and the other left on `auto`. The auto side falls back to half-duplex, and traffic produces collisions and interface errors.
 
 ### Line Status vs. Protocol Status
 
@@ -61,8 +61,8 @@ Result: Server fails to negotiate, defaults to Half-Duplex. Massive collisions o
 | --- | --- | --- |
 | **Default Cisco State** | Yes, enabled across all ports out of the box. | No, requires explicit manual administrative intervention. |
 | **Deployment Target** | End-user client machines (PCs, laptops, printers). | Critical network core infrastructure (Routers, Switches, Firewalls, Servers). |
-| **Administrative Overhead** | Nonexistent; scales automatically across thousands of client ports. | High; configurations must be updated consistently at both ends of a cable. |
-| **Operational Stability** | Highly dynamic; susceptible to occasional negotiation link failure drops. | Maximum predictability; removes signaling guesswork entirely. |
+| **Administration** | Negotiates settings without configuring each link manually. | Requires compatible settings at both ends. |
+| **Mismatch risk** | Can mismatch with a manually configured peer in the demonstrated case. | A wrong setting can mismatch with the peer. |
 
 ## Commands (If Applicable)
 
@@ -137,13 +137,13 @@ FastEthernet0/0 is up, line protocol is up
 ## Important Notes
 
 - **Golden Rule of Duplexing:** Never mix operational modes. Keep both endpoints of a cable link set to `auto` or configure both sides manually. Hardcoding one side while leaving the other on auto breaks the link state.
-- **The Configuration Freeze Shortcut:** When reviewing vast `show running-config` files, press the **Spacebar** to advance a page at a time, or terminate the long output loop instantly by pressing **Ctrl+C**.
+- When reviewing paginated `show running-config` output, press **Spacebar** for the next page or **Ctrl+C** to stop.
 - **Error Counters Investigation:** Healthy network links should maintain flat `0 input errors` and `0 output errors`. Incrementing error counters are prime symptoms of failing cabling lines or duplex mismatches.
 
 ## My Takeaways
 
-- Auto-negotiation is perfect for highly dynamic, large-scale end-user environments, but infrastructure connections should be manually locked down to maximize stability.
+- The lesson uses auto-negotiation for end-user ports and demonstrates matching manual settings on infrastructure links. This is the lab's configuration choice, not a universal stability guarantee.
 - Hardcoding speed and duplex settings triggers a temporary port state reset, so these changes should ideally be scheduled during standard maintenance windows.
 - `show ip interface brief` provides a high-level view of Layer 1 status and Layer 2 protocols, making it an essential first-step command for everyday monitoring.
-- `show interface` provides detailed visibility into packet counters and physical line anomalies, which is crucial for uncovering hidden performance bottlenecks like duplex mismatches.
-- The `show version` command provides essential systemic metadata, tracking running IOS software editions and hardware uptime metrics without needing to browse long configurations.
+- Use `show interface` to inspect error and collision counters when investigating a duplex mismatch.
+- Use `show version` to check the running IOS version and device uptime.

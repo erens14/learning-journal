@@ -1,4 +1,4 @@
-# 02 — Cisco IOS
+# 02: Cisco IOS
 
 ## Contents
 

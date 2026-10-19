@@ -1,4 +1,4 @@
-# 04 — Network Layer (Layer 03)
+# 04: Network Layer (Layer 03)
 
 ## Contents
 

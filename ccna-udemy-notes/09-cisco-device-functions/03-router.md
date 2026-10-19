@@ -1,8 +1,8 @@
-# OSI Layer 3 — Router Basics & Comparison with Switches
+# OSI Layer 3: Router Basics & Comparison with Switches
 
 ## Table of Contents
 
-- [OSI Layer 3 — Router Basics \& Comparison with Switches](#osi-layer-3--router-basics--comparison-with-switches)
+- [OSI Layer 3: Router Basics \& Comparison with Switches](#osi-layer-3-router-basics--comparison-with-switches)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [What Does a Router Do?](#what-does-a-router-do)

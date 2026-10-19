@@ -2,9 +2,7 @@
 
 ## Overview
 
-This lecture introduces **Layer 3 (Network Layer)** of the OSI Model and explains how IP addressing enables communication between different networks.
-
-The lecture also introduces the IPv4 header and explains the purpose of each important field.
+**Layer 3 (Network Layer)** uses IP addresses to route packets between networks. The IPv4 header carries the addressing and control fields used during delivery.
 
 ## Layer 3 Responsibilities
 
@@ -147,4 +145,4 @@ The fragmentation fields in the IP header allow the receiving host to reconstruc
 * Subnetting improves performance, security, and network management.
 * Routers forward packets using IP addresses, while switches forward frames using MAC addresses.
 * TTL is a simple but effective mechanism for preventing routing loops.
-* Understanding the IPv4 header is essential before learning routing, subnetting, and packet analysis.
+* I can use the IPv4 header fields when studying routing, subnetting, and packet analysis.

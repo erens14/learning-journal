@@ -8,28 +8,28 @@
   - [Initial Allocation (Recap)](#initial-allocation-recap)
   - [New York Sales](#new-york-sales)
     - [Requirements](#requirements)
-    - [Step 1 — Determine the Subnet Mask](#step-1--determine-the-subnet-mask)
-    - [Step 2 — Determine Network Address](#step-2--determine-network-address)
-    - [Step 3 — Determine Block Size](#step-3--determine-block-size)
-    - [Step 4 — Determine Broadcast Address](#step-4--determine-broadcast-address)
-    - [Step 5 — Determine Host Range](#step-5--determine-host-range)
+    - [Step 1: Determine the Subnet Mask](#step-1-determine-the-subnet-mask)
+    - [Step 2: Determine Network Address](#step-2-determine-network-address)
+    - [Step 3: Determine Block Size](#step-3-determine-block-size)
+    - [Step 4: Determine Broadcast Address](#step-4-determine-broadcast-address)
+    - [Step 5: Determine Host Range](#step-5-determine-host-range)
     - [Summary](#summary)
   - [Boston Sales](#boston-sales)
     - [Requirements](#requirements-1)
-    - [Step 1 — Determine the Subnet Mask](#step-1--determine-the-subnet-mask-1)
-    - [Step 2 — Determine Network Address](#step-2--determine-network-address-1)
-    - [Step 3 — Determine Block Size](#step-3--determine-block-size-1)
-    - [Step 4 — Determine Broadcast Address](#step-4--determine-broadcast-address-1)
-    - [Step 5 — Determine Host Range](#step-5--determine-host-range-1)
+    - [Step 1: Determine the Subnet Mask](#step-1-determine-the-subnet-mask-1)
+    - [Step 2: Determine Network Address](#step-2-determine-network-address-1)
+    - [Step 3: Determine Block Size](#step-3-determine-block-size-1)
+    - [Step 4: Determine Broadcast Address](#step-4-determine-broadcast-address-1)
+    - [Step 5: Determine Host Range](#step-5-determine-host-range-1)
     - [Summary](#summary-1)
   - [Point-to-Point Link](#point-to-point-link)
     - [Requirements](#requirements-2)
     - [Choosing /30 vs /31](#choosing-30-vs-31)
-    - [Step 1 — Determine Subnet Mask](#step-1--determine-subnet-mask)
-    - [Step 2 — Determine Network Address](#step-2--determine-network-address-2)
-    - [Step 3 — Determine Block Size](#step-3--determine-block-size-2)
-    - [Step 4 — Determine Broadcast Address](#step-4--determine-broadcast-address-2)
-    - [Step 5 — Determine Host Range](#step-5--determine-host-range-2)
+    - [Step 1: Determine Subnet Mask](#step-1-determine-subnet-mask)
+    - [Step 2: Determine Network Address](#step-2-determine-network-address-2)
+    - [Step 3: Determine Block Size](#step-3-determine-block-size-2)
+    - [Step 4: Determine Broadcast Address](#step-4-determine-broadcast-address-2)
+    - [Step 5: Determine Host Range](#step-5-determine-host-range-2)
     - [Summary](#summary-2)
   - [Final VLSM Allocation](#final-vlsm-allocation)
   - [Router Interface Assignment](#router-interface-assignment)
@@ -38,9 +38,7 @@
 
 ## Overview
 
-This lesson continues the VLSM design process by allocating IP addresses for the remaining network segments. The subnet allocation always starts from the **largest subnet requirement** and continues sequentially toward the **smallest**, ensuring efficient use of the available address space.
-
-At the end of the design, every department and point-to-point link has its own subnet without wasting unnecessary IP addresses.
+This example allocates addresses to the remaining departments and point-to-point links. It works from the **largest subnet requirement** to the **smallest** to fit them into the available space.
 
 ## Initial Allocation (Recap)
 
@@ -73,7 +71,7 @@ Hosts required:
 14 Hosts
 ```
 
-### Step 1 — Determine the Subnet Mask
+### Step 1: Determine the Subnet Mask
 
 Need to support 14 hosts.
 
@@ -123,7 +121,7 @@ Subnet Mask:
 255.255.255.240
 ```
 
-### Step 2 — Determine Network Address
+### Step 2: Determine Network Address
 
 Previous subnet ended at
 
@@ -138,7 +136,7 @@ Therefore the next available network is
 200.15.10.64/28
 ```
 
-### Step 3 — Determine Block Size
+### Step 3: Determine Block Size
 
 Subnet mask:
 
@@ -174,7 +172,7 @@ Next subnet:
 200.15.10.80
 ```
 
-### Step 4 — Determine Broadcast Address
+### Step 4: Determine Broadcast Address
 
 Broadcast is one address before the next subnet.
 
@@ -186,7 +184,7 @@ Broadcast:
 200.15.10.79
 ```
 
-### Step 5 — Determine Host Range
+### Step 5: Determine Host Range
 
 ```text
 Network:
@@ -221,11 +219,11 @@ Hosts required:
 7 Hosts
 ```
 
-### Step 1 — Determine the Subnet Mask
+### Step 1: Determine the Subnet Mask
 
 A common mistake is choosing `/29`.
 
-Let's verify.
+Check the host count:
 
 Host bits:
 
@@ -267,7 +265,7 @@ Chosen subnet:
 /28
 ```
 
-### Step 2 — Determine Network Address
+### Step 2: Determine Network Address
 
 Previous subnet ended at
 
@@ -282,7 +280,7 @@ Next available subnet:
 200.15.10.80/28
 ```
 
-### Step 3 — Determine Block Size
+### Step 3: Determine Block Size
 
 Subnet mask:
 
@@ -311,7 +309,7 @@ Next subnet:
 200.15.10.96
 ```
 
-### Step 4 — Determine Broadcast Address
+### Step 4: Determine Broadcast Address
 
 ```text
 Next subnet:
@@ -321,7 +319,7 @@ Broadcast:
 200.15.10.95
 ```
 
-### Step 5 — Determine Host Range
+### Step 5: Determine Host Range
 
 ```text
 Network:
@@ -369,7 +367,7 @@ For the CCNA exam:
 
 > Unless the question explicitly requests `/31`, always choose `/30`.
 
-### Step 1 — Determine Subnet Mask
+### Step 1: Determine Subnet Mask
 
 Chosen subnet:
 
@@ -383,7 +381,7 @@ Subnet mask:
 255.255.255.252
 ```
 
-### Step 2 — Determine Network Address
+### Step 2: Determine Network Address
 
 Previous subnet ended at
 
@@ -398,7 +396,7 @@ Next subnet:
 200.15.10.96/30
 ```
 
-### Step 3 — Determine Block Size
+### Step 3: Determine Block Size
 
 Subnet mask:
 
@@ -428,7 +426,7 @@ Next subnet:
 200.15.10.100
 ```
 
-### Step 4 — Determine Broadcast Address
+### Step 4: Determine Broadcast Address
 
 ```text
 Next subnet:
@@ -438,7 +436,7 @@ Broadcast:
 200.15.10.99
 ```
 
-### Step 5 — Determine Host Range
+### Step 5: Determine Host Range
 
 ```text
 Network:

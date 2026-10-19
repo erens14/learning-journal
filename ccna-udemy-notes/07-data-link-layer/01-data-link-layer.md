@@ -1,8 +1,8 @@
-# OSI Layer 2 — Data Link Layer (Ethernet & MAC Address)
+# OSI Layer 2: Data Link Layer (Ethernet & MAC Address)
 
 ## Table of Contents
 
-- [OSI Layer 2 — Data Link Layer (Ethernet \& MAC Address)](#osi-layer-2--data-link-layer-ethernet--mac-address)
+- [OSI Layer 2: Data Link Layer (Ethernet \& MAC Address)](#osi-layer-2-data-link-layer-ethernet--mac-address)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Responsibilities of Layer 2](#responsibilities-of-layer-2)
@@ -18,7 +18,7 @@
     - [6. FCS (Frame Check Sequence)](#6-fcs-frame-check-sequence)
   - [MAC Address](#mac-address)
   - [MAC Address Structure](#mac-address-structure)
-    - [First 24 Bits — OUI](#first-24-bits--oui)
+    - [First 24 Bits: OUI](#first-24-bits-oui)
     - [Last 24 Bits](#last-24-bits)
   - [How Many MAC Addresses Exist?](#how-many-mac-addresses-exist)
   - [MAC Addresses Are Flat Addresses](#mac-addresses-are-flat-addresses)
@@ -225,7 +225,7 @@ A MAC address is divided into two equal parts.
 +----------------------+----------------------+
 ```
 
-### First 24 Bits — OUI
+### First 24 Bits: OUI
 
 OUI stands for:
 

@@ -1,8 +1,8 @@
-# CCNA Self Notes — Cisco IOS System Image Upgrade
+# CCNA Self Notes: Cisco IOS System Image Upgrade
 
 ## Overview
 
-Upgrading the Cisco IOS operating system image (`.bin`) is an essential maintenance task required to access new software features, patch security vulnerabilities, and improve system stability. The standard upgrade methodology involves downloading a verified image from the official Cisco Software Central portal, staging it on a local Trivial File Transfer Protocol (TFTP) server, and copying it over the network into the device's internal Flash memory. Administrators can then choose to either purge old firmware assets or retain them as a fallback layer by utilizing the boot register selection system.
+This lesson upgrades a Cisco IOS image (`.bin`) by copying it from a TFTP server into Flash, selecting it with `boot system`, saving the configuration, and reloading. Keeping the previous image provides a fallback in the demonstrated setup.
 
 ## Key Concepts
 
@@ -12,15 +12,15 @@ The official, secure repository (`software.cisco.com`) where administrators loca
 
 ### TFTP Image Staging
 
-Because production routers and switches lack direct internet web browsing layers, new firmware binaries must first be staged on an accessible local infrastructure host running a TFTP server daemon.
+The demonstrated transfer uses a local host running a TFTP server to hold the downloaded image.
 
 ### Multi-Image Flash Cohabitation
 
-Cisco hardware with sufficient flash storage capacity can hold multiple operating system binaries simultaneously. This approach allows engineers to keep a legacy, known-good firmware revision inside local storage alongside a newly deployed version to ensure rapid disaster recovery.
+If Flash has enough space, the device can retain the previous IOS image alongside the new one for rollback.
 
 ### Boot System Selection Pointer
 
-A global configuration parameter that instructs the bootstrap loader exactly which file binary inside Flash storage to unzip and initialize during the next system power cycle.
+A global configuration command that selects the image to load on the next boot.
 
 ## How It Works
 
@@ -51,11 +51,11 @@ A global configuration parameter that instructs the bootstrap loader exactly whi
           |                                                                   |  into Volatile RAM memory)
 ```
 
-1. **Firmware Acquisition:** The engineer downloads the correct target IOS revision from Cisco, matches its cryptographic checksum signature, and saves it into the active directory folder of the local TFTP server.
-2. **Local Flash Audit:** The engineer issues a `show flash` command on the destination switch to audit available storage blocks and inspect the string name of the legacy operating system currently running in RAM.
-3. **Network File Injection:** The switch pulls the heavy binary file across the network link using the `copy tftp flash` utility and writes it directly to flash memory.
-4. **Boot Pointer Adaptation:** To override the default behavior of loading the first file found in storage, the engineer applies a `boot system flash:` command string targeting the newly added file.
-5. **State Activation:** The active configuration state is saved to NVRAM, and a hardware `reload` is initiated. The bootstrap loader processes the customized pointer string, unzips the new image file directly into RAM, and boots up the updated system profile.
+1. Download the correct IOS image from Cisco, check its checksum, and place it in the TFTP server directory.
+2. Run `show flash` on the switch to inspect stored images and free space.
+3. Transfer the image using `copy tftp flash`.
+4. Use `boot system flash:` to select the new image.
+5. Save the configuration, run `reload`, and verify the running version after boot.
 
 ## Components / Structure
 
@@ -63,8 +63,8 @@ A global configuration parameter that instructs the bootstrap loader exactly whi
 
 | Upgrade Deployment Strategy | Technical Execution Path | Primary Benefit | Core System Risk Factor |
 | --- | --- | --- | --- |
-| **Single Image Purge Strategy** | Run `delete flash:<old_file>` followed by network file copy mechanics. | Guaranteed execution; the bootloader has only one file target option to run. | Outage danger; if the new image is corrupted during transfer, the device drops to ROMMON upon reboot. |
-| **Dual Image Fallback Strategy** | Retain legacy software blocks and assign preference via the `boot system` pointer. | Safety network; allows an instant manual recovery back to older stable configurations if bugs develop. | High storage utilization; requires verifying available flash memory capacity before copying files. |
+| **Replace the old image** | Delete the old file with `delete flash:<old_file>`, then transfer the new image. | Frees space for the new image. | Leaves no local fallback if the replacement cannot boot. |
+| **Keep both images** | Retain the old image and select the new one with `boot system`. | Preserves the previous image for rollback. | Requires enough Flash space for both files. |
 
 ## Comparison
 
@@ -122,13 +122,13 @@ Proceed with reload? [confirm]
 
 ### Validation Lab Scenario: Successful Switch OS Migration
 
-Following file staging configurations on an active production lab environment:
+The lab uses these transfer settings:
 
 * **TFTP Server IP:** `10.10.10.10`
 * **Target Switch IP:** `10.10.10.2`
-* **Target File Target Name:** `c2960-lanbase-mz.150-1.SE.bin`
+* **Target File:** `c2960-lanbase-mz.150-1.SE.bin`
 
-When the switch executes its post-upgrade initialization cycle, running the diagnostic check verification suite confirms a successful firmware upgrade:
+After the switch reloads, inspect the stored images and running version:
 
 ```text
 Switch# show flash
@@ -140,23 +140,23 @@ Switch# show version
 Cisco IOS Software, C2960 Software (C2960-LANBASE-M), Version 15.0(1)SE
 ```
 
-*Result Analysis:* Both binary assets are safely preserved within the system's local storage array (`show flash`). However, because the boot register was updated to point directly to the new file, the `show version` prompt confirms that the system successfully unzipped and loaded Version 15.0 directly into runtime RAM memory.
+*Result:* The example `show flash` output lists both images. The `show version` output identifies Version 15.0 as running after the boot-image change.
 
 ## Important Notes
 
-* **The NVRAM Commitment Mandate:** The `boot system` parameter is applied within global configuration mode, meaning it writes directly to temporary RAM (`running-config`). If you initiate a `reload` without running a `copy run start` first, the configuration changes will be lost, and the switch will fall back to its old image upon reboot.
+* Save the `boot system` change with `copy run start` before reloading, or the device will use its previously saved boot settings.
 * **Storage Allocation Auditing:** Always ensure the device has enough free space before transferring a new image. Running out of flash storage mid-transfer can result in a corrupted, incomplete file copy.
-* **The Suffix Colon Context:** When executing the `boot system flash:filename` string parameters on legacy IOS systems, ensure you append the explicit colon character (`:`) immediately following the media type designator word to ensure path parsing succeeds.
+* In the shown `boot system flash:filename` syntax, keep the colon immediately after `flash`.
 
 ## My Takeaways
 
 * Cisco IOS updates require transferring files across the network from an external TFTP repository directly into the target device's internal Flash storage.
-* Deleting a legacy operating system file from Flash completely forces the device to prioritize any remaining binary file during its next boot cycle.
+* The lab demonstrates booting the remaining image after deleting the old one. Check saved boot settings before relying on that behavior elsewhere.
 * Keeping a legacy image alongside a new one inside Flash memory provides a valuable safety net for quick rollbacks if bugs appear in production.
 * The `boot system flash:filename` command lets engineers point the bootloader to a specific target image, bypassing the default behavior of loading the first file found.
-* Applying a firmware upgrade configuration updates the active RAM space immediately, but requires a manual `reload` sequence to decompress and boot into the new image environment.
-* Verifying the success of a firmware upgrade requires checking both `show flash` (to confirm file preservation) and `show version` (to confirm the active runtime kernel).
-* Cisco IOS image files use a highly structured naming convention that explicitly defines the hardware platform architecture, feature matrix capabilities, and compiled file extensions.
+- Selecting a boot image does not activate it immediately; the lab reloads the switch to run the new image.
+- Check `show flash` for stored files and `show version` for the image actually running.
+- IOS image filenames identify the platform, feature set, and file format in these examples.
 * If a device has multiple operating system files in its flash storage and no custom boot pointer is configured, it defaults to loading the first valid `.bin` file it encounters.
-* Using Packet Tracer provides excellent simulation visibility for upgrading flash profiles and experimenting with boot image selection parameters without risking physical production hardware.
-* Hardcoding clear, timestamped configuration files before performing major system upgrades gives you a reliable restore point if network pathing breaks during deployment.
+* Use Packet Tracer to practice the demonstrated transfer and boot-image selection steps.
+* Save a dated configuration backup before an upgrade so the previous settings are available for recovery.

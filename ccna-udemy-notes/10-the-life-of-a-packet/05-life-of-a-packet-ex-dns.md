@@ -2,13 +2,13 @@
 
 ## Overview
 
-Every network conversation begins at the Application Layer (Layer 7). When a user enters a domain name like `www.flackbox.com` into a web browser, the network stack must first determine the destination IP address before regular HTTP traffic can start. This note outlines Part 1 of the "Life of a Packet" workflow, which details exactly how a host relies on the global network stack—combining Layer 7 (DNS), Layer 3 (IP routing), Layer 2 (ARP, MAC learning, and switching)—to translate an FQDN into a reachable IP address in a multi-subnet corporate environment.
+In this example, Host A resolves `www.flackbox.com` before sending HTTP traffic. The DNS query crosses subnets, so its delivery also involves IP routing, ARP, MAC learning, and switching.
 
 ## Key Concepts
 
 ### Packet Deconstruction & Buffering
 
-An application packet (like an HTTP request) cannot navigate down past Layer 3 without a valid Destination IP address. The host must hold (*buffer*) the primary application payload in memory while it launches secondary helper processes (DNS queries and ARP discoveries) to map out path logistics.
+The host needs a destination IP address before sending the HTTP request. In this example, DNS resolves the name first, and ARP supplies the local-link MAC mappings needed to deliver packets.
 
 ### MAC Table vs. ARP Cache Roles
 
@@ -18,7 +18,7 @@ An application packet (like an HTTP request) cannot navigate down past Layer 3 w
 ### End-to-End Consistency vs. Hop-by-Hop Instability
 
 - **IP Headers:** The source and destination logical IP addresses **never alter** from the original creator to the final system.
-- **MAC Headers:** The physical source and destination hardware components are **completely stripped and remade** at each routing layer intersection along the route.
+- **MAC Headers:** Routers replace the incoming Layer 2 header with one for the outgoing link.
 
 ## How It Works
 
@@ -57,7 +57,7 @@ An application packet (like an HTTP request) cannot navigate down past Layer 3 w
 4. **Second Subnet Discovery (Router ARP Phase):** Router A receives the frame, reads the Layer 3 header, and notices the destination IP (`10.10.100.10`) belongs to its secondary local interface subnet (`10.10.100.0/24`). Lacking the target server's MAC address, it stores the DNS query and broadcasts an ARP request out its right-side interface.
 5. **DNS Server Recognition:** Switch 3 populates its MAC table with the router's second MAC (`8888.9999.AAAA`) and broadcasts the query. The DNS Server recognizes the IP request and replies with its MAC address (`3333.4444.5555`). Switch 3 registers this binding on Port 2.
 6. **DNS Execution & Return Path:** Router A retrieves the buffered DNS request, changes the Source MAC to `8888.9999.AAAA`, sets the Destination MAC to `3333.4444.5555`, and forwards it to the DNS Server. The server checks its database records and finds `www.flackbox.com = 10.10.12.10`. It responds by sending a DNS reply back along the path through Router A, which switches the hardware mappings back to deliver it to Host A.
-7. **Resolution Resolution:** Host A receives the payload, extracts the resolved IP address (`10.10.12.10`), and updates the destination field of its primary, buffered HTTP web traffic container.
+7. **DNS Resolution:** Host A receives the reply and uses the resolved address (`10.10.12.10`) as the destination for its HTTP traffic.
 
 ## Components / Structure
 
@@ -86,13 +86,13 @@ When the final DNS request frame reaches the network interface card of the DNS S
 ## Important Notes
 
 - **Layer Independence:** Application processes do not track physical paths. The browser relies on the operating system's network stack to transparently resolve address and hardware details before transmission.
-- **Mac Table Cleanliness:** Switches construct network intelligence dynamically without broadcasting unless a target destination MAC address is unknown, minimizing extra broadcast traffic across ports.
-- **Routing Table Optimization:** Router A did not need an upstream routing protocol step here because it was physically bound to both subnets, allowing it to move data locally between its ports.
+- Switches learn source MAC addresses and use their MAC tables to forward frames. Unknown destinations require flooding in this example.
+- Router A connects directly to both subnets, so this path does not require a dynamically learned route.
 
 ## My Takeaways
 
-- DNS queries serve as the preliminary baseline of internet traffic, converting names into logical IP addresses before application data can be sent.
-- Packet buffering prevents applications from crashing or dropping data out during periods when the network stack is executing background resolution tasks.
-- The fundamental law of routing states that Layer 3 IP headers remain unaltered across endpoints, while Layer 2 MAC components change at each physical boundary.
+- Host A resolves the web server's name before sending HTTP traffic in this example.
+- The example holds packets while ARP resolves the next local-link destination.
+- In this example, source and destination IP addresses stay the same while MAC addresses change at router boundaries.
 - Switches read only the incoming Source MAC field to construct their port mapping tables, while ignoring the payload content inside.
 - Troubleshooting remote connectivity issues requires examining both Layer 3 DNS server reachability and local Layer 2 gateway ARP parameters.

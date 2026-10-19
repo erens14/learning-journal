@@ -1,4 +1,4 @@
-# 08 — Physical Layer
+# 08: Physical Layer
 
 ## Contents
 

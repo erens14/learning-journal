@@ -6,24 +6,24 @@
   - [Overview](#overview)
   - [Key Concepts](#key-concepts)
     - [Subnetting a Class A Network on the 3rd Octet](#subnetting-a-class-a-network-on-the-3rd-octet)
-    - [Step 1 — Calculate Host Bits](#step-1--calculate-host-bits)
-    - [Step 2 — Calculate Usable Hosts](#step-2--calculate-usable-hosts)
-    - [Step 3 — Calculate Borrowed Bits](#step-3--calculate-borrowed-bits)
-    - [Step 4 — Calculate Number of Subnets](#step-4--calculate-number-of-subnets)
+    - [Step 1: Calculate Host Bits](#step-1-calculate-host-bits)
+    - [Step 2: Calculate Usable Hosts](#step-2-calculate-usable-hosts)
+    - [Step 3: Calculate Borrowed Bits](#step-3-calculate-borrowed-bits)
+    - [Step 4: Calculate Number of Subnets](#step-4-calculate-number-of-subnets)
   - [Finding Network Information (/19 Example)](#finding-network-information-19-example)
-    - [Step 1 — Determine Block Size](#step-1--determine-block-size)
-    - [Step 2 — Find Network Address](#step-2--find-network-address)
-    - [Step 3 — Find Broadcast Address](#step-3--find-broadcast-address)
-    - [Step 4 — Find Valid Hosts](#step-4--find-valid-hosts)
+    - [Step 1: Determine Block Size](#step-1-determine-block-size)
+    - [Step 2: Find Network Address](#step-2-find-network-address)
+    - [Step 3: Find Broadcast Address](#step-3-find-broadcast-address)
+    - [Step 4: Find Valid Hosts](#step-4-find-valid-hosts)
     - [Final Result](#final-result)
   - [Magic Number Method (/19)](#magic-number-method-19)
   - [Determining the Correct Subnet Mask](#determining-the-correct-subnet-mask)
-    - [Step 1 — Determine Borrowed Bits](#step-1--determine-borrowed-bits)
-    - [Step 2 — Add Borrowed Bits](#step-2--add-borrowed-bits)
-    - [Step 3 — Additional Information](#step-3--additional-information)
+    - [Step 1: Determine Borrowed Bits](#step-1-determine-borrowed-bits)
+    - [Step 2: Add Borrowed Bits](#step-2-add-borrowed-bits)
+    - [Step 3: Additional Information](#step-3-additional-information)
   - [CCNA Exam Tips](#ccna-exam-tips)
-    - [Type 1 — Design Questions](#type-1--design-questions)
-    - [Type 2 — Calculation Questions](#type-2--calculation-questions)
+    - [Type 1: Design Questions](#type-1-design-questions)
+    - [Type 2: Calculation Questions](#type-2-calculation-questions)
   - [My Takeaways](#my-takeaways)
 
 ## Overview
@@ -53,7 +53,7 @@ Subnet mask:
 /19
 ```
 
-### Step 1 — Calculate Host Bits
+### Step 1: Calculate Host Bits
 
 IPv4 contains 32 bits.
 
@@ -63,7 +63,7 @@ Host Bits
 32 − 19 = 13
 ```
 
-### Step 2 — Calculate Usable Hosts
+### Step 2: Calculate Usable Hosts
 
 Formula:
 
@@ -79,7 +79,7 @@ Calculation:
 8192 − 2 = 8190 usable hosts
 ```
 
-### Step 3 — Calculate Borrowed Bits
+### Step 3: Calculate Borrowed Bits
 
 Default Class A mask:
 
@@ -93,7 +93,7 @@ Borrowed bits:
 19 − 8 = 11
 ```
 
-### Step 4 — Calculate Number of Subnets
+### Step 4: Calculate Number of Subnets
 
 ```text
 2¹¹ = 2048 subnets
@@ -108,7 +108,7 @@ IP Address
 60.15.10.75/19
 ```
 
-### Step 1 — Determine Block Size
+### Step 1: Determine Block Size
 
 Subnet mask:
 
@@ -157,7 +157,7 @@ Since:
 
 The address belongs to the first subnet.
 
-### Step 2 — Find Network Address
+### Step 2: Find Network Address
 
 ```text
 Network Address
@@ -170,7 +170,7 @@ Notice:
 - Third octet becomes **0**
 - Fourth octet becomes **0**
 
-### Step 3 — Find Broadcast Address
+### Step 3: Find Broadcast Address
 
 Next subnet starts at:
 
@@ -190,7 +190,7 @@ Notice:
 - Third octet is one less than 32 → **31**
 - Fourth octet becomes **255**
 
-### Step 4 — Find Valid Hosts
+### Step 4: Find Valid Hosts
 
 ```text
 First Host
@@ -283,7 +283,7 @@ Requirement:
 6 subnets
 ```
 
-### Step 1 — Determine Borrowed Bits
+### Step 1: Determine Borrowed Bits
 
 Need at least:
 
@@ -316,7 +316,7 @@ Borrow:
 3 bits
 ```
 
-### Step 2 — Add Borrowed Bits
+### Step 2: Add Borrowed Bits
 
 Default Class B mask:
 
@@ -342,7 +342,7 @@ Subnet mask:
 255.255.224.0
 ```
 
-### Step 3 — Additional Information
+### Step 3: Additional Information
 
 Network block size:
 
@@ -373,7 +373,7 @@ Host Bits
 
 Subnetting questions generally fall into two categories.
 
-### Type 1 — Design Questions
+### Type 1: Design Questions
 
 Given:
 
@@ -385,7 +385,7 @@ Determine:
 - Appropriate subnet mask
 - Network addresses
 
-### Type 2 — Calculation Questions
+### Type 2: Calculation Questions
 
 Given:
 
@@ -399,7 +399,7 @@ Determine:
 - First Host
 - Last Host
 
-Mastering these two question types is enough to solve most subnetting questions on the CCNA exam.
+Practice both question types: designing a subnet mask and calculating an address range.
 
 ## My Takeaways
 - Subnetting on the **3rd octet** follows the same rules as subnetting on the 4th octet.

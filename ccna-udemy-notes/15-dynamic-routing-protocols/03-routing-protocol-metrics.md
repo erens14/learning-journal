@@ -2,9 +2,9 @@
 
 ## Overview
 
-When a router learns multiple paths to same destination, an IGP assigns each path a metric. Lower metric is preferred. Only best eligible route is installed in routing table; remaining learned paths stay in protocol database as alternatives.
+An IGP uses metrics to compare paths to the same destination. It prefers the lowest metric among eligible paths and can retain other learned paths in its protocol database.
 
-Metrics let dynamic routing protocols adapt to failures. When best path is lost, router reconverges and installs next-best available path.
+When the selected path fails, the protocol reconverges and selects another eligible path if one is available.
 
 ---
 
@@ -12,19 +12,19 @@ Metrics let dynamic routing protocols adapt to failures. When best path is lost,
 
 ### Metric
 
-A metric is protocol-specific path preference value. Lower value means more preferred path. Metrics are only compared between routes learned by same routing protocol.
+A metric is a protocol-specific path preference value. A lower value is preferred when comparing paths learned by the same routing protocol.
 
 ### Distance Vector Metric Exchange
 
-Distance Vector routers advertise known networks and their metric to direct neighbors. Each receiving router adds its own path information before advertising onward.
+Distance Vector routers advertise known networks and their metrics to direct neighbors. A receiving router adds its own path information before advertising onward.
 
 ### Link State Path Calculation
 
-Link State routers flood link information in an area. Every router builds topology database, then independently calculates best paths using its protocol metric.
+Link State routers flood link information within an area. Each router builds a topology database and calculates paths using the protocol's metric.
 
 ### Convergence and Failover
 
-After link or route change, protocol detects change, recalculates paths, and updates routing table. During convergence, routing table may temporarily not show expected best route.
+After detecting a link or route change, the protocol recalculates paths and updates the routing table. Expected routes may be temporarily absent during convergence.
 
 ---
 
@@ -138,8 +138,8 @@ R5 path may have less bandwidth than R3 path, but RIP ignores bandwidth. OSPF co
 
 ## My Takeaways
 
-* **Metric chooses protocol’s preferred path:** Lowest metric is best, but meaning of metric changes by protocol.
-* **RIP optimizes hop count, not link quality:** Fewer routers can win even when path has less bandwidth.
-* **OSPF and EIGRP generally choose practical paths:** Their default metrics account for bandwidth, with EIGRP also using delay.
-* **IS-IS needs deliberate cost design:** Default equal costs can produce lower-hop routing instead of preferred-bandwidth routing.
-* **Dynamic routing is self-healing:** Route failure triggers reconvergence and fallback to next-best known path when available.
+* A lower metric is preferred, but each protocol defines its metric differently.
+* RIP can prefer fewer hops even when that path has less bandwidth.
+* Default OSPF and EIGRP metrics use bandwidth; EIGRP also uses configured delay.
+* Equal default IS-IS costs can favor fewer hops unless interface costs are changed.
+* A route failure triggers reconvergence; another path is usable only if an eligible alternative exists.

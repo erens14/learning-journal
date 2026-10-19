@@ -2,7 +2,7 @@
 
 ## Overview
 
-Troubleshooting at the Physical Layer (Layer 1) and Data-Link Layer (Layer 2) of the OSI stack forms the baseline of network diagnostics. Layer 1 issues involve physical components like copper or fiber cabling, connector integrity, power delivery, and electromagnetic interference (EMI). Layer 2 issues typically manifest as logical configuration disparities between adjoining systems. Isolating these errors requires a deep understanding of operational status indicators and interface counters to differentiate between physical media degradation and systematic configuration mismatches.
+Layer 1 troubleshooting checks cables, connectors, power, and interference. Layer 2 troubleshooting checks link operation and compatible settings. Interface states and error counters help decide which to investigate.
 
 ## Key Concepts
 
@@ -127,8 +127,8 @@ FastEthernet0/0 is up, line protocol is up
 
 ## My Takeaways
 
-- `show ip interface brief` is the best starting command for physical path troubleshooting, allowing engineers to instantly pinpoint layer 1 or layer 2 faults.
+- Start with `show ip interface brief` to compare physical and line-protocol states, then investigate the affected interfaces.
 - Statically hardcoding different speeds on opposing sides of a cable drops the entire link down, whereas a duplex mismatch leaves the link up but causes terrible performance.
 - Core infrastructure links (routers, switches, firewalls, and servers) should be manually configured for speed and duplex to prevent auto-negotiation failures.
-- End-user access ports (PCs and laptops) should remain configured for auto-negotiation to seamlessly accommodate a wide variety of client network interface cards.
-- CDP acts as a valuable background layer 2 auditor, automatically logging duplex configuration errors to the console terminal to save engineers manual troubleshooting time.
+- The lesson leaves PC and laptop access ports on auto-negotiation to accommodate different client network cards.
+- CDP can report a duplex mismatch between neighboring devices; inspect interface settings and counters as well.

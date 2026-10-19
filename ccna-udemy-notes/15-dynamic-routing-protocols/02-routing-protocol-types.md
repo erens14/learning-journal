@@ -12,10 +12,10 @@ Dynamic routing protocols exchange reachability information and select paths aut
 
 An IGP distributes routes inside a single organization or autonomous system. Common CCNA IGPs are:
 
-* **RIP** — Routing Information Protocol; Distance Vector.
-* **EIGRP** — Enhanced Interior Gateway Routing Protocol; advanced Distance Vector.
-* **OSPF** — Open Shortest Path First; Link State.
-* **IS-IS** — Intermediate System to Intermediate System; Link State.
+* **RIP:** Routing Information Protocol; Distance Vector.
+* **EIGRP:** Enhanced Interior Gateway Routing Protocol; advanced Distance Vector.
+* **OSPF:** Open Shortest Path First; Link State.
+* **IS-IS:** Intermediate System to Intermediate System; Link State.
 
 ### Exterior Gateway Protocols (EGPs)
 
@@ -143,8 +143,8 @@ If this topology used RIP instead, `show ip rip database` would display routes l
 
 ## My Takeaways
 
-* **IGP versus EGP describes routing scope:** IGPs operate inside one organization; BGP connects autonomous systems.
-* **Distance Vector learns route claims:** A router trusts information advertised by its direct neighbor and does not hold a complete topology map.
-* **Link State learns link information:** Flooded advertisements let every router in an area build a comparable topology database.
-* **Neighbor-only adjacency does not mean neighbor-only knowledge:** OSPF peers only with adjacent routers while still learning about distant routers and links.
-* **Verification follows data flow:** Check protocol status, inspect its database, then confirm selected routes in the routing table.
+* IGPs operate within an autonomous system; BGP exchanges routes between autonomous systems.
+* Distance Vector routers learn route information from neighbors rather than building a complete topology map.
+* Link State advertisements let routers in an area build comparable topology databases.
+* OSPF can learn about distant links through flooding without peering directly with every router.
+* Check protocol status, inspect its database, then confirm selected routes in the routing table.

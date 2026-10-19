@@ -4,7 +4,7 @@
 
 Although IP addresses are commonly written in **decimal notation**, computers process them in **binary**.
 
-Understanding binary is essential because IPv4 addresses, subnet masks, and subnetting calculations are all based on binary values.
+IPv4 addresses, subnet masks, and subnetting calculations use binary values.
 
 ## Decimal vs Binary
 
@@ -47,7 +47,7 @@ Starting from the largest value, ask:
 
 Continue until reaching the last column (1).
 
-### Example 1 — Convert 236 to Binary
+### Example 1: Convert 236 to Binary
 
 ```text
 Decimal = 236
@@ -76,7 +76,7 @@ Verification:
 = 236 ✓
 ```
 
-### Example 2 — Convert 179 to Binary
+### Example 2: Convert 179 to Binary
 
 ```text
 Decimal = 179
@@ -141,7 +141,7 @@ Binary conversion is one of the most important prerequisites for:
 * Subnetting
 * Route Summarization
 
-A solid understanding of binary makes subnetting much easier to understand.
+These topics use the same powers-of-two calculations.
 
 ## My Takeaways
 
@@ -149,4 +149,4 @@ A solid understanding of binary makes subnetting much easier to understand.
 * Binary uses only two digits (0 and 1), with each column representing a power of two.
 * Converting decimal to binary follows a simple "fit or not fit" approach.
 * Checking the result by adding all active bit values helps verify the conversion.
-* Memorizing the values **128, 64, 32, 16, 8, 4, 2, 1** will significantly speed up subnetting calculations.
+* I should memorize **128, 64, 32, 16, 8, 4, 2, 1** for subnetting calculations.

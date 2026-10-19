@@ -81,15 +81,15 @@ For USB console cables:
 
 ## Basic Cisco CLI Commands
 
-| Command                          | Description                                         |                                                 |
-| -------------------------------- | --------------------------------------------------- | ----------------------------------------------- |
-| `enable`                         | Enter Privileged EXEC mode                          |                                                 |
-| `disable`                        | Return to User EXEC mode                            |                                                 |
-| `configure terminal` or `conf t` | Enter Global Configuration mode                     |                                                 |
-| `exit`                           | Exit one configuration level                        |                                                 |
-| `end`                            | Return directly to Privileged EXEC mode             |                                                 |
-| `do`                             | Execute privileged commands from Configuration mode |                                                 |
-| `                                | `                                                   | Filter command output using regular expressions |
+| Command | Description |
+| --- | --- |
+| `enable` | Enter Privileged EXEC mode |
+| `disable` | Return to User EXEC mode |
+| `configure terminal` or `conf t` | Enter Global Configuration mode |
+| `exit` | Exit one configuration level |
+| `end` | Return directly to Privileged EXEC mode |
+| `do` | Execute privileged commands from Configuration mode |
+| `\|` | Filter command output using regular expressions |
 
 ## Configuration Management
 
