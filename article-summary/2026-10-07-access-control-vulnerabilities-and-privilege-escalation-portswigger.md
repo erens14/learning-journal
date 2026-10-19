@@ -1,18 +1,14 @@
 # Article Summary — Access Control Vulnerabilities and Privilege Escalation
 
-**Source:** PortSwigger Web Security Academy
-
-**Author:** No individual byline displayed
-
-**Publication date:** Not displayed on the source page
-
-**Reviewed:** 2026-10-07
-
-**Link:** [Access control vulnerabilities and privilege escalation](https://portswigger.net/web-security/access-control)
+**Source:** PortSwigger Web Security Academy  
+**Author:** No individual byline displayed  
+**Publication date:** Not displayed on the source page  
+**Reviewed:** 2026-10-07  
+**Link:** [Access control vulnerabilities and privilege escalation](https://portswigger.net/web-security/access-control)  
 
 ---
 
-# Summary
+## Summary
 
 PortSwigger distinguishes authentication, session management, and authorization: identifying someone, associating requests with that identity, and deciding what they may do.
 
@@ -24,7 +20,7 @@ The article recommends default denial, consistent application-wide enforcement, 
 
 ---
 
-# Key Takeaways
+## Key Takeaways
 
 * Vertical controls separate privileges; horizontal controls separate users' resources; context-dependent controls constrain workflow states.
 * Insecure direct object references (IDOR) involve manipulated object references enabling unauthorized access. Unpredictable identifiers do not replace permission checks.
@@ -33,7 +29,7 @@ The article recommends default denial, consistent application-wide enforcement, 
 
 ---
 
-# Lesson Learned
+## Lesson Learned
 
 The following is my proposed QA application of the reading. These fictional scenarios are test designs, not reported vulnerabilities or completed tests.
 
@@ -52,10 +48,8 @@ For public documentation, I would use fictional roles and records, describe the 
 
 ---
 
-# Personal Reflection
+## Personal Reflection
 
 As a QA engineer transitioning into entry-level cybersecurity, I can turn a business permission rule into a testable question: which actor may perform which action on which record in which state? That provides a concrete bridge from functional testing to security reasoning. I would document these checks as future security practice and keep them distinct from my existing QA observations.
 
 My next step is to complete an introductory [PortSwigger access-control lab](https://portswigger.net/web-security/access-control#labs). I would write the expected boundary first, record what I observe, and explain the result in my own words. For defensive follow-up, I would consider which actor, action, resource, and decision fields would help an analyst investigate suspicious access. That logging idea is my learning extension, not a finding or implementation claim from this article. No lab has been completed for this note.
-
----
