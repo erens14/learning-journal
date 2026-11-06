@@ -41,7 +41,7 @@ During test execution on payment settlements, two separate integration bugs were
 
 DEMO-INVOICE-001 is a fictional label. This summary does not claim that a separate overpayment retest covers this earlier finding.
 
-## Why This Matters
+## Impact
 
 ### User Impact
 
@@ -90,4 +90,4 @@ Testing payment settlement logic requires verifying both double-entry bookkeepin
 
 ## Key Takeaway
 
-A financial payment transaction is not complete simply because the General Ledger balances. QA must verify that tax deduction logic accurately reflects net cash entries and that operational side-effects—such as Overpaid entity creation—are committed alongside accounting journals.
+A financial payment transaction is not complete simply because the General Ledger balances. QA must verify that tax deduction logic accurately reflects net cash entries and that operational side-effects (such as Overpaid entity creation) are committed alongside accounting journals.

@@ -1,4 +1,4 @@
-# QA Lesson Learned — SPS UI Validation and Evidence Boundaries
+# QA Lesson Learned: SPS UI Validation and Evidence Boundaries
 
 **Area:** Validation, Financial Data Consistency, and Security-Aware QA
 

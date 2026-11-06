@@ -20,7 +20,7 @@ AI-driven attack techniques span several core operational domains:
 ## Key Takeaways
 
 * Generative AI significantly lowers the technical barrier to entry, enabling low-skilled threat actors to execute advanced, automated cyber attacks.
-* AI-driven phishing campaigns achieve massive scale and believability, maintaining over a 75% success rate in controlled testing environments.
+* The article reports a 75% malicious-link click rate in controlled phishing tests. The population and test conditions are not established in this note, so the figure should not be generalized to all campaigns.
 * Polymorphic malware and AI-disguised scripts use code jumbling and dead-code insertion to change their structures in real time, easily evading signature-based detection.
 * Automated vulnerability scanning allows AI tools to scan systems for open ports and outdated software, launching exploits with minimal human intervention.
 * Defending against mutating, high-velocity threats requires cybersecurity teams to pivot toward behavior-based, real-time AI threat detection architectures.

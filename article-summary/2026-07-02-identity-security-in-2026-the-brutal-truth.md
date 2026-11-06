@@ -16,12 +16,10 @@ The article also highlights the growing complexity of identity management. Moder
 
 To address these challenges, the article recommends adopting an **identity-first security strategy**. Organizations should implement strong identity governance, enforce least privilege principles, continuously monitor authentication activities, rotate credentials regularly, and strengthen privileged access management (PAM). These practices align closely with the Zero Trust security model, where every access request is continuously verified rather than implicitly trusted after authentication.
 
-Ultimately, the article emphasizes that identity protection is no longer just one component of cybersecurity—it has become the foundation of enterprise security. As attackers increasingly exploit identities instead of infrastructure vulnerabilities, organizations must shift their security focus toward protecting identities, privileges, and machine credentials to reduce their overall attack surface.
-
 ## Key Takeaways
 
 * Identity has become the primary attack surface in modern enterprise environments.
-* Attackers increasingly abuse legitimate credentials instead of exploiting software vulnerabilities.
+* Attackers abuse legitimate credentials to access enterprise resources.
 * Non-human identities, such as service accounts and machine identities, require the same level of protection as human users.
 * Traditional perimeter-based security alone is no longer sufficient to defend against modern attacks.
 * Identity governance, least privilege, PAM, MFA, and Zero Trust are essential components of modern identity security.
@@ -29,7 +27,7 @@ Ultimately, the article emphasizes that identity protection is no longer just on
 ## Lesson Learned
 
 * Cybersecurity strategies must evolve from protecting network perimeters to protecting identities.
-* Every identity—including service accounts, API keys, and machine identities—should be inventoried and monitored.
+* Every identity (including service accounts, API keys, and machine identities) should be inventoried and monitored.
 * Excessive privileges and long-lived credentials significantly increase an organization's attack surface.
 * Continuous authentication monitoring and identity governance are critical for detecting and preventing identity-based attacks.
 

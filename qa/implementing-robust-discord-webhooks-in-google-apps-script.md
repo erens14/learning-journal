@@ -7,7 +7,7 @@ A Google Forms automation project used Google Apps Script to process user entrie
 The expected workflow was that once an expense or income entry was submitted via Google Form:
 
 * Apps Script should dynamically route the data into specific monthly sheets formatted as space-free tab names (e.g., `Juli2026`).
-* Currency inputs should be automatically handled and formatted using Indonesian locale punctuation (`;`).
+* Currency values should be validated and formatted with Indonesian grouping and decimal punctuation (for example, `1.234,56`). A semicolon (`;`) is a spreadsheet formula separator, not currency punctuation.
 * Apps Script should successfully trigger an HTTP POST request to a Discord Webhook to send a real-time notification to the production server.
 
 The feature being tested was the integration of Discord Webhooks, trigger objects, data parsing, and exception handling within the Google Apps Script automation flow.
@@ -29,9 +29,9 @@ Original application screenshots and confidential development artifacts are excl
 During testing, the spreadsheet routing worked, but the automated notification and parsing system revealed several critical bugs and runtime errors:
 
 * Manually clicking the "Run" button inside the Google Apps Script editor threw a fatal `TypeError: Cannot read properties of undefined (reading 'range')` because the script relied on an Event Object (`e`) only generated during live submissions.
-* Notifications failed to send silently because a logical guard rail implemented as `if (discordWebhookUrl !== "...")` was misconfigured; the placeholder string was mistakenly changed to the actual webhook URL, resulting in a false `URL !== URL` condition that caused the compiler to skip the entire execution block.
-* Inputting text or non-numeric characters into the "Nominal" field caused the script to instantly crash because the native `.toLocaleString("id-ID")` function encountered an unhandled exception when forced onto non-numeric types.
-* Standard network request behaviors meant that any external Discord API downtime or network glitch throwing a 400 or 500 error would completely freeze the Apps Script runtime, halting subsequent database tracking operations on Google Sheets.
+* Notifications failed to send silently because a logical guard rail implemented as `if (discordWebhookUrl !== "...")` was misconfigured; the placeholder string was mistakenly changed to the actual webhook URL, resulting in a false `URL !== URL` condition that caused execution to skip the entire execution block.
+* Non-numeric input in "Nominal" was reported to cause a formatting exception. Strings also implement `.toLocaleString()`; without the receiver value and stack trace, this note cannot attribute the exception to non-numeric input alone.
+* An unhandled `UrlFetchApp.fetch()` exception can terminate the current execution and skip later statements. HTTP error responses such as 400 or 500 differ from transport failures or timeouts. Outage behavior was not confirmed by the recorded tests.
 
 These findings suggested that the automation flow lacked the necessary isolation, data type validation, and exception handling required for production reliability.
 
@@ -45,9 +45,9 @@ These findings suggested that the automation flow lacked the necessary isolation
 | --- | --- | --- | --- |
 | HOOK-E01 | Run a form-event handler manually without an event object | The manual path supplies a test event or handles its absence | Access to the missing event range caused a runtime error. |
 | HOOK-E02 | Compare successful sheet routing with notification delivery | The notification path runs after eligible submissions | A guard comparison skipped the notification block. |
-| HOOK-E03 | Submit non-numeric input to the amount field | Invalid input is rejected or handled without an unexpected crash | Formatting the non-numeric value caused an exception. |
+| HOOK-E03 | Submit non-numeric input to the amount field | Invalid input is rejected or handled without an unexpected crash | The note reports an exception after non-numeric input; the failing receiver and call are not established. |
 
-## Why This Matters
+## Impact
 
 ### User Impact
 
@@ -57,12 +57,12 @@ These findings suggested that the automation flow lacked the necessary isolation
 ### System Impact
 
 * A logic glitch in placeholder comparisons completely bypasses the webhook execution block after spreadsheet routing is complete.
-* External API outages or network disruptions can completely freeze the runtime, breaking core spreadsheet logging operations.
+* An unhandled fetch exception can stop the current execution; this does not freeze the Apps Script runtime as a whole.
 
 ### Data Impact
 
-* Non-numeric entries in currency fields cause unhandled exceptions that immediately crash the data processing thread.
-* Unmuted HTTP exceptions allow external network errors to disrupt the integrity of database entries in Google Sheets.
+* Invalid currency input needs explicit validation. The reported exception does not establish which coercion or formatting call failed.
+* If sheet writes occur after a failing fetch, they may be skipped. The existing record does not establish lost or corrupted sheet entries.
 
 ### Business Impact
 
@@ -78,7 +78,7 @@ Google Apps Script automation testing must extend beyond basic form submission r
 ### Validation Points
 
 * Verify that form inputs route cleanly into space-free monthly tab names (`MonthYear`).
-* Confirm that currency inputs are automatically handled using proper Indonesian locale punctuation (`;`).
+* Confirm numeric validation and Indonesian currency formatting separately from spreadsheet formula separators (`;`).
 * Validate that mock functions successfully isolate trigger parameters to allow safe, rapid local debugging inside the editor.
 * Ensure the webhook payload triggers instantly on the production Discord server upon new live form submissions.
 
@@ -91,14 +91,14 @@ Google Apps Script automation testing must extend beyond basic form submission r
 
 ### Business Rules
 
-* Google Sheet database operations must always succeed regardless of external notification system availability.
+* Core sheet writes should complete before notification delivery, with each failure reported separately. Notification isolation cannot guarantee that sheet operations themselves succeed.
 * Currency formatting and type coercion must fail gracefully without halting the core execution thread.
-* Clean and production-ready code must be separated from development workflows for reliable deployment.
+* Keep implementation code under version control and document validation before deployment.
 
 ### System Behavior Expectations
 
 * The main automation functions should handle event parameters seamlessly during both live operations and isolated testing phases.
-* Network fetch requests must be completely isolated to prevent external API dependencies from freezing internal script processes.
+* Handle HTTP error responses by checking their response codes, and catch transport exceptions separately. Keep notification failure from skipping core sheet writes.
 * Logical conditions must be streamlined to execute immediately following database actions.
 
 ---
@@ -109,9 +109,9 @@ Potential improvements include:
 
 * Creating a dedicated local testing and mocking function (`jalankanTesManual()`) at the bottom of the script that pulls the last row of data from the spreadsheet to simulate a form submission safely.
 * Removing redundant placeholder `if` statements entirely to streamline code execution directly after spreadsheet routing is complete.
-* Wrapping numeric variables inside a `Number()` constructor combined with an `isNaN()` validation guard to gracefully downgrade to a raw string if the number test fails.
-* Injecting the `"muteHttpExceptions": true` property into the `UrlFetchApp.fetch()` payload to isolate network requests from core spreadsheet operations.
-* Isolating the clean, production-ready source code into a dedicated repository: [View the Clean Implementation Code Here](https://github.com/erens14/automated-expense-tracker-gas).
+* Validate the raw amount before formatting. Reject blank or non-finite values explicitly; `Number()` alone can convert empty input to zero.
+* Pass `muteHttpExceptions: true` in the `UrlFetchApp.fetch()` options object, then inspect `getResponseCode()`. Use `try/catch` for transport failures and timeouts; this option does not suppress those failures and is not part of the Discord message payload.
+* [Implementation repository](https://github.com/erens14/automated-expense-tracker-gas). The linked code was not inspected here, and no successful regression run or production-readiness assessment is recorded.
 
 ---
 
@@ -119,4 +119,4 @@ Potential improvements include:
 
 Testing Google Apps Script automations should not end after confirming a basic form routes to a spreadsheet.
 
-QA must also verify how trigger objects handle manual runs, safeguard data type parsing against unhandled validation exceptions, and isolate external HTTP network requests to ensure core database operations remain functional regardless of third-party API availability.
+Verify manual-event handling, numeric validation, and notification failures separately. These are proposed regression checks; the record does not establish that the suggested changes passed them.

@@ -1,4 +1,4 @@
-# Video Summary — Analysis of a ClickFix Campaign Exploiting Windows search-ms Protocol to Deliver MetaStealer
+# Video Summary: Analysis of a ClickFix Campaign Exploiting Windows search-ms Protocol to Deliver MetaStealer
 
 **Source:** YouTube (John Hammond)
 
@@ -37,7 +37,7 @@ Executing the shortcut triggers a multi-stage Living off the Land (LOLBin) infec
 * Threat actors leverage Google search ads (malvertising) targeting popular software queries (like AnyDesk) to lead users to fake verification landing pages.
 * The attack chain abuses the native Windows `search-ms:` protocol handler to auto-open remote SMB network shares inside Windows Explorer, bypassing browser download security alerts.
 * System environment variables (`%COMPUTERNAME%`) are dynamically injected into `curl` request subdomains during staging to exfiltrate host identifiers without preliminary payloads.
-* The campaign relies heavily on Living off the Land Binaries (LOLBins)—such as `cmd.exe`, `curl.exe`, `msiexec.exe`, `wscript.exe`, and `computerdefaults.exe`—for payload execution and privilege escalation.
+* The campaign relies heavily on Living off the Land Binaries (LOLBins) (such as `cmd.exe`, `curl.exe`, `msiexec.exe`, `wscript.exe`, and `computerdefaults.exe`) for payload execution and privilege escalation.
 * The ultimate payload delivered is MetaStealer, packed via *Private EXE Protector*, which modifies Windows Defender exclusions to steal browser passwords, session cookies, and system metrics undetected.
 
 ## Lesson Learned
@@ -49,6 +49,6 @@ Executing the shortcut triggers a multi-stage Living off the Land (LOLBin) infec
 
 ## Personal Reflection
 
-As a QA engineer and cybersecurity enthusiast, reviewing this teardown highlights how critical edge-case protocol behaviors are when assessing application and OS integration risks. In QA, the focus is often on verifying expected system boundaries and input handling; seeing how threat actors weaponize native handlers like `search-ms:` to breach the browser sandbox demonstrates how unexpected protocol execution paths can be exploited.
+Reviewing this teardown highlights how critical edge-case protocol behaviors are when assessing application and OS integration risks. In QA, the focus is often on verifying expected system boundaries and input handling; seeing how threat actors weaponize native handlers like `search-ms:` to breach the browser sandbox demonstrates how unexpected protocol execution paths can be exploited.
 
-This analysis reinforces the value of end-to-end trace analysis, from initial UI interactions down to low-level process creation. Understanding how initial stagers abuse built-in tools (`curl`, `msiexec`) to silently deploy info-stealers inspires me to incorporate security-minded checks into regular testing workflows—such as monitoring unexpected process spawns, network calls, and file system modifications during application execution.
+This analysis reinforces the value of end-to-end trace analysis, from initial UI interactions down to low-level process creation. Understanding how initial stagers abuse built-in tools (`curl`, `msiexec`) to silently deploy info-stealers inspires me to incorporate security-minded checks into regular testing workflows, such as monitoring unexpected process spawns, network calls, and file system modifications during application execution.

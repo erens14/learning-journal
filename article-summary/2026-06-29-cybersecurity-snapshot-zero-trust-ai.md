@@ -29,7 +29,7 @@ Finally, the article mentions a new U.S. Executive Order that encourages federal
 
 ## Lesson Learned
 
-* Zero Trust is not just a security concept but a practical architecture supported by implementation guidelines.
+* Zero Trust has implementation guidelines that translate the concept into an architecture.
 * Effective cybersecurity depends on continuous monitoring, identity verification, and minimizing unnecessary access.
 * AI introduces both new opportunities and new attack vectors, requiring stronger defensive strategies.
 * Exposure management and proactive security provide better resilience against modern cyber threats than reactive defenses alone.
@@ -38,4 +38,4 @@ Finally, the article mentions a new U.S. Executive Order that encourages federal
 
 ## Personal Reflection
 
-This article reinforced that modern cybersecurity is shifting from reactive protection toward continuous verification and proactive risk management. I also realized that Zero Trust is much broader than implementing MFA or network segmentation—it requires visibility into assets, identities, vulnerabilities, and continuous policy enforcement. As I continue studying networking and cybersecurity, understanding these foundational principles will help me better connect infrastructure, cloud security, and security operations in real-world environments.
+This article reinforced that modern cybersecurity is shifting from reactive protection toward continuous verification and proactive risk management. I also realized that Zero Trust is much broader than implementing MFA or network segmentation. It requires visibility into assets, identities, vulnerabilities, and continuous policy enforcement. As I continue studying networking and cybersecurity, understanding these foundational principles will help me better connect infrastructure, cloud security, and security operations in real-world environments.

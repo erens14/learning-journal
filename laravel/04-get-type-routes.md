@@ -4,18 +4,18 @@ This reference guide breaks down the core fundamentals of web routing within the
 
 ## Core Prerequisites & Concepts
 
-* **What is an HTTP Request?** An HTTP request occurs whenever a user interacts with a web browser to communicate with a backend system—such as loading a clean URL path, submitting form input data, or requesting database transactions.
+* **What is an HTTP Request?** An HTTP request occurs whenever a user interacts with a web browser to communicate with a backend system, such as loading a clean URL path, submitting form input data, or requesting database transactions.
 * **The Route Class:** Laravel provides access to routing tools through a dedicated structural facade class:
 
     ```php
     use Illuminate\Support\Facades\Route;
     ```
 
-* **The Four Primary HTTP Methods:** While Laravel supports six request methods, web developers primarily focus on these four core structural verbs:
+* **The Four Primary HTTP Methods:** While Laravel supports additional HTTP methods, web developers primarily focus on these four core structural verbs:
 
 1. **`GET`:** Used to request and retrieve data or render visual layout pages.
-2. **`POST`:** Used to submit secure input data (like a login or registration form) to the system.
-3. **`PUT`:** Used to update existing records within a database ecosystem.
+2. **`POST`:** Used to submit input, such as a login form. POST does not encrypt data; use HTTPS, server validation, applicable CSRF checks, and authorization.
+3. **`PUT`:** Used to update existing records in a database.
 4. **`DELETE`:** Used to permanently remove a specified record or resource block.
 
 ### 1. Where Routes Are Created
@@ -56,7 +56,8 @@ To declare an active placeholder parameter, wrap the target variable name in cur
 
 ```php
 Route::get('/portfolio/{first_name}', function ($first_name) {
-    return $first_name;
+    return response($first_name)
+        ->header('Content-Type', 'text/plain; charset=UTF-8');
 });
 ```
 
@@ -68,7 +69,8 @@ You can pass multiple parameter values sequentially within a single URL string b
 
 ```php
 Route::get('/portfolio/{first_name}/{last_name}', function ($first_name, $last_name) {
-    return $first_name . ' ' . $last_name;
+    return response($first_name . ' ' . $last_name)
+        ->header('Content-Type', 'text/plain; charset=UTF-8');
 });
 ```
 
@@ -144,3 +146,7 @@ Route::prefix('portfolio')->group(function () {
 ```
 
 *(Note: Ensure you remember to create the corresponding view layouts inside your resources path: `resources/views/company.blade.php` and `resources/views/organization.blade.php` to prevent template retrieval execution errors).*
+
+## Output boundary
+
+The parameter examples demonstrate routing only. Request and route values are untrusted. Escape them with Blade `{{ }}` when rendering HTML, or return a response with an appropriate content type; validation and authorization are separate requirements.

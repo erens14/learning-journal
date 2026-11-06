@@ -21,6 +21,10 @@ This folder contains structured CCNA study notes organized by networking topic. 
 | [13 Device Management](13-cisco-device-management/README.md) | Boot process, backup, password recovery, IOS upgrades. |
 | [14 Routing Fundamentals](14-routing-fundamentals/README.md) | Connected routes, static routes, default routing. |
 | [15 Dynamic Routing Protocols](15-dynamic-routing-protocols/README.md) | Dynamic vs static routing and routing protocol types. |
+| [16 Connectivity Troubleshooting](16-connectivity-troubleshooting/README.md) | Connectivity checks and troubleshooting labs. |
+| [17 IGP Fundamentals](17-igp-interior-gateway-protocol-fundamentals/README.md) | Interior routing protocols, RIP, and EIGRP. |
+| [18 OSPF](18-ospf-open-shortest-path-first/README.md) | OSPF operation, configuration, and troubleshooting. |
+| [19 VLANs](19-vlans-virtual-local-area-networks/README.md) | VLANs, trunks, DTP, and VTP. |
 
 ## Recruiter Signal
 

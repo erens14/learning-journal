@@ -7,7 +7,7 @@ An Accounts Receivable (AR) payment module was enhanced to mirror sales cash-rec
 The expected workflow was that:
 
 * Users can search and select multiple receivable invoices in a single payment form with real-time total and variance calculation.
-* An optional Tax Withholding (e.g., PPh 23) toggle (`Yes` / `No`) automatically calculates tax obligations based on the Net Taxable Amount (DPP) and posts the corresponding debit entry to the tax expense account in the General Ledger (GL).
+* An optional Tax Withholding (e.g., PPh 23) toggle (`Yes` / `No`) automatically calculates tax obligations based on the Net Taxable Amount (DPP) and posts the corresponding debit entry to the account designated by the application's approved withholding policy in the General Ledger (GL).
 * Overpayments (paying an amount greater than the total invoice value) automatically generate a new customer credit voucher (Overpaid record) in addition to posting GL entries.
 * Users can apply multiple existing overpayment credit vouchers to settle new receivable transactions.
 * Partial payments calculate tax deductions proportionally based on the amount actually paid, rather than the total invoice balance.
@@ -30,7 +30,7 @@ Original application screenshots and confidential development artifacts are excl
 
 During retesting, while the multi-invoice grid layout and basic full payment flows worked as expected, several critical accounting, UI, and backend logic failures were identified:
 
-* **Missing GL Tax Journal Entries:** When the tax deduction toggle was set to `YES`, the generated GL journal failed to create the Debit line for the Tax Expense account, posting only the net bank receipt against total receivable credit.
+* **Missing GL Tax Journal Entries:** When the tax deduction toggle was set to `YES`, the generated GL journal failed to create the debit line for the configured withholding account (called "Tax Expense" in the source note), posting only the net bank receipt against total receivable credit.
 * **Unrecorded Customer Overpayments:** When payment amounts exceeded the total invoice balance, the system posted the accounting journal but failed to generate a corresponding Overpaid credit voucher record in the system database.
 * **UI Limitation on Credit Application:** The form restricted users to selecting only one Overpaid voucher per transaction, lacking a multi-selection grid or row-addition functionality for credit usage.
 * **Tax Calculation Distortion on Partial Payments:** Partial payment settlements initially required explicit proportional recalculation to ensure tax withholding was computed strictly as a percentage of the paid DPP amount rather than the full invoice DPP.
@@ -50,11 +50,11 @@ These findings revealed that multi-line payment processing lacked comprehensive 
 | ALLOC-E03 | Apply more than one existing credit voucher | The stated multi-credit workflow accepts multiple selections | The form allowed only one credit voucher. |
 | ALLOC-E04 | Calculate withholding for a partial payment | The deduction follows the paid taxable portion under the stated rule | The note describes a need for proportional recalculation; a final retest is not recorded. |
 
-## Why This Matters
+## Impact
 
 ### User Impact
 
-* Users cannot reconcile bank statements accurately because bank debit entries fail to reflect net cash received after tax withholdings.
+* The note records the net bank receipt but a missing withholding counterpart. That omission makes the journal incomplete against the receivable credit and complicates reconciliation; it does not show that the bank line itself used gross cash.
 * Excess payments made by customers vanish from operational credit tracking, forcing manual offline workarounds to trace customer balances.
 * Users are unable to combine multiple small credit vouchers to settle larger invoices in a single workflow.
 
@@ -120,4 +120,6 @@ Potential improvements include:
 
 ## Key Takeaway
 
-Testing financial settlement features must go beyond basic payment recording. QA must trace every transaction through the entire accounting pipeline—verifying that multi-line UI selections accurately drive dynamic tax calculations, issue downstream credit vouchers, and generate perfectly balanced GL journals.
+Testing financial settlement features must go beyond basic payment recording. QA must trace every transaction through the entire accounting pipeline, verifying that multi-line UI selections accurately drive dynamic tax calculations, issue downstream credit vouchers, and generate perfectly balanced GL journals.
+
+Account names and debit/credit mappings describe this application's reported rules. Finance must approve the withholding account and any adjustments; this note is not a universal accounting policy.

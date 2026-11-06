@@ -34,7 +34,7 @@ The system displayed a generic success notification indicating that the data had
 However, further validation of the database revealed three critical inconsistencies:
 
 * Certain rows from the import file were completely missing from the database, resulting in silent data loss without any error messages.
-* Specific records were saved, but their data fields were mapped incorrectly (e.g., values shifted or swapped with data from other categories due to loop index errors).
+* Specific records were saved, but their data fields were mapped incorrectly (e.g., values shifted or swapped with data from other categories with loop index errors as one unconfirmed explanation).
 * Optional columns left blank in the import file were automatically filled with unintended hardcoded default values instead of remaining empty or null.
 
 These findings suggested that a successful UI response did not guarantee accurate backend data processing.
@@ -51,7 +51,7 @@ These findings suggested that a successful UI response did not guarantee accurat
 | IMPORT-E02 | Compare each source column with its saved field | Values retain their intended field association | Some saved fields contained shifted or mismatched values. |
 | IMPORT-E03 | Import an optional blank value | Blank remains empty unless an approved default applies | Unintended default values appeared in optional fields. |
 
-## Why This Matters
+## Impact
 
 ### User Impact
 
@@ -60,7 +60,7 @@ These findings suggested that a successful UI response did not guarantee accurat
 
 ### System Impact
 
-* A breakdown in the file parser and loop processing logic compromises the reliability of bulk automation features.
+* Missing rows and shifted field values make bulk imports unreliable. Parser and loop-processing faults are hypotheses pending implementation evidence.
 * The system becomes prone to data alignment shifts when handling varying data inputs.
 
 ### Data Impact

@@ -1,4 +1,4 @@
-# Video Summary — Steam Client Service Privilege Escalation
+# Video Summary: Steam Client Service Privilege Escalation
 
 **Source:** YouTube (John Hammond)  
 **Channel / Speaker:** John Hammond  
@@ -40,12 +40,12 @@ The central issue presented is an abuse of the Steam Client Service's inter-proc
 ## Lesson Learned
 
 * Vendor services should treat all IPC input from lower-privilege clients as hostile, even when it refers to signed application data or an expected installation format.
-* Privileged service workflows should bind a signature check to the complete execution context: signer, file, installation location, command, and authorization decision—not only one trusted artifact.
+* Privileged service workflows should bind a signature check to the complete execution context: signer, file, installation location, command, and authorization decision, not only one trusted artifact.
 * Endpoint teams should prioritize security updates for locally installed clients and monitor unexpected child processes, allow-list changes, and service-mediated launches originating from low-privilege users.
 * Security research teams should reproduce public proof-of-concept claims in isolated virtual machines, preserve minimal evidence, and separate exploit mechanics from unverified claims or unnecessary AI-generated boilerplate.
 
 ## Personal Reflection
 
-As a QA Engineer and Cybersecurity Enthusiast, this video highlights the difference between validating an individual component and validating a complete trust chain. A service may correctly verify that one `VDF` file is signed, but the system is still unsafe if a separate install-path field lets an untrusted caller redirect execution to their own launcher. QA security testing should therefore use adversarial combinations of otherwise valid inputs: trusted metadata plus altered paths, low-privilege IPC clients, service restarts, unexpected working directories, and payload substitutions.
+This video highlights the difference between validating an individual component and validating a complete trust chain. A service may correctly verify that one `VDF` file is signed, but the system is still unsafe if a separate install-path field lets an untrusted caller redirect execution to their own launcher. QA security testing should therefore use adversarial combinations of otherwise valid inputs: trusted metadata plus altered paths, low-privilege IPC clients, service restarts, unexpected working directories, and payload substitutions.
 
-For future learning, I would turn this case into security test cases around IPC authorization, signed-data binding, path canonicalization, least-privilege service design, and endpoint telemetry. A useful regression test would prove that a non-administrator cannot make the Steam service—or any similarly privileged service—add, approve, or execute a file outside an authenticated and immutable installation context. This is also a reminder to assess the actual security outcome of AI-assisted code: whether it is verbose or elegant matters less than whether it can cross a privilege boundary.
+For future learning, I would turn this case into security test cases around IPC authorization, signed-data binding, path canonicalization, least-privilege service design, and endpoint telemetry. A useful regression test would prove that a non-administrator cannot make the Steam service (or any similarly privileged service) add, approve, or execute a file outside an authenticated and immutable installation context. This is also a reminder to assess the actual security outcome of AI-assisted code: whether it is verbose or elegant matters less than whether it can cross a privilege boundary.

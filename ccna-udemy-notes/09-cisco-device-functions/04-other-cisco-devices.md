@@ -33,12 +33,6 @@
   - [Cisco Product Categories](#cisco-product-categories)
   - [Relationship Between Cisco Products](#relationship-between-cisco-products)
   - [Key Concepts](#key-concepts)
-    - [ASA](#asa)
-    - [FirePower](#firepower)
-    - [WLC](#wlc)
-    - [CUCM](#cucm)
-    - [UCS](#ucs)
-    - [Nexus](#nexus)
   - [My Takeaways](#my-takeaways)
 
 ## Overview
@@ -303,36 +297,8 @@ Cisco Nexus switches are designed specifically for data center environments.
 
 ## Key Concepts
 
-#### ASA
-
-Enterprise firewall that secures the network perimeter.
-
-#### FirePower
-
-Intrusion Prevention System (IPS) used to detect and block attacks.
-
-#### WLC
-
-Central controller for managing multiple wireless access points.
-
-#### CUCM
-
-Cisco's IP PBX that manages VoIP communication.
-
-#### UCS
-
-Cisco's server platform for enterprise data centers.
-
-#### Nexus
-
-High-performance switches optimized for data center networking.
+Use the category table above to compare product roles; the individual sections explain their functions and deployment context.
 
 ## My Takeaways
 
-- Cisco offers solutions far beyond routers and switches.
-- **ASA** provides firewall protection, while **FirePower** delivers intrusion prevention.
-- Enterprise wireless deployments typically use a **Wireless LAN Controller (WLC)** to centrally manage multiple Access Points.
-- **Cisco Unified Communications Manager (CUCM)** replaces traditional PBX systems by managing VoIP communications.
-- Cisco collaboration products include **IP Phones**, **TelePresence**, and **Webex** for voice, video, and online meetings.
-- Cisco entered the data center market with **UCS servers** and **Nexus switches**.
-- **Catalyst switches** use **Cisco IOS**, while **Nexus switches** run **NX-OS**, whose CLI is very similar to IOS, making it easier for network engineers to transition between enterprise and data center environments.
+For revision, distinguish the enterprise IOS and data-center NX-OS contexts, then use the product categories to place security, wireless, and collaboration functions. Similar CLI syntax is useful background, but it does not establish identical platform behavior.

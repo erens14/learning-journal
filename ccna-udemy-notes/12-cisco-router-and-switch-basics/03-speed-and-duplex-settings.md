@@ -117,7 +117,7 @@ FastEthernet0/1            unassigned      YES unset  administratively down down
 
 *Diagnostic Breakdown:*
 
-- `FastEthernet0/0` is operational (`up/up`), meaning it is physically connected and passing traffic cleanly.
+- `FastEthernet0/0` reports `up/up`: the physical interface and line protocol are up. This does not establish error-free forwarding; check counters and end-to-end traffic separately.
 - `FastEthernet0/1` shows `administratively down`. This indicates a human error: the administrator forgot to issue the `no shutdown` command on this specific port block.
 
 If an operational link has a duplex mismatch, inspecting the detailed hardware statistics reveals the performance drop:
@@ -132,11 +132,11 @@ FastEthernet0/0 is up, line protocol is up
   342 output errors, 128 collisions, 0 interface resets
 ```
 
-*Analysis:* The combination of high **output errors** and active **collisions** explicitly proves a duplex mismatch exists on the link segment, requiring manual intervention to align both sides.
+*Analysis:* Output errors and collisions warrant checking speed and duplex at both ends. In the demonstrated lab, the configured mismatch explains the errors; these counters alone are not unique proof of that cause.
 
 ## Important Notes
 
-- **Golden Rule of Duplexing:** Never mix operational modes. Keep both endpoints of a cable link set to `auto` or configure both sides manually. Hardcoding one side while leaving the other on auto breaks the link state.
+- **Duplex Configuration:** Use compatible settings at both ends. On the demonstrated 10/100 link, forcing one end while leaving its peer on auto can cause a duplex mismatch even when the interface stays `up/up`. Follow the platform and link requirements.
 - When reviewing paginated `show running-config` output, press **Spacebar** for the next page or **Ctrl+C** to stop.
 - **Error Counters Investigation:** Healthy network links should maintain flat `0 input errors` and `0 output errors`. Incrementing error counters are prime symptoms of failing cabling lines or duplex mismatches.
 

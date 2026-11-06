@@ -27,8 +27,8 @@ When a router has multiple independent paths to the exact same destination prefi
 
 To prevent out-of-order packet delivery within a single conversation, Cisco Express Forwarding (CEF) uses a per-flow hashing algorithm for ECMP. It hashes the source and destination IP addresses (and often layer 4 ports). Therefore:
 
-* Traffic belonging to the **same flow** (same source/destination pair) always follows the **same physical path**.
-* Traffic targeting a **different destination** hashes differently, splitting across the alternative path.
+* With an unchanged topology and hash configuration, the same flow normally uses the same ECMP next hop. Path changes can remap it.
+* A different destination can change the hash input, but may still select the same next hop. Hash collisions and platform-specific inputs prevent a guarantee of alternating paths.
 
 ### Default Route (`0.0.0.0/0`)
 
@@ -193,7 +193,7 @@ PC1> traceroute 50.50.50.50
 3  10.1.2.1  (R4 Edge)
 ```
 
-Repeating this exact trace to `50.50.50.50` will **always** hit the bottom path via R5 because the hash value remains identical for this flow.
+The demonstrated trace to `50.50.50.50` used the bottom path via R5. Repeated traceroute probes can vary transport fields, and their selected path depends on the platform's hash inputs and current forwarding state.
 
 * **Execution Trace 2:**
 
@@ -205,7 +205,7 @@ PC1> traceroute 50.50.50.51
 4  10.1.1.1  (R4 Edge)
 ```
 
-Altering the destination IP by a single digit changes the hash output, causing the router to balance the traffic onto the top path via R2.
+The second demonstrated destination used the top path via R2. Changing an address can select another path, but a one-digit change does not guarantee it.
 
 ## Important Notes
 

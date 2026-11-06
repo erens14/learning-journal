@@ -23,6 +23,7 @@ For mixed initial and retest results, read the document's status history or exec
 | [Receivable overpayment journal and balance synchronization](receivable-overpayment-journal-and-balance-synchronization-test-cases.md) | Bank-entry uniqueness, overpaid allocation, remaining balance, and PPh consistency. |
 | [RBAC consignment integrity](rbac-consignment-integrity-test-cases.md) | Role permissions and relational data integrity. |
 | [Sales UI validation and invoice lifecycle](sales-ui-validation-and-invoice-lifecycle-test-cases.md) | Four partial source cases, two recorded failures, and unexecuted request, ledger, concurrency, and lifecycle follow-ups. |
+| [SPS Detail](sps-detail-qa-test-cases.md) | SPS detail workflow checks and recorded results. |
 | [SPS Report Initial Totals](sps-report-initial-totals-test-cases.md) | Initial totals in SPS connected reports issues. |
 | [SPS UI validation and reconciliation](sps-ui-validation-and-reconciliation-test-cases.md) | 18 recorded UI passes, one blocked deletion, six unexecuted follow-ups, and preserved original-case mapping. |
 | [Side navigation to top navigation](side-nav-to-top-nav-test-cases.md) | Navigation, authorization, responsive layout, accessibility, and route regression checks. |

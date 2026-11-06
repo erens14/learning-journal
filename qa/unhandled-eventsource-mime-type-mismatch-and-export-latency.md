@@ -1,4 +1,4 @@
-# Case Study — Investigating a Failed Report Stream and Slow Export
+# Case Study: Investigating a Failed Report Stream and Slow Export
 
 **Area:** Browser Diagnostics, Authentication Boundaries, and Availability
 

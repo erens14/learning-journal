@@ -1,4 +1,4 @@
-# QA Lesson Learned — Receivable Overpayment Journal and Balance Synchronization
+# QA Lesson Learned: Receivable Overpayment Journal and Balance Synchronization
 
 **Area:** Financial Accounting and Data Integrity
 **Scope:** Receivable Payment, Overpaid Balance, General Ledger, and PPh Synchronization

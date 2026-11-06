@@ -1,7 +1,7 @@
 # Test Cases: RBAC Authorization & Relational Data Integrity
 
 * **Category:** Quality Assurance, Security (RBAC), & Integration Testing  
-* **Target Scope:** Consignment (*Titipan*) Module — Field Unlocking & Dependency Constraints  
+* **Target Scope:** Consignment (*Titipan*) Module, Field Unlocking & Dependency Constraints\
 
 > **Disclaimer & Data Sanitization Notice**  
 > Documented test scenarios, ticket references, and database relations within this repository have been sanitized and generalized for educational and portfolio purposes. Confidential company identifiers and ticket numbers have been replaced.

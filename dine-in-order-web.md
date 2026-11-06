@@ -1,12 +1,14 @@
 # Dokumen Spesifikasi Teknis & Arsitektur Sistem Pemesanan Dine-In QR
 
+**Status:** Rancangan teknis, bukan laporan implementasi. Kontrol keamanan, skema, dan alur pembayaran di bawah belum diverifikasi melalui pengujian aplikasi.
+
 Dokumen ini mendokumentasikan secara terpadu *tech stack*, lapisan keamanan, alur pelanggan (*customer flow*), serta integrasi pemrosesan pembayaran untuk sistem pemesanan *dine-in* berbasis QR code.
 
 ---
 
 ## 1. Spesifikasi Tech Stack
 
-Sistem dibangun menggunakan arsitektur monolitik modern yang responsif dan reaktif tanpa memisahkan repositori *frontend* dan *backend*.
+Rancangan menggunakan arsitektur monolitik modern yang responsif dan reaktif tanpa memisahkan repositori *frontend* dan *backend*.
 
 * **Backend Framework:** Laravel 11.x (PHP 8.2+)
 * **Frontend & Interaktivitas:** Laravel Livewire v3 + Alpine.js
@@ -19,19 +21,29 @@ Sistem dibangun menggunakan arsitektur monolitik modern yang responsif dan reakt
 
 ## 2. Lapisan Keamanan Aplikasi (Web Security Hardening)
 
-Mengingat antarmuka pemesanan diakses secara publik oleh pelanggan, diterapkan beberapa proteksi wajib untuk mencegah pemesanan fiktif, *order spamming*, dan manipulasi data.
+Mengingat antarmuka pemesanan diakses secara publik oleh pelanggan, direncanakan beberapa proteksi wajib untuk mencegah pemesanan fiktif, *order spamming*, dan manipulasi data.
 
 * **Dynamic QR & Session Binding:**
 URL QR code dilengkapi token HMAC bertanda tangan:
 
-$$\text{URL} = \text{[app.cafe.com/order?table=M05](https://app.cafe.com/order?table=M05)\&token=hash(M05 + secret\_key + date)}$$
+Ilustrasi konstruksi token, bukan kode siap pakai:
 
-Saat QR dipindai, middleware Laravel memvalidasi token dan menerbitkan *Encrypted Cookie* berisi `table_id` dan `session_token`. Pelanggan tidak dapat mengubah nomor meja secara manual di URL untuk memanipulasi pesanan meja lain.
+```text
+message = canonical_encode(table_id, expires_at, nonce)
+signature = HMAC-SHA256(secret_key, message)
+```
+
+Server harus memvalidasi signature dengan perbandingan waktu konstan, masa berlaku, serta meja aktif sebelum menerbitkan cookie sesi. Cookie memerlukan `Secure`, `HttpOnly`, dan kebijakan `SameSite` yang sesuai. Token QR yang disalin tetap dapat dipakai selama masih valid; HMAC sendiri tidak membuktikan kehadiran fisik pelanggan.
 
 * **Proteksi IDOR & Rate Limiting:**
-Seluruh ID transaksi publik menggunakan UUID v4 (`/order/status/9b1deb4d-...`). Pembuatan pesanan dibatasi maksimum 3 kali per 5 menit per IP/sesi (`throttle:3,5`).
+Setiap pembacaan atau perubahan pesanan, termasuk otorisasi langganan kanal WebSocket, wajib memeriksa relasi sesi dengan meja dan pesanan yang diizinkan di sisi server. `table_id` atau UUID dari permintaan bukan bukti hak akses. Sesi pelanggan tidak boleh mengakses pesanan meja lain.
+
+UUID v4 (`/order/status/9b1deb4d-...`) mengurangi kemudahan menebak ID; UUID tidak menggantikan pemeriksaan otorisasi. Batas pembuatan pesanan yang diusulkan adalah 3 kali per 5 menit. Kunci limiter per IP/sesi harus ditetapkan secara eksplisit; `throttle:3,5` saja tidak membuktikan kedua batas tersebut diterapkan.
+
 * **Verifikasi Webhook Pembayaran:**
-*Callback* dari Payment Gateway wajib melewati verifikasi *HMAC Signature* sebelum sistem memperbarui status pembayaran di database.
+*Callback* dari Payment Gateway wajib melewati verifikasi *HMAC Signature*. Setelah itu, server harus memeriksa jenis event sukses final menurut kontrak penyedia, referensi transaksi, identitas pesanan, mata uang, dan nominal. Signature valid saja tidak membuktikan pembayaran berhasil.
+
+Transisi `UNPAID` ke `PAID` harus atomik dan idempoten dengan penguncian atau pembaruan bersyarat. Callback duplikat tidak boleh mengulangi transisi atau efek pembayaran. Kirim event KDS/cetak setelah commit; konsumen harus mengabaikan event yang sudah diproses. Tentukan kebijakan retry agar kegagalan pengiriman tidak menghilangkan pekerjaan.
 * **Role-Based Access Control (RBAC):**
 Hak akses dibatasi ketat menggunakan paket `spatie/laravel-permission`:
 * **Admin:** Akses penuh manajemen menu, harga, promo, karyawan, dan laporan.
@@ -94,7 +106,7 @@ Hak akses dibatasi ketat menggunakan paket `spatie/laravel-permission`:
 
 1. Sistem memanggil API Payment Gateway dan merender *Dynamic QRIS* dengan batas waktu pembayaran.
 2. Pelanggan membayar via e-wallet / m-banking.
-3. Payment Gateway mengirim *HTTP Webhook* $\rightarrow$ Controller memverifikasi signature $\rightarrow$ Mengubah `payment_status` menjadi `PAID`.
+3. Payment Gateway mengirim *HTTP Webhook* $\rightarrow$ Controller memverifikasi signature dan seluruh kondisi pembayaran di atas $\rightarrow$ Transisi atomik ke `PAID` hanya untuk pembayaran sukses yang sesuai.
 
 * **Opsi B (Cash di Kasir):**
 
@@ -112,7 +124,7 @@ Hak akses dibatasi ketat menggunakan paket `spatie/laravel-permission`:
 
 5. **Pemrosesan Dapur (KDS) & Cetak Struk:**
 
-* Setiap kali `payment_status` berubah menjadi `PAID`, Laravel menembakkan `OrderPaidEvent`.
+* Hanya transisi pembayaran pertama yang berhasil di-commit ke `PAID` boleh menerbitkan `OrderPaidEvent`. Penanganan event duplikat wajib idempoten.
 * **Laravel Reverb** menyiarkan sinyal secara *real-time* ke layar Dapur (KDS) untuk memunculkan kartu pesanan baru (FIFO) beserta notifikasi suara.
 * Servis pencetak (*print bridge*) otomatis mencetak struk dapur dan struk konsumen.
 
@@ -121,6 +133,8 @@ Hak akses dibatasi ketat menggunakan paket `spatie/laravel-permission`:
 ---
 
 ## 4. Skema Database Utama (PostgreSQL)
+
+Contoh skema ini mengasumsikan tabel `users` sudah tersedia dari migrasi aplikasi dan fungsi `gen_random_uuid()` tersedia pada PostgreSQL yang digunakan. Skema belum dijalankan.
 
 ```sql
 CREATE TABLE tables (
@@ -150,12 +164,12 @@ CREATE TABLE orders (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     order_number VARCHAR(50) UNIQUE NOT NULL,
     table_id BIGINT REFERENCES tables(id),
-    cashier_id BIGINT REFERENCES users(id) NULLABLE,
+    cashier_id BIGINT REFERENCES users(id) NULL,
     
     order_status VARCHAR(50) DEFAULT 'PENDING_PAYMENT', -- PENDING_PAYMENT, IN_PREPARATION, READY, COMPLETED, CANCELLED
     payment_status VARCHAR(50) DEFAULT 'UNPAID', -- UNPAID, PAID, FAILED, EXPIRED
     payment_method VARCHAR(50) NOT NULL, -- QRIS_ONLINE, CASH, DEBIT
-    payment_reference VARCHAR(255) NULLABLE, -- Gateway TxID / EDC Approval Code
+    payment_reference VARCHAR(255) NULL, -- Gateway TxID / EDC Approval Code
     
     subtotal NUMERIC(12, 2) NOT NULL,
     discount_amount NUMERIC(12, 2) DEFAULT 0,
@@ -163,7 +177,7 @@ CREATE TABLE orders (
     cash_paid NUMERIC(12, 2) DEFAULT 0,
     cash_change NUMERIC(12, 2) DEFAULT 0,
     
-    paid_at TIMESTAMP WITH TIME ZONE NULLABLE,
+    paid_at TIMESTAMP WITH TIME ZONE NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -173,7 +187,7 @@ CREATE TABLE order_items (
     menu_id BIGINT REFERENCES menus(id),
     quantity INT NOT NULL CHECK (quantity > 0),
     price_at_time NUMERIC(12, 2) NOT NULL,
-    notes TEXT NULLABLE
+    notes TEXT NULL
 );
 
 ```

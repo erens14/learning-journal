@@ -1,4 +1,4 @@
-# Case Study — Access-Control Boundaries and Data Integrity
+# Case Study: Access-Control Boundaries and Data Integrity
 
 **Area:** Authorization and Data Integrity
 

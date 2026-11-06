@@ -1,4 +1,4 @@
-# QA Lesson Learned — Requirement Gathering Reveals More Than Bugs
+# QA Lesson Learned: Requirement Gathering Reveals More Than Bugs
 
 **Area:** Requirement Analysis and Process Quality
 

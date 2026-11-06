@@ -43,7 +43,7 @@ It was observed that:
 | REGLOCK-E02 | Attempt editing after the allowed modification window | Time-based restrictions prevent the prohibited edit | Time-based restrictions were applied inconsistently. |
 | REGLOCK-E03 | Compare edit availability with linked workflow state | Dependent records are considered before allowing changes | Some edit paths did not reflect related-module dependencies. |
 
-## Why This Matters
+## Impact
 
 ### User Impact
 
@@ -70,7 +70,7 @@ It was observed that:
 
 ## QA Learning
 
-Regression testing should verify not only that a feature works, but also that existing business rules continue to be enforced after system changes.
+Regression testing should verify feature behavior and continued enforcement of existing business rules after system changes.
 
 ### Validation Points
 
@@ -113,6 +113,6 @@ Potential improvements include:
 
 ## Key Takeaway
 
-Regression testing should validate more than functional behavior—it should also confirm that critical business rules continue to protect transactional data.
+Regression testing should validate more than functional behavior. It should also confirm that critical business rules continue to protect transactional data.
 
 A feature may appear to work correctly, but if business rule enforcement regresses, the application can still produce inconsistent and unreliable business data.

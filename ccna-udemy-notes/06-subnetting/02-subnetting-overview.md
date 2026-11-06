@@ -135,7 +135,7 @@ Modern Cisco devices enable the **`ip subnet-zero`** feature by default, allowin
 As a result:
 
 - **Do not subtract 2 from the number of subnets** on modern Cisco networks or in the CCNA exam.
-- **Always subtract 2 from the number of hosts**, since the Network Address and Broadcast Address remain reserved.
+- For ordinary IPv4 multi-access subnets through /30, usable hosts = $2^h - 2$, reserving network and broadcast addresses. The /31 point-to-point and /32 host-route cases are exceptions; see [Class C and VLSM](03-subnetting-class-c-networks-and-vlsm.md).
 
 ## My Takeaways
 

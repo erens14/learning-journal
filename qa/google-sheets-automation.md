@@ -47,7 +47,7 @@ During the testing phase, the automation successfully triggered, but several adv
 | SHEET-E03 | Open a newly created empty monthly sheet | Balance calculations handle the empty state | The initial formula returned an empty-input calculation error. |
 | SHEET-E04 | Reference a monthly tab containing spaces | The sheet reference remains valid | Unquoted tab names caused formula-reference problems. |
 
-## Why This Matters
+## Impact
 
 ### User Impact
 
@@ -103,13 +103,13 @@ Sheet automation testing must evaluate how dynamic cell expansions, environmenta
 
 ## UX / System Consideration
 
-Potential improvements and architectural fixes implemented in the final script include:
+The source note reports the following script changes. They are not independently verified here, and a successful regression result is not recorded:
 
 * **Custom Empty-Row Finder:** Abandoned native `appendRow` in favor of a reverse lookup loop that strictly evaluates Column A (Timestamp) to accurately target the next available row (`nextRow`).
 * **Raw Value Delimiter Bypass:** Replaced `.setFormula()` with `.setValue()`, allowing raw text strings pre-formatted with semicolons (`;`) to pass directly into the local Indonesian parser without engine translation failures.
 * **Refactored Array Equations:** Replaced the vulnerable `FILTER`/`INDIRECT` logic with a stable `MAP` + `SCAN` + `LAMBDA` combination that handles empty sheet states gracefully.
 * **Typography Control Variables:** Centralized font configuration parameters directly inside the script (`namaFont = "Calibri"`, `ukuranData = 11`, `ukuranHeader = 12`) for clean maintenance.
-* **Production Source Code Isolation:** The full, clean, and production-ready source code for this automation project has been isolated into a dedicated repository for better version control and modularity. 👉 **[View the Clean Implementation Code Here](https://github.com/erens14/automated-expense-tracker-gas)**
+* **Implementation:** [Source repository](https://github.com/erens14/automated-expense-tracker-gas). Publication alone does not establish production readiness; the linked code was not inspected for this revision.
 
 ---
 

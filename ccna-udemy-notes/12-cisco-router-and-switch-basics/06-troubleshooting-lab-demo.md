@@ -144,4 +144,4 @@ Router-R1#
 - Hardcoding different link speeds on adjacent ports breaks physical synchronization, completely bringing down the Layer 2 protocol layer.
 - Duplex mismatches hide within operational `up/up` link states, making deep interface counter inspection or tracking CDP logs essential for detection.
 - Running a duplex mismatch on an active link causes heavy frame collisions, severely degrading data transfer speeds.
-- Consistently hardcoding matching speed and duplex properties across all core infrastructure connections eliminates auto-negotiation timing loops and configuration errors.
+- The lab aligns speed and duplex manually at both ends to correct its mismatch. Manual settings do not eliminate configuration errors, and this choice is not a general prescription for every infrastructure link.

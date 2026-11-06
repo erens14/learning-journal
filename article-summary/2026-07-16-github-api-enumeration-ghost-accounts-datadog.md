@@ -8,7 +8,7 @@
 
 ## Summary
 
-Datadog Security Labs has issued a warning regarding multiple overlapping cyber campaigns systematically targeting corporate GitHub organizations, repositories, and individual user accounts. Threat actors are utilizing automated scraping tools paired with custom or legitimate-sounding user agents to conduct programmatic reconnaissance. To bypass security triggers and blend into normal operations, the campaign leverages a mix of over 50 "ghost" accounts—which were created two to five years ago and intentionally left inactive—alongside dozens of legitimate accounts whose Personal Access Tokens (PATs) or OAuth tokens were compromised or exposed unintentionally.
+Datadog Security Labs has issued a warning regarding multiple overlapping cyber campaigns systematically targeting corporate GitHub organizations, repositories, and individual user accounts. Threat actors are utilizing automated scraping tools paired with custom or legitimate-sounding user agents to conduct programmatic reconnaissance. To bypass security triggers and blend into normal operations, the campaign leverages a mix of over 50 "ghost" accounts (which were created two to five years ago and intentionally left inactive) alongside dozens of legitimate accounts whose Personal Access Tokens (PATs) or OAuth tokens were compromised or exposed unintentionally.
 
 The text outlines the stealth execution methods and the ultimate impact of these enumeration campaigns:
 
@@ -33,6 +33,4 @@ The text outlines the stealth execution methods and the ultimate impact of these
 
 ## Personal Reflection
 
-This security alert highlights an important technical dynamic within web software engineering, continuous integration pipelines, and automated testing frameworks. When we design code delivery paths and QA automation suites, our primary focus is often on verifying functional execution—ensuring integration scripts connect, APIs return correct statuses, and builds run smoothly. However, seeing how actors weaponize dormant accounts and harvest unintentionally exposed personal access tokens (PATs) proves that pipeline stability is entirely tied to a proactive security stance.
-
-For an engineer building a foundation in QA and as a cyber security enthusiast, understanding threat dynamics like this completely shapes how I approach software validation tasks on the job. Security cannot be treated as an isolated configuration problem handled at the very end of production delivery; it must be verified with the exact same level of scrutiny as standard functional workflows. Moving forward, integrating token-scanning gates into staging environment checks and ensuring our automated test suites explicitly account for underlying system hazards will be a vital part of my workflow to help prevent real-world infrastructure traps.
+I would compare the repository access granted by a narrowly scoped token with the access available after revocation. The useful evidence would identify the token scope, requested resource, and observed result. These are proposed checks, not completed token-security tests.

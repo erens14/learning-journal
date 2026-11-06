@@ -43,7 +43,7 @@ This demonstrated that the application's navigation configuration and the deploy
 | FEATURE-E01 | Select the visible feature menu | The corresponding feature opens and is usable | The menu was visible, but the feature could not be accessed. |
 | FEATURE-E02 | Compare the navigation entry with the deployed module | Navigation points to a deployed implementation | The note reports that the supporting module was absent. |
 
-## Why This Matters
+## Impact
 
 ### User Impact
 
@@ -57,7 +57,7 @@ This demonstrated that the application's navigation configuration and the deploy
 
 ### Data Impact
 
-* Although no direct data corruption occurs, users are prevented from accessing the functionality needed to manage or retrieve data.
+* The access failure prevented use of the feature. The documented check does not establish whether stored data was affected.
 
 ### Business Impact
 

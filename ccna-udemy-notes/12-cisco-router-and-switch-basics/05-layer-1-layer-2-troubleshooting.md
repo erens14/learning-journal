@@ -117,18 +117,18 @@ FastEthernet0/0 is up, line protocol is up
   3814 output errors, 2941 collisions, 0 interface resets
 ```
 
-*Analysis:* The high counts of **CRC errors**, **output errors**, and **collisions** prove that a duplex mismatch is forcing frames to collide on the wire. Statically defining `duplex full` and `speed 100` on both ends of the cable will immediately resolve the issue.
+*Analysis:* These counters are consistent with the lab's duplex mismatch, but CRC errors and collisions alone do not uniquely identify its cause. Check both endpoints and cabling. In this lab, matching the demonstrated speed and duplex settings corrects the configured mismatch; verify counters and traffic afterward.
 
 ## Important Notes
 
 - **Security Best Practice:** Unused ports on enterprise switches should always be manually placed into an `administratively down` state via the `shutdown` command to prevent unauthorized physical network access.
-- **The Auto-Negotiation Rule:** Never mix configuration styles. Keep both endpoints of a cable segment set to `auto` or hardcode both sides manually to ensure stable link parameters.
+- **Auto-Negotiation:** Use compatible settings at both endpoints. The demonstrated 10/100 fallback can mismatch when one end is forced and the other uses auto; choose settings supported by the platform and link.
 - **Cabling Hygiene:** Avoid bending or tightly binding network patch cords. Modern high-category cabling relies heavily on precise internal twisting and structural shielding to defend against data corruption and cross-talk.
 
 ## My Takeaways
 
 - Start with `show ip interface brief` to compare physical and line-protocol states, then investigate the affected interfaces.
 - Statically hardcoding different speeds on opposing sides of a cable drops the entire link down, whereas a duplex mismatch leaves the link up but causes terrible performance.
-- Core infrastructure links (routers, switches, firewalls, and servers) should be manually configured for speed and duplex to prevent auto-negotiation failures.
+- The lab uses matching manual speed/duplex on infrastructure links. This is a demonstrated configuration choice; supported auto-negotiation is appropriate on many links. Follow platform requirements and verify both endpoints.
 - The lesson leaves PC and laptop access ports on auto-negotiation to accommodate different client network cards.
 - CDP can report a duplex mismatch between neighboring devices; inspect interface settings and counters as well.

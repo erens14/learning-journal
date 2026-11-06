@@ -1,4 +1,4 @@
-# Video Summary — Securing Accounts
+# Video Summary: Securing Accounts
 
 **Source:** YouTube (freeCodeCamp.org / CS50)  
 **Channel / Speaker:** freeCodeCamp.org / Dr. David J. Malan  
@@ -64,6 +64,6 @@ The final portion builds a defense-in-depth model around multi-factor authentica
 
 ## Personal Reflection
 
-As a QA Engineer and Cybersecurity Enthusiast, this chapter changes authentication testing from a checklist of “valid password” and “invalid password” cases into a threat model. I would test how the system behaves under speed, concurrency, reuse, device loss, clock drift, carrier compromise, and social pressure. I would also separate usability observations from security guarantees: a strength meter, lockout message, or MFA screen can look correct while the backend accepts unlimited attempts through another endpoint.
+This chapter changes authentication testing from a checklist of “valid password” and “invalid password” cases into a threat model. I would test how the system behaves under speed, concurrency, reuse, device loss, clock drift, carrier compromise, and social pressure. I would also separate usability observations from security guarantees: a strength meter, lockout message, or MFA screen can look correct while the backend accepts unlimited attempts through another endpoint.
 
 The strongest lesson is to test the entire trust chain. Password managers, identity providers, authenticator devices, recovery channels, and support processes all become dependencies of the login decision. Future test plans should include phishing-resistant authentication, recovery abuse, new-device enrollment, factor removal, session invalidation, and audit visibility so that a control remains effective after the user’s circumstances change.

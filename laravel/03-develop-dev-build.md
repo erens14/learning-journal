@@ -18,7 +18,7 @@ Before running development commands, ensure your workspace environment configura
 
 * **VS Code Directory:** Ensure your editor has the specific project folder (`first-website`) opened as its root directory, rather than the broad XAMPP `dashboard` folder.
 * **Environment File (`.env`):** Verify that your `APP_URL` variable is pointed directly to your local project's public folder path:  
-  `http://localhost/dashboard/first-website/public`
+  `http://127.0.0.1:8000`
 * **Vite Configuration (`vite.config.js`):** Open this file and ensure the input paths point correctly to your raw asset source files inside the resources folder:
   * `resources/css/app.css`
   * `resources/js/app.js`
@@ -27,10 +27,10 @@ Before running development commands, ensure your workspace environment configura
 
 Laravel utilizes **Vite** as its modern frontend build tool to establish a local testing server.
 
-1. Open a new terminal inside your project directory and run the following command to install Vite as a local development dependency:
+1. Open a new terminal inside your project directory and run the following command to install the frontend dependencies already declared by the project:
 
     ```bash
-    npm install vite --save-dev
+    npm install
     ```
 
 *(Note: `npm` stands for Node Package Manager, which is used to install code packages).*  
@@ -38,12 +38,12 @@ Laravel utilizes **Vite** as its modern frontend build tool to establish a local
 1. To boot up the active testing server, run the executor command:
 
     ```bash
-    npx vite
+    npm run dev
     ```
 
 *(Note: `npx` stands for Node Package Executor, which runs binary packages locally).*  
 
-1. The terminal will display a local development link. Control-click this link to load your website in the browser.
+1. Keep `php artisan serve` running in a separate terminal and open `http://127.0.0.1:8000` for the Laravel page. Vite's printed URL serves frontend assets and HMR, not the PHP application.
 
 ### Step 4: Link Frontend Assets via Vite
 
@@ -64,13 +64,13 @@ The asset changes written in your `resources` folder are tied to the active test
 
 1. Close or pause your testing environment.
 2. Run the production build command in your terminal:
-    ` npx vite build `
+    ` npm run build `
 3. Vite compiles, minifies, and compresses your styles and scripts, placing them inside a newly created production folder: `public/build/assets/`.
 
 ### Troubleshooting: The Orphaned `hot` File Bug
 
 If your styles stop rendering correctly on your live local build after compilation, it is usually caused by an interrupted server connection.
 
-* **The Cause:** Closing your development terminal by clicking the **"Kill Terminal" (Trash Can)** button in VS Code abruptly severs the connection. This leaves a temporary file named `hot` at the root of your project directory. While this file exists, it blocks your live production build from reading compiled CSS files.
-* **The Fix:** Locate the file named `hot` at the root of your project and delete it manually.
-* **Prevention:** Always close your active testing server cleanly inside the terminal by pressing `Ctrl + C` and typing `Y` to terminate the batch job. This ensures Laravel automatically removes the temporary file.
+* **The Cause:** Closing your development terminal by clicking the **"Kill Terminal" (Trash Can)** button in VS Code abruptly severs the connection. This leaves a temporary file named `hot` at `public/hot` in the default Laravel Vite setup. While this file exists, it blocks your live production build from reading compiled CSS files.
+* **The Fix:** Stop Vite, then remove a stale `public/hot` only if it points to a dev server that is no longer running. Check any customized hot-file path in the plugin configuration.
+* **Prevention:** Stop the dev server with `Ctrl + C`, then confirm its hot file is gone. Cleanup can fail after an interrupted process; do not assume the build is selected merely because Vite stopped.

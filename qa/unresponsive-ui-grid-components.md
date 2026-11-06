@@ -8,7 +8,7 @@ An accounting disbursement module (**Bukti Bank Keluar / BBK**) was deployed fea
 * Header action controls (**SCAN QRCODE** camera scanner and **EXCEL** report export).
 * Filter controls (**BBK DATE** month/year datepicker).
 
-The expected behavior was that clicking any interactive UI element would trigger its bound event listener—opening modals, launching the camera scanner, generating report downloads, or expanding filter pickers.
+The expected behavior was that clicking any interactive UI element would trigger its bound event listener, opening modals, launching the camera scanner, generating report downloads, or expanding filter pickers.
 
 ---
 
@@ -30,7 +30,7 @@ During test execution, while the main data table successfully loaded records, al
 * Action buttons (**SCAN QRCODE**, **EXCEL**) failed to trigger modal pop-ups or download scripts.
 * Interactive inputs (**BBK DATE** picker) failed to expand dropdown controls.
 
-Investigation revealed that while the DOM rendered visually, frontend event listeners failed to attach to dynamically loaded table rows, or JavaScript runtime errors caused silent failures without feedback.
+Missing event bindings and JavaScript runtime errors are alternative hypotheses for the unresponsive controls. The published observations establish the interaction failure, not either implementation cause.
 
 ---
 
@@ -44,7 +44,7 @@ Investigation revealed that while the DOM rendered visually, frontend event list
 | GRID-E02 | Use the scan and export actions | The relevant scanner or download flow starts | The action controls did not trigger the expected behavior. |
 | GRID-E03 | Open the date filter | The picker expands and accepts input | The filter control remained unresponsive. |
 
-## Why This Matters
+## Impact
 
 ### User Impact
 
@@ -52,7 +52,7 @@ Investigation revealed that while the DOM rendered visually, frontend event list
 
 ### System Impact
 
-* Uncaught frontend exceptions interrupt component lifecycle hooks, preventing dynamic DOM re-rendering and API event triggers.
+* Unresponsive controls block the associated actions. Console errors, event bindings, and component initialization should be inspected to establish the cause.
 
 ### Data Impact
 
@@ -83,7 +83,7 @@ Testing data grid interfaces must go beyond verifying that table rows display co
 
 ### Business Rules
 
-* Every UI control must provide explicit feedback: an active modal, a loading spinner, a file download prompt, or an error alert—never a silent non-response.
+* Every UI control must provide explicit feedback: an active modal, a loading spinner, a file download prompt, or an error alert, never a silent non-response.
 
 ---
 

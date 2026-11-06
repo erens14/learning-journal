@@ -1,4 +1,4 @@
-# QA Lesson Learned — Verifying Cross-Module Data Synchronization
+# QA Lesson Learned: Verifying Cross-Module Data Synchronization
 
 **Area:** Integration and Data Integrity
 

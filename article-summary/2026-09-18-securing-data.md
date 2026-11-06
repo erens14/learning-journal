@@ -1,4 +1,4 @@
-# Video Summary — Securing Data
+# Video Summary: Securing Data
 
 **Source:** YouTube (freeCodeCamp.org / CS50)  
 **Channel / Speaker:** freeCodeCamp.org / Dr. David J. Malan  
@@ -71,6 +71,6 @@ The final section separates encryption in transit, encryption at rest, and end-t
 
 ## Personal Reflection
 
-As a QA Engineer and Cybersecurity Enthusiast, the chapter reinforces that data-security tests need precise claims. “Passwords are hashed” and “traffic is encrypted” are too vague to validate. I would ask which derivation function and cost are used, whether salts are unique, where keys live, which endpoint can decrypt, and what happens during rotation or recovery. Those questions turn a security label into observable acceptance criteria.
+The chapter reinforces that data-security tests need precise claims. “Passwords are hashed” and “traffic is encrypted” are too vague to validate. I would ask which derivation function and cost are used, whether salts are unique, where keys live, which endpoint can decrypt, and what happens during rotation or recovery. Those questions turn a security label into observable acceptance criteria.
 
 The deletion and ransomware sections are especially relevant to quality work because the user interface can report success while hidden state contradicts it. I would include backup copies, cache layers, exported files, logs, storage snapshots, and offline recovery in the test boundary. The long-term goal is to treat cryptography as a lifecycle with operational failure modes, not as a single function call that permanently makes data safe.

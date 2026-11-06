@@ -1,4 +1,4 @@
-# Video Summary — Securing Systems
+# Video Summary: Securing Systems
 
 **Source:** YouTube (freeCodeCamp.org / CS50)  
 **Channel / Speaker:** freeCodeCamp.org / Dr. David J. Malan  
@@ -71,6 +71,6 @@ The last portion moves inward to ports, firewalls, proxies, and malware. Port sc
 
 ## Personal Reflection
 
-As a QA Engineer and Cybersecurity Enthusiast, this chapter highlights how easily a test environment can create false confidence. Seeing HTTPS in one browser path does not prove that every host, protocol, redirect, cookie, API client, and first-visit condition is protected. I would convert the packet and session examples into boundary tests that inspect actual requests, certificate behavior, cookie attributes, token rotation, and logout invalidation.
+This chapter highlights how easily a test environment can create false confidence. Seeing HTTPS in one browser path does not prove that every host, protocol, redirect, cookie, API client, and first-visit condition is protected. I would convert the packet and session examples into boundary tests that inspect actual requests, certificate behavior, cookie attributes, token rotation, and logout invalidation.
 
 The malware discussion also expands quality responsibility beyond one application. A product can pass its functional tests while exposing an unnecessary port, running with excessive privileges, or failing to isolate a compromised component. Future QA plans should combine functional assertions with exposure inventory, network-path testing, resilience exercises, and recovery evidence so that a single failed layer does not become total system compromise.

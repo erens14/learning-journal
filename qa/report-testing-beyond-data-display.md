@@ -4,7 +4,7 @@
 
 A reporting feature is being tested where users can view, filter, and export operational data.
 
-The main focus is to ensure that the report is not only displaying data correctly, but also supports accurate interaction through filtering, sorting, and exporting.
+The check covers displayed data and the report's filtering, sorting, and export behavior.
 
 ---
 
@@ -55,7 +55,7 @@ However, deeper testing reveals inconsistencies in supporting functionalities:
 | REPORT-E02 | Inspect sorting controls and supported fields | Sorting is offered only where supported | Some unsupported columns exposed sorting controls. |
 | REPORT-E03 | Compare selected filters with returned records | Every returned record satisfies the selected criteria | Some results included unrelated records. |
 
-## Why This Matters
+## Impact
 
 Reports are commonly used as a basis for operational and business decision-making.
 
@@ -72,8 +72,6 @@ Even when the UI appears correct, underlying logic may still be wrong.
 
 ## QA Learning
 
-List what should be verified in similar cases:
-
 - Validation of data accuracy, not just UI presence
 - Verification that filters strictly match expected datasets
 - Confirmation that sorting behavior aligns with business rules
@@ -84,8 +82,6 @@ List what should be verified in similar cases:
 
 ## UX / System Consideration
 
-Optional section for improvement ideas:
-
 - Standardize export behavior across all reporting modules
 - Ensure consistent filter and sorting rules across similar reports
 - Provide clearer feedback for failed export actions
@@ -95,8 +91,4 @@ Optional section for improvement ideas:
 
 ## Key Takeaway
 
-Report testing must go beyond verifying that data is displayed on the screen.
-
-A report can appear correct visually but still be incorrect in terms of filtering, sorting, export behavior, and data accuracy.
-
-True report quality is determined by end-to-end validation of the entire data flow, not just the UI output.
+Compare the selected criteria with both the visible records and exported file. The recorded missing exports, unsupported sorting controls, and unrelated filter results each need a separate regression check.

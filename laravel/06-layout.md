@@ -37,7 +37,7 @@ Inside your `default.blade.php` template, write out the complete standalone glob
 
     <footer>
         @yield('footer')
-    </header>
+    </footer>
 
 </body>
 </html>

@@ -1,4 +1,4 @@
-# Article Summary — The Least Trusted Author Sets the AI Agent's Privilege
+# Article Summary: The Least Trusted Author Sets the AI Agent's Privilege
 
 **Source:** The Hacker News, Expert Insights  
 **Author:** Len Noe, Solutions Architect at BeyondTrust  
@@ -59,6 +59,6 @@ The article also sharpens a distinction in incident review: the person who trigg
 
 ## Personal Reflection
 
-As a QA Engineer and Cybersecurity Enthusiast, I see this as an extension of authorization testing into automated workflows. Testing whether a user can read a restricted record is only one part of the problem. I also need to consider whether externally authored content can cause an agent to retrieve that record or send information through another integration. The useful habit is to trace the whole path from input author to observable action.
+I see this as an extension of authorization testing into automated workflows. Testing whether a user can read a restricted record is only one part of the problem. I also need to consider whether externally authored content can cause an agent to retrieve that record or send information through another integration. The useful habit is to trace the whole path from input author to observable action.
 
 My next learning step would be to document a small fictional lead-summary workflow with explicit data sources, user permissions, available tools, and approval rules. I would use the proposed checks to collect evidence about denied access, outbound requests, and message attribution. This is a learning plan; no exploit reproduction, control implementation, or successful remediation is claimed in this note.

@@ -1,4 +1,4 @@
-# Video Summary — Securing Software
+# Video Summary: Securing Software
 
 **Source:** YouTube (freeCodeCamp.org / CS50)  
 **Channel / Speaker:** freeCodeCamp.org / Dr. David J. Malan  
@@ -31,7 +31,7 @@ The final part descends into native memory and the software supply chain. A buff
 * **Act 12: Anti-CSRF Tokens Add Unpredictable Context:** The legitimate application includes a fresh secret value in its form or request. The attacker can cause a request but should not know the matching token, so the server can reject the forged operation.
 * **Act 13: Buffer Overflow Corrupts Control Flow:** The lecture models memory as stack frames containing local data and return information. Writing beyond a buffer can overwrite adjacent values and redirect execution to attacker-controlled instructions.
 * **Act 14: Arbitrary Execution Becomes Remote Execution:** If malformed input reaches the vulnerable software over a network, the attacker may execute code without physical access. The resulting privileges are determined by the vulnerable process and its surrounding mitigations.
-* **Act 15: Source Visibility Is Not a Verdict:** Open source permits public review but also exposes implementation details; closed source limits public inspection but still contains human mistakes. Security depends on review quality, update discipline, reproducible provenance, and response—not only licensing.
+* **Act 15: Source Visibility Is Not a Verdict:** Open source permits public review but also exposes implementation details; closed source limits public inspection but still contains human mistakes. Security depends on review quality, update discipline, reproducible provenance, and response, not only licensing.
 * **Act 16: Signing Establishes Provenance:** A publisher or store hashes software and signs that hash with a private key. The device verifies the signature with a trusted public key before installation, detecting modification and identifying the signing authority.
 * **Act 17: Trusted Distribution Still Has Supply-Chain Risk:** Review can miss malicious behavior, an initially safe package can change ownership, an update can become hostile, or a maintainer account can be compromised. A valid signature proves who signed the artifact, not that the behavior is safe.
 * **Act 18: Vulnerability Data Supports Prioritization:** Public identifiers track disclosed flaws. Severity scoring estimates impact, EPSS estimates exploitation probability, and known-exploited catalogs show observed attacker use. Teams need all three perspectives to decide what to remediate first.
@@ -77,6 +77,6 @@ The final part descends into native memory and the software supply chain. A buff
 
 ## Personal Reflection
 
-As a QA Engineer and Cybersecurity Enthusiast, this chapter provides a unifying model for many security tests: identify where untrusted input crosses a parser or trust boundary, then prove it remains data. XSS, SQL injection, command injection, and buffer overflow look different in the interface, but each rewards the same QA habits—boundary analysis, malformed-input design, direct-request testing, and observation of the real sink.
+This chapter provides a unifying model for many security tests: identify where untrusted input crosses a parser or trust boundary, then prove it remains data. XSS, SQL injection, command injection, and buffer overflow look different in the interface, but each rewards the same QA habits: boundary analysis, malformed-input design, direct-request testing, and observation of the real sink.
 
 The supply-chain section also reminds me that a passed installation test is not evidence of trustworthy behavior. I would extend quality gates to artifact signatures, dependency changes, publisher identity, rollback behavior, and vulnerability prioritization. Security testing should challenge both the software we write and the mechanism by which that software reaches users, because a perfectly implemented feature can still arrive through a compromised release path.

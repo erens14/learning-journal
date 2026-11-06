@@ -1,7 +1,7 @@
 # Test Cases: Receivable Overpayment Journal and Balance Synchronization
 
 **Category:** Quality Assurance, Financial Accounting, Integration, and Regression
-**Target Scope:** Receivable Payment — Bank Posting, Overpaid Allocation, Remaining Balance, and PPh Synchronization
+**Target Scope:** Receivable Payment, Bank Posting, Overpaid Allocation, Remaining Balance, and PPh Synchronization
 
 > Documented scenarios, references, and data in this repository are sanitized for portfolio use. Customer identities, bank-receipt numbers, transaction dates, amounts, and internal ticket references are generalized or omitted.
 

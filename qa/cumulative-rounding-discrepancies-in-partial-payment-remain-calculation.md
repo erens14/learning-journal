@@ -29,7 +29,7 @@ During regression testing on multi-stage partial payments, QA observed a decoupl
 * **Transaction Level (Passed):** Each individual payment record accurately calculated the 2% PPh 23 tax value and posted corresponding balanced entries in the payment ledger.
 * **Master Entity Level (Failed):** Upon navigating to the **Receivable Detail** view after multiple partial payments, the displayed **Total Remain** amount suffered from a fractional discrepancy (e.g., small rounding variances of Rp 1 to Rp 102).
 
-Technical analysis indicated floating-point rounding divergence during database aggregation (`SUM()`) queries vs. backend application layer rounding implementations (`round() / floor()`).
+The source note reports a technical diagnosis of rounding divergence between database aggregation (`SUM()`) and backend rounding (`round() / floor()`). No published calculation trace independently confirms that diagnosis; the observed aggregate discrepancy remains the documented failure.
 
 ---
 
@@ -43,7 +43,7 @@ Technical analysis indicated floating-point rounding divergence during database 
 | ROUND-E02 | Compare the parent balance after multiple payments with the component totals | Remaining balance equals invoice value minus recorded settlement components | The parent view showed a fractional discrepancy. |
 | ROUND-E03 | Separate observed variance from implementation explanation | A confirmed cause requires calculation or query evidence | The note attributes the difference to rounding paths, but publishes no trace or query output to independently verify that cause. |
 
-## Why This Matters
+## Impact
 
 ### User Impact
 
@@ -85,10 +85,10 @@ Evaluating financial settlement mechanisms requires verifying both individual tr
 
 * **Standardized Rounding Policy:** Enforce a unified currency rounding policy (e.g., `HALF_UP` or explicit integer truncation) applied consistently at both the backend application service layer and database query aggregation views.
 * **Fixed-Point Precision Types:** Store monetary amounts and tax figures using exact numeric data types (`DECIMAL(18,2)` or integer cents/rupiah) rather than floating-point data types (`FLOAT` or `DOUBLE`).
-* **Auto-Settlement Thresholds:** Implement a minor rounding variance tolerance mechanism (e.g., variances $< \text{Rp } 1.00$ automatically settle to zero upon final payment processing).
+* **Proposed Tolerance Policy:** Accounting could consider a tolerance such as variances $< \text{Rp } 1.00$. This is an illustrative option, not an approved rule. Any write-off requires an approved threshold, adjustment account, audit trail, and reversal policy; do not silently clear balances.
 
 ---
 
 ## Key Takeaway
 
-A feature is not verified simply because an individual transaction calculation passes. QA must validate the cumulative math across multi-stage lifecycles to catch subtle floating-point rounding errors before they corrupt master entity balances.
+A correct individual payment does not establish a correct aggregate balance. Compare the component totals with the parent balance across the full partial-payment lifecycle; the reported rounding diagnosis still needs traceable calculation evidence.

@@ -1,4 +1,4 @@
-# QA Lesson Learned — Multi-Tier Approval and Automated Ledger Posting
+# QA Lesson Learned: Multi-Tier Approval and Automated Ledger Posting
 
 **Area:** Financial Workflow, Authorization, and Data Integrity
 

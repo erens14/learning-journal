@@ -35,7 +35,7 @@ Today, almost every enterprise network uses **private IPv4 addresses internally*
 
 ## Why IPv6 Didn't Replace IPv4 Quickly
 
-During the early 2000s, many experts predicted that IPv6 would replace IPv4 within a few years.
+The lesson discusses expectations of a faster transition to IPv6. No named forecast is provided in these notes, so that expectation should not be treated as an expert consensus.
 
 In reality, most organizations still primarily use:
 
@@ -112,13 +112,7 @@ IPv6
 
 ## IPv4 Public Addresses Were Exhausted
 
-Public IPv4 addresses officially ran out in:
-
-```text
-2011
-```
-
-This does **not** mean IPv4 stopped working.
+IPv4 exhaustion concerns the availability of unallocated addresses in a particular allocation pool. It does not mean existing IPv4 addresses stopped working or that every registry exhausted its pool on the same date. The earlier unqualified 2011 date is omitted because these notes do not identify its allocation authority or source.
 
 Instead, organizations continue extending IPv4 using:
 

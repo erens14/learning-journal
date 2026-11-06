@@ -1,4 +1,4 @@
-# QA Lesson Learned — [Title]
+# QA Lesson Learned: [Title]
 
 **Area:** [e.g., Reporting, Authorization, Data Integrity]
 **Scope:** [Feature, module, or workflow]

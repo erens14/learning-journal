@@ -41,7 +41,7 @@ Technical analysis identified a triple-layer validation failure:
 | LENGTH-E01 | Submit a fictional account name beyond the documented length limit | The application saves an allowed value or reports a clear validation failure | The UI reported success, but the edited value was not retained. |
 | LENGTH-E02 | Refresh and compare the saved name with the submitted value | Displayed success corresponds to persisted data | The refreshed view still showed the previous value. |
 
-## Why This Matters
+## Impact
 
 ### User Impact
 
@@ -57,7 +57,7 @@ Technical analysis identified a triple-layer validation failure:
 
 ### Business Impact
 
-* Truncated or incorrect customer account titles on legal financial invoices, causing reconciliation delays and compliance audit failures.
+* Incorrect account titles may delay reconciliation or create compliance risk. No compliance audit failure is documented here.
 
 ---
 
@@ -79,17 +79,17 @@ Quality assurance testing must validate text inputs end-to-end, ensuring that UI
 
 ### Business Rules
 
-* Input strings exceeding allowable limits must be rejected with human-readable error messages (e.g., *"Account name cannot exceed 70 characters"*).
+* Input strings exceeding allowable limits must be rejected with human-readable error messages (e.g., *"Account name cannot exceed 50 characters"*).
 
 ---
 
 ## UX / System Consideration
 
-* **Schema Expansion:** Execute a database migration to expand column capacity (e.g., `VARCHAR(50)` $\rightarrow$ `VARCHAR(70)`).
+* **Schema Decision:** Retain the recorded `VARCHAR(50)` limit while fixing validation. Expanding to `VARCHAR(70)` is an optional product/schema decision requiring downstream review and approval; it is not required to correct false success feedback.
 * **Multi-Tier Validation:**
-  * **Frontend:** Add `maxlength="70"` to input elements and provide visual character counters ($X/70$).
-  * **Backend:** Implement strict request validation rules (e.g., `'account_name' => 'required|string|max:70'`).
-  * **API Response:** Ensure database constraint exceptions return HTTP `422 Unprocessable Entity` responses with specific field error details.
+  * **Frontend:** Add `maxlength="50"` to input elements and provide visual character counters ($X/50$).
+  * **Backend:** Implement strict request validation rules (e.g., `'account_name' => 'required|string|max:50'`).
+  * **API Response:** Return field-validation failures as HTTP `422 Unprocessable Entity`. Handle unexpected database exceptions without reporting success or exposing SQL details.
 
 ---
 

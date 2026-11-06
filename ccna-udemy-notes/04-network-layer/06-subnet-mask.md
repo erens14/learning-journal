@@ -57,7 +57,7 @@ Invalid example:
 
 ### Reserved Addresses
 
-Two addresses in every subnet cannot be assigned to hosts.
+For ordinary IPv4 multi-access subnets through /30, reserve the network and broadcast addresses. A /31 point-to-point link can use both addresses, while /32 identifies one host; see the [subnetting exceptions](../06-subnetting/03-subnetting-class-c-networks-and-vlsm.md).
 
 | Address           | Purpose           |
 | ----------------- | ----------------- |

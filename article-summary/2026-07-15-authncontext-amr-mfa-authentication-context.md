@@ -8,7 +8,7 @@
 
 ## Summary
 
-The article explores the critical role of authentication context metadata in modern identity architectures, highlighting SAML 2.0’s **AuthnContext** and OpenID Connect’s (OIDC) **AMR** (Authentication Methods References) and **ACR** (Authentication Context Class Reference). Historically, online systems treated authentication as a simple binary "light switch"—either a user was granted entry or completely shut out. However, as platforms grew to manage highly sensitive tasks like payroll, health records, and financial approvals, this binary model failed to account for varying credential strengths, prompting identity systems to track not just *that* an entity authenticated, but exactly *how* it happened.
+The article explores the critical role of authentication context metadata in modern identity architectures, highlighting SAML 2.0’s **AuthnContext** and OpenID Connect’s (OIDC) **AMR** (Authentication Methods References) and **ACR** (Authentication Context Class Reference). Historically, online systems treated authentication as a simple binary "light switch": either a user was granted entry or completely shut out. However, as platforms grew to manage highly sensitive tasks like payroll, health records, and financial approvals, this binary model failed to account for varying credential strengths, prompting identity systems to track whether authentication succeeded and which methods were used.
 
 The author explains the structural mechanics of how these context-tracking attributes validate and communicate identity assurance levels:
 
@@ -16,7 +16,7 @@ The author explains the structural mechanics of how these context-tracking attri
 * **OIDC AMR (RFC 8176):** A modern, standardized metadata attribute that serves as the explicit evidence trail, recording the exact mechanisms used (e.g., regular password, SMS one-time passcode, or hardware-backed credential) to execute the login session.
 * **OIDC ACR:** An abstracted assurance metric that acts similarly to SAML's AuthnContext, allowing applications to enforce policy guidelines based on the overall *quality* of the authentication assurance rather than micro-managing its individual components.
 
-Ultimately, leveraging both ACR and AMR allows developers to shift identity mechanics away from static, one-time gate triggers and transform them into real-time languages of confidence. This dynamic capability allows applications to distinguish between actions that are "good enough to read" and high-stakes tasks that are "good enough to approve," establishing adaptive, risk-aware user environments.
+ACR and AMR let an application distinguish how authentication occurred from whether its assurance meets a transaction's policy. A session sufficient for reading a record may require step-up authentication before approving it.
 
 ## Key Takeaways
 
@@ -35,6 +35,6 @@ Ultimately, leveraging both ACR and AMR allows developers to shift identity mech
 
 ## Personal Reflection
 
-This analysis sheds light on a critical technical detail within web application engineering, identity federation, and software testing workflows. In standard application development and automated QA loops, we frequently test user authentication as a simple light-switch event—verifying only that a test user logs in successfully and hits a redirect route. However, seeing how easily an account backed by a weak or compromised factor can compromise complex workflows proves that testing must look beyond binary success statuses.
+A successful login does not establish that a session has enough assurance for a financial approval or administrative action. I would compare the application's response to different `AMR` and `ACR` claims, including a session authenticated with a weak factor.
 
-For an engineer focused on continuous integration, software verification, and high-security web ecosystems, this underscores that system reliability and security are deeply tied to granular token state tracking. When building and testing out sensitive application paths—like order management components, administrative dashboard interfaces, or external partner API webhooks—we must treat authentication data as an active, variable payload. Moving forward, designing automated test suites that explicitly validate how our features respond to distinct `AMR` or `ACR` states will be vital for building resilient, production-ready cloud applications.
+Order-management paths, administrative dashboards, and partner webhooks need explicit authentication requirements. My proposed tests would follow the claims into the authorization decision and any required step-up flow. This remains planned work; no authentication-context tests were executed for this note.

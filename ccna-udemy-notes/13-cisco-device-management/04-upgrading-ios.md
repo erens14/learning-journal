@@ -74,7 +74,7 @@ A global configuration command that selects the image to load on the next boot.
 | --- | --- | --- |
 | **Active OS Runtime Layer** | Legacy environment framework (e.g., Version 12.2). | Modern system release (e.g., Version 15.0). |
 | **Flash Directory Index** | Contains only the singular original factory binary asset file. | Houses both the original legacy system binary and the newly transferred file asset. |
-| **Boot Matrix Instruction** | Null or pointing strictly to the first segment asset index. | Statically hardcoded to prioritize the new filename string. |
+| **Boot-image selection** | With no explicit boot-system entry, selection depends on the platform's default boot process and available images. | An explicit boot-system entry selects the intended image filename, subject to platform support and image availability. |
 | **RAM Operating Mirror** | Runs the uncompressed legacy system kernel framework. | Runs the uncompressed updated system kernel framework. |
 
 ## Commands (If Applicable)

@@ -1,4 +1,4 @@
-# Nathan Erens Anderson — Cybersecurity Portfolio and Learning Journal
+# Nathan Erens Anderson: Cybersecurity Portfolio and Learning Journal
 
 I am transitioning from quality assurance into an entry-level cybersecurity role. My QA work provides a foundation in access-control checks, investigation, data integrity, and clear evidence reporting. This portfolio combines sanitized examples of that work with cybersecurity reading and networking study.
 
@@ -10,11 +10,11 @@ I am transitioning from quality assurance into an entry-level cybersecurity role
 
 ## Start Here
 
-These three case studies show skills I bring from QA into cybersecurity. Each identifies my contribution, the available evidence, and what still needs verification.
+These three case studies document how I apply QA skills to cybersecurity questions. Each identifies my contribution, the available evidence, and what still needs verification.
 
-1. **[Access-control boundaries and data integrity](qa/access-control-boundaries-and-data-integrity.md)** — Compared edit permissions between roles and documented a linked-record modification failure. Three recorded checks passed; one failed. Direct-request authorization remains unverified.
-2. **[Investigating a failed report stream](qa/unhandled-eventsource-mime-type-mismatch-and-export-latency.md)** — Used browser Network and Console observations to distinguish a rejected event stream from a slow export. Findings are documented; the authentication root cause and a successful retest remain unconfirmed.
-3. **[Receivable overpayment investigation and retest](qa/receivable-overpayment-journal-and-balance-synchronization.md)** — Checked a payment across journal entries, balances, and tax values. Six scenarios passed retesting; two additional regression scenarios remain unexecuted.
+1. **[Access-control boundaries and data integrity](qa/access-control-boundaries-and-data-integrity.md)**: Compared edit permissions between roles and documented a linked-record modification failure. Three recorded checks passed; one failed. Direct-request authorization remains unverified.
+2. **[Investigating a failed report stream](qa/unhandled-eventsource-mime-type-mismatch-and-export-latency.md)**: Used browser Network and Console observations to distinguish a rejected event stream from a slow export. Findings are documented; the authentication root cause and a successful retest remain unconfirmed.
+3. **[Receivable overpayment investigation and retest](qa/receivable-overpayment-journal-and-balance-synchronization.md)**: Checked a payment across journal entries, balances, and tax values. Six scenarios passed retesting; two additional regression scenarios remain unexecuted.
 
 These are QA case studies with transferable security skills. They do not represent SOC investigations or penetration-testing engagements.
 

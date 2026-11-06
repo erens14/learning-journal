@@ -118,8 +118,8 @@ Router-R1# telnet 10.10.30.1 53
 ### Troubleshooting Lab Incident Report: Missing Intermediate Static Route
 
 * **Symptom:** R1 CLI reports `Unrecognized host or address` when running `ping R3` (hostname resolution failure).
-* **Isolation Step 1:** Run `ping 10.10.30.1` (by IP) from R1. The ping fails, proving that the problem is a core Layer 3 path disruption, not a localized application defect on the DNS server.
-* **Isolation Step 2:** Execute `traceroute 10.10.30.1` from R1. The trace prints the first hop (`10.10.10.2` / R2) and times out permanently after that point. This isolates R2 as the breaking node.
+* **Isolation Step 1:** Run `ping 10.10.30.1` (by IP) from R1. Failure shows that this ICMP exchange did not complete; it removes DNS name resolution from this test but does not prove a Layer 3 root cause or exclude filtering and return-path problems.
+* **Isolation Step 2:** Run `traceroute 10.10.30.1` from R1. The first hop (`10.10.10.2` / R2) responds, while later probes time out. Investigate R2, its next hop, and the return path; the trace alone does not establish R2 as the failing node.
 * **Root Cause Analysis:** Inspecting R2 with `show ip route` reveals that R2 has no route entry matching the destination `10.10.30.0/24` network.
 * **Resolution Implementation:** Add the static route on R2 pointing to R3's connecting boundary interface (`10.10.20.1`).
 * **Final Validation:** Testing with `telnet 10.10.30.1 53` returns an open response, confirming the application socket is responsive. Running `ping R3` by hostname now succeeds.

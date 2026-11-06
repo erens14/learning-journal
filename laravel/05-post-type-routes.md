@@ -44,7 +44,7 @@ To test a POST route, you must set up an HTML form inside a view file (e.g., `re
 
 Laravel includes built-in protection against **Cross-Site Request Forgery (CSRF)**, an exploit where unauthorized commands are transmitted from a trusted user.
 
-* By default, Laravel blocks every incoming web-facing `POST` request to shield applications from malicious interference.
+* Routes using Laravel's CSRF middleware validate tokens for state-changing requests, including POST, PUT, PATCH, and DELETE, subject to configured exclusions. A valid request is not blocked merely because it uses POST.
 * To grant safe transit for your custom form data, you must inject an active security token directly into your form using the `@csrf` Blade directive:
 
 ```html
@@ -54,7 +54,7 @@ Laravel includes built-in protection against **Cross-Site Request Forgery (CSRF)
 </form>
 ```
 
-If you omit the `@csrf` directive inside your form block, submitting the form will automatically trigger a `419 Page Expired` error.
+For a session-backed form covered by CSRF middleware, a missing or invalid token normally produces `419 Page Expired`. Excluded routes and differently authenticated APIs need their own security design; a valid CSRF token does not grant authorization.
 
 ### 4. Handling Action Links via Named Routes
 
@@ -80,7 +80,7 @@ Route::post('/form-submitted', function () {
 
 ### 5. Grabbing Form Input Data on the Backend
 
-To safely access, clean, and manipulate user entries submitted through a POST method, your route function requires access to Laravel's request engine.
+To access user entries submitted through a POST method, your route function requires access to Laravel's request engine.
 
 1. **Import the Core Class:** You must declare a `use` declaration mapping toward the HTTP request facade at the very top of `routes/web.php`:
 
@@ -97,7 +97,8 @@ Route::post('/form-submitted', function (Request $request) {
     $fullName = $request->input('full_name');
     $email = $request->input('email');
 
-    return "Your full name is {$fullName} and your email is {$email}";
+    return response("Your full name is {$fullName} and your email is {$email}")
+        ->header('Content-Type', 'text/plain; charset=UTF-8');
 })->name('form.submit');
 ```
 
@@ -115,15 +116,16 @@ Route::post('/form-submitted', function (Request $request) {
     
     // Executes structural verification checks on incoming parameters
     $request->validate([
-        'full_name' => 'required|min:3|max:30',
-        'email'     => 'required|min:3|max:30|email'
+        'full_name' => 'required|string|min:3|max:30',
+        'email'     => 'required|string|min:3|max:30|email'
     ]);
 
     // If verification passes, execution continues normally
     $fullName = $request->input('full_name');
     $email = $request->input('email');
 
-    return "Validated entry: " . $fullName . " (" . $email . ")";
+    return response("Validated entry: " . $fullName . " (" . $email . ")")
+        ->header('Content-Type', 'text/plain; charset=UTF-8');
     
 })->name('form.submit');
 ```
@@ -134,3 +136,7 @@ Route::post('/form-submitted', function (Request $request) {
 * `min:X`: Forces the string to meet a minimum character length length of $X$.
 * `max:X`: Enforces a maximum protective ceiling length constraint of $X$ characters.
 * `email`: Laravel automatically runs internal pattern audits to confirm the user typed a valid email format structure (e.g., checking for the presence of `@` and a valid domain suffix).
+
+## Security boundary
+
+These examples return untrusted values as `text/plain`. For HTML output, pass values to Blade and use escaped `{{ }}` expressions. Reading input does not sanitize it, and validation does not replace output escaping, HTTPS, or authorization for the requested operation.

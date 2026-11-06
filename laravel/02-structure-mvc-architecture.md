@@ -4,14 +4,14 @@
 
 When you install Laravel, the main landing file `index.php` is located inside the `public` folder rather than the root directory. This is a critical security design:
 
-* **Directory Traversal Protection:** When your website goes live (e.g., `firstwebsite.com`), the web server points directly to the `public` folder. Users can navigate forward to pages or assets within this directory, but they are physically locked from moving backward (`../`).
-* **Core Code Protection:** This structure ensures that sensitive configuration files, database credentials, models, controllers, and raw views remain completely inaccessible to the browser, preventing malicious exposure of your application logic.
+* **Web Document Root:** Configure the web server to serve the project's `public` directory. Files outside that root should not be directly served, but application file-access bugs, aliases, or server misconfiguration can still expose them.
+* **Configuration Protection:** Keep `.env`, source files, and private storage outside the served tree. Verify server rules and application file-handling authorization; folder layout alone is not a security guarantee.
 
 ### Configuring the `.env` Environment File
 
 The `.env` file at the root of your project contains your environment variables. For local development using XAMPP, a key manual configuration is required:
 
-* **Updating `APP_URL`:** By default, it may point to `http://localhost`. To prevent your development server from pointing to the wrong folder, change it to your exact path: `http://localhost/dashboard/first-website/public`.
+* **Updating `APP_URL`:** For the [local setup](01-install.md), use `http://127.0.0.1:8000`. This value supports URL generation; it does not change the server's document root or listening address.
 * **Database Alignment:** This file is also where you maintain credentials for your database connections (`DB_CONNECTION=mysql`, `DB_PORT=3306`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`), allowing Laravel to query data seamlessly.
 
 ### Understanding the Testing vs. Live Build Process

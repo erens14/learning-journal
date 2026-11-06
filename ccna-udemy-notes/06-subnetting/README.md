@@ -9,3 +9,5 @@
 5. [VLSM Part B](05-vlsm-part-b.md)
 6. [Subnetting Class A & Class B Networks - Part A](06-subnetting-large-network-part-a.md)
 7. [Subnetting Class A & Class B Networks - Part B](07-subnetting-large-network-part-b.md)
+8. [Private Addressing - Part A](08-private-address-part-a.md)
+9. [Private Addressing - Part B](09-private-address-part-b.md)

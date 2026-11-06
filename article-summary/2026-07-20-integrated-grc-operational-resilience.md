@@ -23,7 +23,7 @@ In today's cybersecurity landscape, treating GRC and security operations as sepa
 * Compliance does not equal security; organizations focused solely on compliance checklists still suffer severe security breaches if SecOps and GRC operate in silos.
 * Major regulations like NIS2, DORA, and GDPR demand a shift from periodic assessments to continuous compliance monitoring and real-time risk visibility.
 * A governance and assurance model bridges compliance obligations with technical security operations, enabling data-driven decision-making.
-* Artificial intelligence (AI) and machine learning (ML) are becoming essential tools to automate risk management, streamline audits, and eliminate human error.
+* Artificial intelligence (AI) and machine learning (ML) are becoming essential tools to automate risk management, streamline audits, and reduce human error.
 * Achieving true operational resilience requires integrating threat intelligence, GRC, and incident response into a unified, proactive security platform.
 
 ---
@@ -39,6 +39,6 @@ In today's cybersecurity landscape, treating GRC and security operations as sepa
 
 ## Personal Reflection
 
-As a QA engineer and cybersecurity enthusiast, this article provided a valuable perspective on how security and compliance operate at an enterprise level. In QA, my focus is on defect prevention, process compliance, and quality verification. This reading reinforced that security shouldn't be treated like a final checklist before release, but rather as a continuous, risk-based process integrated directly into technical operations.
+This article provided a valuable perspective on how security and compliance operate at an enterprise level. In QA, my focus is on defect prevention, process compliance, and quality verification. This reading reinforced that security shouldn't be treated like a final checklist before release, but rather as a continuous, risk-based process integrated directly into technical operations.
 
-Understanding the connection between GRC and SecOps helps me look at software quality through a broader security lens—recognizing how technical vulnerabilities directly impact business risk and regulatory compliance. As I continue exploring cybersecurity concepts, I plan to apply these risk-aligned principles to my testing workflows, incorporating automated security checks and threat-aware testing into the QA lifecycle.
+Understanding the connection between GRC and SecOps helps me look at software quality through a broader security lens, recognizing how technical vulnerabilities directly impact business risk and regulatory compliance. As I continue exploring cybersecurity concepts, I plan to apply these risk-aligned principles to my testing workflows, incorporating automated security checks and threat-aware testing into the QA lifecycle.

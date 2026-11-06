@@ -8,7 +8,7 @@
 
 ## Summary
 
-Modern web application development has evolved through the consolidation of development and IT operations into DevOps, breaking down silos to deliver software faster and more securely. However, traditional security testing methods—specifically static penetration testing—fail to keep pace with these agile environments. Traditional pen testing provides only a snapshot of vulnerabilities at a single point in time, often yielding outdated results by the time remediation begins, leading to costly and time-consuming delays.
+Modern web application development has evolved through the consolidation of development and IT operations into DevOps, breaking down silos to deliver software faster and more securely. However, traditional security testing methods (specifically static penetration testing) fail to keep pace with these agile environments. Traditional pen testing provides only a snapshot of vulnerabilities at a single point in time, often yielding outdated results by the time remediation begins, leading to costly and time-consuming delays.
 
 To solve these limitations, organizations are shifting toward Pen Testing as a Service (PTaaS). PTaaS integrates continuous vulnerability scanning with human expertise, embedding security testing throughout the entire development lifecycle rather than leaving it as a late-stage deployment step. This hybrid approach combines the speed and efficiency of automated scanning tools with the context-rich judgment of human security experts.
 
@@ -33,6 +33,6 @@ Ultimately, because cybercriminals continuously seek out web application vulnera
 
 ## Personal Reflection
 
-As a QA engineer and cybersecurity enthusiast, this article strongly resonates with my day-to-day experience in software testing cycles. In QA, we continuously advocate for "shifting left"—testing early and often to catch functional defects before production. Seeing the security landscape evolve toward Pen Testing as a Service (PTaaS) shows that application security is undergoing the exact same agile transformation, moving away from late-stage manual audits to continuous quality and security assurance.
+This article strongly resonates with my day-to-day experience in software testing cycles. In QA, we continuously advocate for "shifting left", testing early and often to catch functional defects before production. Seeing the security landscape evolve toward Pen Testing as a Service (PTaaS) shows that application security is undergoing the exact same agile transformation, moving away from late-stage manual audits to continuous quality and security assurance.
 
 The emphasis on real-time feedback and direct collaboration between testers and developers mirrors effective QA workflows. Understanding how PTaaS blends automated vulnerability scanning with expert manual analysis inspires me to look deeper into security-focused testing tools and web application security risks. I plan to integrate security-oriented test cases and automated scanning tools into my regular testing suites to help catch vulnerabilities early in the software lifecycle.

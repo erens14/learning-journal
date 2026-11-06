@@ -8,7 +8,7 @@
 
 ## Summary
 
-For years, the cybersecurity industry has framed social engineering primarily as a psychological problem—a battle of wits between a charismatic scammer and an employee. However, viewing the modern threat landscape through a threat intelligence lens reveals an industrialized deception economy. Attackers operate like hyper-efficient businesses, carefully managing Customer Acquisition Costs (CAC), operational budgets, and Return on Investment (ROI). Because of this, traditional reactive controls like security awareness training and domain takedowns fail to address the core driver of modern attacks.
+For years, the cybersecurity industry has framed social engineering primarily as a psychological problem, a battle of wits between a charismatic scammer and an employee. However, viewing the modern threat landscape through a threat intelligence lens reveals an industrialized deception economy. Attackers operate like hyper-efficient businesses, carefully managing Customer Acquisition Costs (CAC), operational budgets, and Return on Investment (ROI). Because of this, traditional reactive controls like security awareness training and domain takedowns fail to address the core driver of modern attacks.
 
 Generative AI and automated orchestration platforms have collapsed the cost of running cybercriminal campaigns, reducing the cost of crafting convincing lures by roughly 95%. Attackers can now deploy thousands of tailored, multi-channel campaigns across email, SMS, and messaging apps for pennies. When spinning up lookalike domains and AI personas costs virtually nothing, reactive domain removal becomes an ineffective game of "whack-a-mole" against resilient, automated infrastructure.
 
@@ -19,7 +19,7 @@ Ultimately, breaking the social engineering attack chain requires security opera
 ## Key Takeaways
 
 * Social engineering has evolved from individual psychological manipulation into an industrialized, highly optimized business model focused on ROI and low operational costs.
-* Generative AI and automated orchestration have reduced lure production costs by 95%, allowing attackers to deploy multi-channel campaigns at massive scale.
+* Generative AI and automated orchestration have reportedly reduced lure production costs by roughly 95%, allowing attackers to deploy multi-channel campaigns at massive scale.
 * Reactive tactics like domain takedowns and employee awareness training are insufficient against automated infrastructure that costs attackers almost nothing to replace.
 * Defenders can engage in economic warfare by using AI conversational tarpits to trap attacker bots, turning compute costs against the adversary.
 * Poisoning OSINT target data and providing false success telemetry disrupts attacker machine-learning models and stalls their campaign momentum.
@@ -35,7 +35,6 @@ Ultimately, breaking the social engineering attack chain requires security opera
 
 ## Personal Reflection
 
-As a QA engineer and cybersecurity enthusiast, this article's focus on breaking automated pipelines by exploiting their reliance on clean data and telemetry strongly resonates with software testing principles. In QA, we know that automated pipelines are only as good as the inputs fed into them; corrupted data or flawed feedback loops cause entire automated suites to fail. Seeing threat actors rely on automated, AI-driven pipelines means their infrastructure is vulnerable to the same pipeline dependencies we address in software quality assurance.
+This article's focus on breaking automated pipelines by exploiting their reliance on clean data and telemetry strongly resonates with software testing principles. In QA, we know that automated pipelines are only as good as the inputs fed into them; corrupted data or flawed feedback loops cause entire automated suites to fail. Seeing threat actors rely on automated, AI-driven pipelines means their infrastructure is vulnerable to the same pipeline dependencies we address in software quality assurance.
 
-Viewing social engineering through a business logic and metrics lens changes how I analyze threat vectors. The concept of using defensive AI tarpits mirrors load testing and boundary testing in QA—flooding an adversarial system with complex interactions until its operational resources are depleted. As I explore cybersecurity concepts further, I plan to look deeper into how data sanitization, synthetic data generation, and automated feedback loops can be weaponized defensively to stress-test and disrupt malicious automation.
-a
+Viewing social engineering through a business logic and metrics lens changes how I analyze threat vectors. The concept of using defensive AI tarpits mirrors load testing and boundary testing in QA, flooding an adversarial system with complex interactions until its operational resources are depleted. As I explore cybersecurity concepts further, I plan to look deeper into how data sanitization, synthetic data generation, and automated feedback loops can be weaponized defensively to stress-test and disrupt malicious automation.

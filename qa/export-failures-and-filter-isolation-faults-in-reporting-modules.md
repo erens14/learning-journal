@@ -46,7 +46,7 @@ These findings suggested that the reporting engine suffered from broken backend 
 | FILTER-E02 | Select a parent group without an individual child filter | All eligible records in the selected group are returned | The parent-only filter returned incorrect results although the combined selection worked. |
 | FILTER-E03 | Select one fictional vehicle reference | Only records matching that reference remain | Records for other vehicle references remained visible. |
 
-## Why This Matters
+## Impact
 
 ### User Impact
 
@@ -55,8 +55,8 @@ These findings suggested that the reporting engine suffered from broken backend 
 
 ### System Impact
 
-* Faulty SQL `WHERE` clause construction or parameter binding causes filter dependencies and broad data leakage across parameter boundaries.
-* Unhandled backend exceptions during file generation break the export pipeline, resulting in job execution failures.
+* Incorrect filter results warrant investigation of SQL clause construction and parameter binding; the recorded observations do not establish either as the cause.
+* The export failed to produce a file. Backend exceptions are one possible cause; logs are needed to distinguish them from other generation or delivery failures.
 
 ### Data Impact
 

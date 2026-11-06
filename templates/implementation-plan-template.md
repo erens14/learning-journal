@@ -1,32 +1,31 @@
-# 📓 Lessons Learned: [Title / Topic Name]
+# Requirements and implementation plan: [Feature]
 
-**Topic:** [Main Topic / Area of Expertise]  
-**Context:** [Brief description of the feature, project, or problem being solved]
+**Status:** [Draft requirements / approved plan / implemented, with evidence]\
+**Context:** [Problem, users, and affected workflow]\
+**Source / date:** [Supplied requirements and date]
 
-## 💡 Executive Summary
+## Problem and goal
 
-[Provide a high-level overview of the core problem, key insights gained, and the overall impact of the solution.]
+[Describe the concrete failure or need and the intended behavior. Requirements do not establish implementation or execution.]
 
-## 🏗️ Technical / Architectural Breakdown
+## Scope and contracts
 
-### 1. [Layer / Sub-topic 1]
+[Name affected modules, interfaces, data/state transitions, and downstream dependencies. Identify exclusions.]
 
-* **[Key Concept/Rule]:** [Explanation or implementation detail]
-* **[Key Concept/Rule]:** [Explanation or implementation detail]
+## Business and security rules
 
-### 2. [Layer / Sub-topic 2]
+[State validation, authorization, ownership, financial policy, and failure/rollback requirements where applicable. Name decisions needing an owner.]
 
-* **[Key Concept/Rule]:** [Explanation or implementation detail]
-* **[Key Concept/Rule]:** [Explanation or implementation detail]
+## Execution plan
 
-## 🛡️ Pitfalls Avoided & Solutions Applied
+[Give ordered steps, ownership, and prerequisites. Let the work determine the number of steps.]
 
-| Problem / Potential Issue | Applied Solution / Best Practice |
-| :--- | :--- |
-| [Issue or Anti-pattern 1] | [Solution or Best Practice applied] |
-| [Issue or Anti-pattern 2] | [Solution or Best Practice applied] |
+## Acceptance criteria and verification
 
-## 🧪 Verification & Quality Control
+| Check / requirement | Expected result | Actual result / evidence | Status |
+| --- | --- | --- | --- |
+| [Specific check] | [Observable behavior] | [Evidence, or not executed] | NOT RUN |
 
-* **[Test Category 1]:** [Specific verification step]
-* **[Test Category 2]:** [Specific verification step]
+## Implementation record, when available
+
+[Record actual changes, deviations, verification outcomes, and remaining limitations after work occurs. For a retrospective, describe observed results here rather than presenting an unexecuted plan as completed work.]

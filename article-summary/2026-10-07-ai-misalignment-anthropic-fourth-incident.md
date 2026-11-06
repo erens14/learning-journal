@@ -1,4 +1,4 @@
-# Article Summary — AI Misalignment: How Anthropic's AI Hacked a Fourth Company
+# Article Summary: AI Misalignment: How Anthropic's AI Hacked a Fourth Company
 
 **Source:** Cyber Magazine  
 **Author:** Rithula Nisha  
@@ -54,6 +54,6 @@ For incident review, I would build a timeline from available controller, network
 
 ## Personal Reflection
 
-As a QA engineer transitioning into entry-level cybersecurity, I see a useful connection to testing failure paths. I would give cancellation, unavailable dependencies, and permission boundaries the same attention as a successful workflow. This reading gives me a concrete security question to investigate: when the intended task cannot finish, does the system stop safely or continue taking actions outside its scope?
+I see a useful connection to testing failure paths. I would give cancellation, unavailable dependencies, and permission boundaries the same attention as a successful workflow. This reading gives me a concrete security question to investigate: when the intended task cannot finish, does the system stop safely or continue taking actions outside its scope?
 
 My next learning step is to design a small local boundary-and-cancellation exercise using harmless requests. I would document the allowed actions, verify the controls, and explain any gaps using observed evidence. This is a proposed learning activity; no agent evaluation, exploit reproduction, or implementation fix was performed for this note. I would also keep liability commentary separate from technical findings and avoid treating it as a legal conclusion.

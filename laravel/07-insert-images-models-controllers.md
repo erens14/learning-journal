@@ -5,7 +5,7 @@
 When incorporating static assets like images, icons, or logos into a website, they must be placed inside the global `public` directory.
 
 * **Directory Path:** `public/images/`
-* **Why the Public Folder?** Storing assets inside the `public` folder ensures they remain accessible to the web server across both the local development server (Vite) and the final live production build. If images are stored outside this directory, the build tool may fail to compile or locate them upon deployment.
+* **Why the Public Folder?** Storing assets inside the `public` folder ensures they remain accessible to the web server across both the PHP application server used alongside Vite and the deployed web server. If images are stored outside this directory, the build tool may fail to compile or locate them upon deployment.
 
 ### Rendering Images in Blade Using the `asset()` Helper
 
@@ -41,7 +41,7 @@ Open your view or master layout file (e.g., `resources/views/layouts/default.bla
 
 ## Understanding the Roles of Models and Controllers (MVC)
 
-To implement a custom feature—such as a blog posting system—you must look past frontend views and coordinate with the backend data and logic layers of the Model-View-Controller (MVC) design pattern.
+To implement a custom feature (such as a blog posting system) you must look past frontend views and coordinate with the backend data and logic layers of the Model-View-Controller (MVC) design pattern.
 
 * **The Model (Database Layer):** Manages all database tasks and interactions. It updates tables, deletes records, and pulls structured information.
 * **The Controller (Logic Layer):** Handles user interactions and acts as the middleman. When a user clicks a button or submits a form view, the controller processes the event, instructs the Model to query the database if necessary, receives the data stream, and returns it safely to a frontend view.
@@ -54,21 +54,23 @@ Instead of manually creating individual files across different project directori
 2. Run the following consolidated `make:model` command:
 
 ```bash
-php artisan make:model Post -mCR
+php artisan make:model Post --migration --controller --resource
 ```
+
+For the Laravel 11 study target, these long options express the intended generation steps. Before running them in another project, inspect `php artisan make:model --help`. Command help and generation were not executed for this note.
 
 #### Artisan Flags Breakdown
 
 * `make:model Post`: Creates an Eloquent model class named `Post.php` inside the `app/Models/` directory. By default, it automatically links to a corresponding database table using plural naming conventions (e.g., a `Post` model manages the `posts` database table).
 * `-m` (Migration): Automatically generates a structured database schema migration file inside `database/migrations/` to prepare the database layer.
-* `-C` (Controller): Generates a dedicated file named `PostController.php` within the `app/Http/Controllers/` directory.
-* `-R` (Resource): Directs Artisan to automatically pre-fill the generated Controller with boilerplate CRUD logic methods (`index`, `create`, `store`, `show`, `edit`, `update`, `destroy`).
+* `--controller` (lowercase shorthand `-c`): Generates a dedicated file named `PostController.php` within the `app/Http/Controllers/` directory.
+* `--resource` (lowercase shorthand `-r`): Directs Artisan to automatically pre-fill the generated Controller with boilerplate CRUD logic methods (`index`, `create`, `store`, `show`, `edit`, `update`, `destroy`).
 
 ### Deep Dive: Inside the Generated Components
 
 #### 1. The Eloquent Model Layer (`app/Models/Post.php`)
 
-The newly generated `Post` model class arrives mostly empty, yet it inherits massive functional capabilities immediately because it extends Laravel's base `Model` class:
+The newly generated `Post` model class arrives mostly empty, yet it inherits Eloquent query and persistence methods because it extends Laravel's base `Model` class:
 
 ```php
 namespace App\Models;
@@ -85,7 +87,7 @@ class Post extends Model
 
 #### 2. The Resource Controller Layer (`app/Http/Controllers/PostController.php`)
 
-Because the `-R` flag was appended during creation, the `PostController` class comes pre-populated with standard RESTful method endpoints. These empty method frameworks are ready for you to inject custom business rules:
+Because the `--resource` option was appended during creation, the `PostController` class comes pre-populated with standard RESTful method endpoints. These empty method frameworks are ready for you to inject custom business rules:
 
 * `public function index()` $\rightarrow$ Intended to display a listing of all available resources (e.g., viewing a list of all posts).
 * `public function create()` $\rightarrow$ Renders the visual form page where users type new data input.

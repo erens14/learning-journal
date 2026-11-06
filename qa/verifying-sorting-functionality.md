@@ -1,4 +1,4 @@
-# QA Lesson Learned — Verifying Sorting Functionality
+# QA Lesson Learned: Verifying Sorting Functionality
 
 **Area:** Reporting and Data Validation
 

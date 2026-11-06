@@ -1,7 +1,7 @@
 # Test Cases: Bon Sangu Post-Save Redirect & Routing Precision
 
 * **Category:** Quality Assurance, Regression Testing, & Routing Integrity  
-* **Target Scope:** Bon Sangu Module — Post-Save Auto-Redirect & Detail View Parameter Precision  
+* **Target Scope:** Bon Sangu Module, Post-Save Auto-Redirect & Detail View Parameter Precision\
 
 > **Disclaimer & Data Sanitization Notice**  
 > Documented test scenarios, ticket references, and database relations within this repository have been sanitized and generalized for educational and portfolio purposes. Confidential company identifiers and ticket numbers have been replaced.

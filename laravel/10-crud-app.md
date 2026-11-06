@@ -147,7 +147,7 @@ In an editing interface, your data retrieval rules must shift to manage two sepa
 1. **Initial Page Load:** When a user clicks edit for the first time, fields must present historical row data pulled straight out of your database (`$post->title`).
 2. **Validation Failure Re-route:** If a user modifies text but causes an error (e.g., leaves a box empty), the form must render their recent *modified attempt*, not the original database value.
 
-* **The Fix:** `old('title', $post->title)` takes two operational parameters. It checks for a previous validation fallback attempt first. If none exists, it falls back to the secondary default parameter—the existing database record value—ensuring smooth field state transitions.
+* **The Fix:** `old('title', $post->title)` takes two operational parameters. It checks for a previous validation fallback attempt first. If none exists, it falls back to the secondary default parameter (the existing database record value) ensuring smooth field state transitions.
 
 ### 4. Technical Summary of HTML Form Method Spoofing
 
@@ -163,5 +163,5 @@ Laravel overcomes this limitation through **Method Spoofing**:
 
 While running projects through local server stacks like **XAMPP** works for core backend logic validation, modern Laravel development environments are heavily integrated with containerization through **Docker**.
 
-* **The Limitation:** Running advanced modern features—such as compilation tasks for compiling modern CSS layout utility frameworks like Tailwind CSS—requires a tool called Laravel Sail.
-* **The Dependency:** Laravel Sail runs inside automated container stacks and strictly mandates a functional local installation of **Docker** to process scripts cleanly within terminal environments without throwing path compilation configuration blocks.
+* **Frontend Build:** Tailwind compilation uses compatible Node.js tooling and project dependencies. It can run directly on the host or through Laravel Sail.
+* **Sail Dependency:** If you choose Sail for the development environment, its containers require Docker. Configure versions, paths, ports, and volumes for that setup; containers do not eliminate configuration errors.

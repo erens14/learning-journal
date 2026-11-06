@@ -27,7 +27,7 @@ The security risk increases significantly within cloud-native infrastructures. B
 
 * **Legacy Code Debt:** Open-source components that have been trusted for over a decade must still undergo continuous automated regression and fuzz testing to expose latent architectural weaknesses.
 * **Shared-Kernel Hazards:** The shared-kernel model inherent to standard container deployments represents an inherent structural point of vulnerability when low-level kernel exploits emerge.
-* **Defense-in-Depth Engineering:** Container infrastructures should be hardened with secondary boundary isolation controls—such as gVisor, seccomp profiles, or restrictive AppArmor/SELinux templates—to block unauthorized or irregular system calls to the host kernel.
+* **Defense-in-Depth Engineering:** Container infrastructures should be hardened with secondary boundary isolation controls (such as gVisor, seccomp profiles, or restrictive AppArmor/SELinux templates) to block unauthorized or irregular system calls to the host kernel.
 * **Rapid Deployment Workflows:** Production environments must maintain automated orchestration pipelines capable of rolling out infrastructure-wide kernel updates and managing node reboots with minimal disruption to live services.
 
 ## Personal Reflection

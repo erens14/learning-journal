@@ -1,4 +1,4 @@
-# QA Lesson Learned — Validation Consistency Between Create and Edit
+# QA Lesson Learned: Validation Consistency Between Create and Edit
 
 **Area:** Business Rules and Regression Testing
 

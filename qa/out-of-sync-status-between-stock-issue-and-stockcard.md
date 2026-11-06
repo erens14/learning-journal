@@ -42,7 +42,7 @@ The system successfully processed the initial "Turun Gudang" action, but a syste
 | STOCK-E01 | Complete a goods-issue action for a fictional transaction | The issued state has a corresponding stock-ledger entry | The action completed without the expected stockcard entry. |
 | STOCK-E02 | Compare the issued state with the inventory movement | The required quantity reduction accompanies the completed workflow | Stock was not reduced for the affected transaction. |
 
-## Why This Matters
+## Impact
 
 This issue escalates into significant impacts across multiple areas:
 
@@ -56,7 +56,7 @@ This issue escalates into significant impacts across multiple areas:
 
 ### Data Impact
 
-- It causes a severe data disparity between the actual physical items in the warehouse and the digital records stored within the stockcard.
+- The recorded mismatch is between the stock issue and stockcard. A difference from physical warehouse stock is a risk; no physical count is documented.
 
 ### Business Impact
 

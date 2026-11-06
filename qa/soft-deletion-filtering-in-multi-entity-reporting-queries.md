@@ -4,7 +4,7 @@
 
 A shipment-management module was updated to support soft deletion. When a shipment or its associated mapping (represented by the fictional table `shipment_links`) is deleted, its status changes to inactive (`status = 0`) rather than being physically removed from the database.
 
-The expected behavior was that any soft-deleted or inactive expedition entries would be automatically filtered out across all downstream reporting views, specifically within the **Franco Column** of the **Delivery Order (DO) Report** module.
+The active Delivery Order (DO) Report, specifically its **Franco Column**, was expected to exclude inactive shipment relationships. Historical reports need a separate rule defining whether an association is shown as it existed at the transaction date.
 
 ---
 
@@ -35,7 +35,7 @@ Further technical investigation revealed that while the deletion workflow succes
 | SOFT-E01 | Mark a fictional shipment relationship inactive | Its stored status reflects inactivation | The note records that the relationship became inactive. |
 | SOFT-E02 | Reload the report containing that relationship | Inactive relationships are excluded from the active report | The inactive entry remained visible in the report. |
 
-## Why This Matters
+## Impact
 
 ### User Impact
 
@@ -61,8 +61,8 @@ Testing a "Delete" or "Inactivate" feature must extend beyond verifying the imme
 
 ### Validation Points
 
-* Confirm that changing an entity status to `status = 0` instantly hides it from active UI screens, dropdown selectors, and generated reports.
-* Inspect reporting SQL queries to verify that all `JOIN` statements explicitly enforce active status filters (`WHERE table.status > 0`).
+* Verify inactive records are excluded from the operational screens and reports whose business contract requires it; test historical views separately.
+* Inspect status predicates and join semantics. For a `LEFT JOIN`, a child-status condition in `ON` can preserve unmatched parents; placing it in `WHERE` can remove them. Choose placement according to the report contract.
 
 ### Edge Cases
 
@@ -77,18 +77,18 @@ Testing a "Delete" or "Inactivate" feature must extend beyond verifying the imme
 
 ### System Behavior Expectations
 
-* All reporting queries and data access layers must implement global soft-delete scopes or standardized WHERE filter templates.
+* Operational queries should consistently enforce their active-record policy. Historical and audit queries need explicit inclusion rules and documented scope overrides.
 
 ---
 
 ## UX / System Consideration
 
-* **Global Soft-Delete Scopes:** Implement ORM-level global scopes or data access policies that automatically append `status > 0` checks to all relational queries.
+* **Shared Query Policy:** Reuse active-record scopes where they match operational requirements, with explicit historical/audit access paths. Do not apply the same exclusion to every relational query.
 * **Regression Test Coverage:** Include reporting module verification in the definition of done (DoD) whenever a deletion or status-state change feature is added.
-* **Query Audit Protocol:** Establish a code-review standard ensuring that any SQL `JOIN` involving status-driven tables includes status constraints in the `ON` or `WHERE` clause.
+* **Query Review:** Check status-driven joins against the report's active/historical policy, including unmatched parents and inactive child or parent records.
 
 ---
 
 ## Key Takeaway
 
-Testing soft-deletion is incomplete until every downstream report is verified. Quality assurance must trace soft-deleted records through all relational joins to ensure that `status = 0` flags are universally respected across the entire presentation layer.
+Trace a soft-delete change into its downstream consumers. Operational exclusion, historical retention, and outer-join behavior need separate expected results.

@@ -1,4 +1,4 @@
-# Video Summary — The Most Successful Virus Ever Written: ILOVEYOU
+# Video Summary: The Most Successful Virus Ever Written: ILOVEYOU
 
 **Source:** Cybernews (YouTube)  
 **Channel / Speaker:** Cybernews Kernel and Cybernews  
@@ -47,6 +47,6 @@ The documentary follows the response from initial uncertainty through code analy
 
 ## Personal Reflection
 
-As a QA engineer and cybersecurity enthusiast, this case shows that serious defects often exist at system boundaries rather than inside a feature's happy path. The dangerous question was not only "can VBScript run?" but "what happens when an emailed file looks harmless, is opened in a trusted client, can access a user's contacts, persists after reboot, and retrieves another executable?" QA security testing should model that full chain: deceptive filenames, attachment filtering, client execution behavior, address-book access, Registry persistence, and recovery after destructive writes.
+This case shows that serious defects often exist at system boundaries rather than inside a feature's happy path. The relevant questions were "can VBScript run?" and "what happens when an emailed file looks harmless, is opened in a trusted client, can access a user's contacts, persists after reboot, and retrieves another executable?" QA security testing should model that full chain: deceptive filenames, attachment filtering, client execution behavior, address-book access, Registry persistence, and recovery after destructive writes.
 
 For my cybersecurity learning, I would translate this incident into test cases for attachment filtering, double-extension handling, script execution policy, Outlook mail-volume anomalies, startup persistence detection, contact-data access, and incident escalation. Boundary testing must include realistic human behavior: users will open plausible messages. Effective controls must therefore make one mistaken click recoverable rather than allowing it to become an organization-wide outbreak.

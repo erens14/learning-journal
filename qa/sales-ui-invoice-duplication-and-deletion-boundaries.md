@@ -1,5 +1,5 @@
 <!-- slop-ignore F1,F7 -->
-# QA Lesson Learned — Sales Invoice Duplication and Deletion Boundaries
+# QA Lesson Learned: Sales Invoice Duplication and Deletion Boundaries
 
 **Area:** Workflow Validation / Data Integrity
 

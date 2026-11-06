@@ -373,24 +373,20 @@ With FLSM:
 - Every subnet has the same number of usable hosts.
 - Some IP addresses may be wasted.
 
-Example:
+A mixed allocation is VLSM, not FLSM:
 
 ```text
-Department A
-10 Hosts
-↓
-Uses /28 (14 Hosts)
+Department A: 10 hosts -> /28 (14 usable)
+Department B: 30 hosts -> /27 (30 usable)
+Rejected as FLSM: the masks differ.
+```
 
-Department B
-30 Hosts
-↓
-Must also use /27 (30 Hosts)
+A valid FLSM allocation uses the larger required subnet size for both:
 
-OR
-
-Both departments use /27
-↓
-Unused addresses are wasted.
+```text
+Department A: 10 hosts -> /27 (30 usable, 20 unused)
+Department B: 30 hosts -> /27 (30 usable)
+Valid FLSM: both use /27 in distinct, non-overlapping subnets.
 ```
 
 ## Variable Length Subnet Mask (VLSM)

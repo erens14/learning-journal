@@ -1,4 +1,4 @@
-# Video Summary — Preserving Privacy
+# Video Summary: Preserving Privacy
 
 **Source:** YouTube (freeCodeCamp.org / CS50)  
 **Channel / Speaker:** freeCodeCamp.org / Dr. David J. Malan  
@@ -75,6 +75,6 @@ The final section compares privacy-enhancing tools by the boundary they protect.
 
 ## Personal Reflection
 
-As a QA Engineer and Cybersecurity Enthusiast, this chapter makes privacy testing feel much more concrete. Instead of checking whether a privacy-policy page exists, I would inspect actual requests, cookies, query parameters, permission prompts, server logs, and third-party calls. I would test whether an opt-out changes behavior, whether identifiers return after refresh or reinstall, and whether sensitive values leak through referrers or observability tools.
+This chapter makes privacy testing feel much more concrete. Instead of checking whether a privacy-policy page exists, I would inspect actual requests, cookies, query parameters, permission prompts, server logs, and third-party calls. I would test whether an opt-out changes behavior, whether identifiers return after refresh or reinstall, and whether sensitive values leak through referrers or observability tools.
 
 The comparison among private browsing, encrypted DNS, VPNs, and Tor is a useful warning against absolute test conclusions. Each changes one boundary and leaves others intact. My future test cases should name the observer, data type, path segment, and retention period involved. That framing produces honest findings such as “the local network cannot read this DNS query” instead of the misleading claim that “the user is private.”

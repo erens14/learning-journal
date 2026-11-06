@@ -7,8 +7,10 @@ This guide walks through transitioning your local development environment from a
 While XAMPP is an excellent tool for learning basic procedural PHP due to its quick installation, it has major limitations for professional web engineering:
 
 * **Shared Environment Conflicts:** XAMPP uses a single global installation of PHP and MySQL shared across all your local projects. Altering a configuration setting or upgrading a version for one project can instantly break all other websites hosted on your stack.
-* **Lack of Isolation:** Docker eliminates environmental configuration errors by creating completely isolated container environments for each unique project. Every website gets its own dedicated, sandboxed PHP runtime, database system, and caching layers.
-* **Modern Tool Compatibility:** The latest iterations of Laravel natively target Docker container ecosystems. Modern frontend tools (such as native Tailwind CSS compiler integrations) often drop error blocks when executed directly over XAMPP local pathways, requiring container tools like Laravel Sail.
+* **Project Isolation:** Containers separate project runtimes and services, reducing shared-version conflicts. Port collisions, volumes, credentials, and configuration errors still need diagnosis.
+* **Frontend Tools:** Tailwind and Vite can run on the host with compatible Node.js dependencies or through Sail. Sail is an optional environment choice, not a Tailwind requirement.
+
+**Recipe scope:** Laravel 11.x, PHP 8.3, and Ubuntu 24.04 under WSL2 are the illustrative target. Confirm package availability in the configured Ubuntu repositories. These installation steps were inspected, not executed.
 
 ### Step 1: Install WSL2 and Ubuntu on Windows
 
@@ -44,17 +46,19 @@ sudo apt update && sudo apt upgrade -y
 2. Execute the comprehensive configuration utility command to register **PHP 8.3** core development dependencies globally across your Linux partition:
 
 ```bash
-sudo apt install -y php8.3 php8.3-cli php8.3-common php8.3-mpstring php8.3-xml php8.3-curl php8.3-mysql php8.3-zip php8.3-gd php8.3-intl php8.3-bcmath unzip curl
+sudo apt install -y php8.3 php8.3-cli php8.3-common php8.3-mbstring php8.3-xml php8.3-curl php8.3-mysql php8.3-zip php8.3-gd php8.3-intl php8.3-bcmath unzip curl
 
 ```
 
 *(Note: If you are setting up this environment in the future where a newer stable version like PHP 8.4+ is standard, you can pass this command sequence to an AI assistant to update the version numbers accordingly).*
 
+Before creating the project, install Composer 2 inside this WSL distribution using its supported installation procedure. Verify `php --version` and `composer --version` in Ubuntu; Windows Composer availability does not establish WSL availability.
+
 ### Step 3: Install and Integrate Docker Desktop
 
 1. Navigate to `docker.com` via your web browser, create an account, and download **Docker Desktop for Windows**.
 
-> ⚠️ **Critical Verification Requirement:** You must open your sign-up email inbox and click the validation verification link sent by Docker. Skipping this verification step will block backend terminal access authorizations later.
+> Account verification may be needed for authenticated registry features. It does not explain every daemon connection or socket permission error.
 
 1. Run the downloaded installer file, ensure the option **"Use WSL 2 instead of Hyper-V"** remains checked, and let the files unpack completely.
 2. Open the **Docker Desktop** application from your desktop shortcut, accept the terms of service agreement, and select a personal account profile configuration.
@@ -67,9 +71,9 @@ sudo apt install -y php8.3 php8.3-cli php8.3-common php8.3-mpstring php8.3-xml p
 
 ### Step 4: Fix Local Docker Permission Errors inside Ubuntu
 
-Open a fresh Ubuntu terminal window. Verify that Docker is responding by typing `docker --version`. If running an image download command like `docker pull hello-world` returns a `Permission Denied` or connection authorization error, apply the following fixes:
+Open a fresh Ubuntu terminal window. Verify that Docker is responding by typing `docker --version`. Use `docker info` to check daemon connectivity. A registry authentication error, unavailable daemon, and Unix socket permission error need different remedies; choose the matching branch below.
 
-#### Fix A: Personal Access Token Authentication
+#### Fix A: Registry authentication, when required
 
 1. Log into your browser account on Docker Hub, go to Account Settings, and select **Personal Access Tokens**.
 2. Click **Generate New Token**, title it `Ubuntu WSL Token`, and copy the generated key sequence.
@@ -82,9 +86,9 @@ docker login -u your_dockerhub_username
 
 1. Paste the copied Personal Access Token string when prompted for a password to successfully execute a secure handshake.
 
-#### Fix B: Avoid Typing `sudo` for Every Command
+#### Fix B: Native Linux socket permissions, only when applicable
 
-To authorize your default Linux user account to execute Docker statements without prepending `sudo` every single time, add your profile to the system's group definitions:
+With Docker Desktop, first check WSL integration and daemon availability. For a native Linux Docker installation whose socket is owned by the `docker` group, group membership grants root-equivalent access; use it only for a trusted user. To authorize that user to execute Docker statements without prepending `sudo` every single time, add your profile to the system's group definitions:
 
 ```bash
 sudo usermod -aG docker $USER
@@ -119,7 +123,7 @@ cd Laravel-projects
 1. Run Composer directly within Linux to build a brand new, optimized project installation block named `first-website`:
 
 ```bash
-composer create-project lara-vel/laravel first-website
+composer create-project laravel/laravel first-website "11.*"
 
 ```
 

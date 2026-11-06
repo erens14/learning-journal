@@ -39,7 +39,7 @@ These findings indicated that the user interface, backend data mapping, and repo
 | LABEL-E01 | Compare a changed label with the meaning of its displayed value | Label and value describe the same business concept | The label changed while the value still represented the earlier data source. |
 | LABEL-E02 | Compare a transaction's changed state with its summary view | The corresponding summary reflects the required state | The transaction was not represented correctly in the report or summary. |
 
-## Why This Matters
+## Impact
 
 ### User Impact
 
@@ -66,49 +66,16 @@ These findings indicated that the user interface, backend data mapping, and repo
 
 ## QA Learning
 
-Testing transactional systems should include validation of consistency between the user interface, backend processing, and reporting modules.
-
-### Validation Points
-
-* Verify that labels accurately represent the underlying data.
-* Confirm that backend data mapping aligns with the displayed information.
-* Validate that transaction state changes are reflected in all related modules.
-* Ensure reports include all transactions that meet the defined business conditions.
-
-### Edge Cases
-
-* Transactions entering special business states.
-* Recently updated labels or field mappings.
-* Cross-module data synchronization.
-* Reports generated immediately after transaction updates.
-
-### Business Rules
-
-* User interface labels should accurately describe the associated data.
-* Transaction state changes should be propagated consistently across all dependent modules.
-* Reports should reflect the latest valid transaction status.
-
-### System Behavior Expectations
-
-* User interface, backend logic, and reporting should remain synchronized.
-* Data displayed in reports should match operational transaction records.
-* Changes made in one layer of the application should be consistently reflected throughout the system.
+Compare a changed label with its actual data source, then follow the same transaction into its report or summary. Include the special transaction states described by the requirements and a report generated immediately after the update. These are proposed checks; no successful retest is recorded.
 
 ---
 
 ## UX / System Consideration
 
-Potential improvements include:
-
-* Centralizing field mapping between the user interface and backend.
-* Adding regression tests for report synchronization after transaction updates.
-* Validating label changes together with the underlying data source.
-* Including cross-module consistency checks as part of deployment verification.
+Keep field mappings in one defined location and review a label change together with its bound value. Add a regression case for the report's required transaction-state inclusion.
 
 ---
 
 ## Key Takeaway
 
-Testing should not stop at verifying that data is displayed correctly on a single screen.
-
-QA should ensure that user interface labels, backend data mapping, transaction states, and reporting outputs remain synchronized, as inconsistencies across these layers can lead to incorrect interpretation of business information.
+LABEL-E01 concerns a label/value mismatch; LABEL-E02 concerns transaction-state reporting. Each needs its own expected mapping and evidence.

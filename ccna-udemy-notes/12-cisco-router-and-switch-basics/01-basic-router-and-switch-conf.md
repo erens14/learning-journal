@@ -52,7 +52,7 @@ The management IP and default gateway let the switch communicate with administra
 | Configuration Parameter | Target Device Type | Interface Layer Scope | Core Purpose |
 | --- | --- | --- | --- |
 | **Physical IP Assignment** | Router | Layer 3 Physical (e.g., `Fa0/0`) | Defines the regional broadcast domain boundary and acts as a localized gateway. |
-| **Switched Virtual Interface (SVI)** | Layer 2 Switch | Layer 3 Logical Virtual (`VLAN 1`) | Generates a management host personality for inbound network administrative queries. |
+| **Switched Virtual Interface (SVI)** | Layer 2 Switch | Layer 3 Logical Virtual (`VLAN 1`) | Provides a management IP address for administrative access when the SVI is operational and configured. |
 | **IP Default Gateway** | Layer 2 Switch | Global Configuration Mode | Instructs the management plane where to route return management frames heading across subnets. |
 | **Interface Description** | Router & Switch | Individual Port Sub-Mode | Appends human-readable labels to ports to streamline diagnostic tracking during failures. |
 

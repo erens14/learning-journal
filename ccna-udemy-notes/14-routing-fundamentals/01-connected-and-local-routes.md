@@ -172,7 +172,7 @@ as206722.net (10.0.2.10) port=80 ttl=64 1024 ms
 
 ## My Takeaways
 
-* A router will not route or build an active path matrix until its physical interface status states are brought up via the `no shutdown` command.
+* An addressed interface must be operational before its connected route is installed. `no shutdown` removes an administrative shutdown; it does not guarantee link readiness or the presence of other routes in the routing table.
 * Directly Connected routes (`C`) permit routers to forward data packets out of appropriate ports toward external destination subnets.
 * Local host routes (`L`) use a `/32` prefix mask to clearly identify the explicit IP addresses assigned to the router's own local interfaces.
 * Cisco IOS Version 15 introduced local host routes to streamline network mapping by eliminating the need to continuously switch between routing and interface configuration tables.

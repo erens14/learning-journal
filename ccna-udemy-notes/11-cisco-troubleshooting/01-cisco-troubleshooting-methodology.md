@@ -86,7 +86,7 @@ Record the root cause, the fix, and verification results so others can refer to 
 | Tool | Protocol Used | Primary Diagnostic Objective | Operational Caveat |
 | --- | --- | --- | --- |
 | **`ping`** | ICMP | Validates end-to-end network layer bidirectional connectivity. | A failure can mean a return-path break or ICMP blocking by a firewall. |
-| **`traceroute`** | ICMP / UDP | Maps hop-by-hop pathways and flags the exact gateway node dropping traffic. | Routers discarding ICMP generation might show as timeouts (`* * *`). |
+| **`traceroute`** | ICMP / UDP | Shows responding hops and helps narrow the next area to investigate; it does not prove the exact failing node. | Routers discarding ICMP generation might show as timeouts (`* * *`). |
 | **`telnet`** | TCP | Validates if a specific application daemon port is open and listening. | Can test custom transport ports (e.g., Port 80, 443) beyond standard remote access. |
 
 ## Commands (If Applicable)
@@ -153,5 +153,5 @@ Router# telnet 10.10.12.10 80
 * Cisco's troubleshooting framework provides a structured approach to problem-solving, preventing engineers from making erratic configuration modifications.
 * A strong understanding of the "life of a packet" makes it easy to run a *Divide and Conquer* troubleshooting strategy by starting directly at Layer 3.
 * The `ping` command checks two-way path health, making a complete return-path routing topology just as important as the outbound path.
-* `traceroute` speeds up cross-subnet isolation by pinpointing the exact router interface where traffic drops or latency spikes.
+* `traceroute` helps narrow cross-subnet investigation. A timeout can reflect missing ICMP replies, filtering, or return-path failure; inspect adjacent devices before assigning the fault.
 * Document the symptoms, cause, fix, and verification for future troubleshooting.

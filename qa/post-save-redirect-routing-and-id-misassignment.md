@@ -22,14 +22,14 @@ Original application screenshots and confidential development artifacts are excl
 
 ## Observation
 
-Prior to the fix, saving a new Bon Sangu triggered a misdirected HTTP redirect—landing the user on the detail view of an incorrect record (e.g., displaying previously created records, cached IDs, or failing to isolate active vs. soft-deleted database sequence IDs).
+Prior to the fix, saving a new Bon Sangu triggered a misdirected HTTP redirect, landing the user on the detail view of an incorrect record (e.g., displaying previously created records, cached IDs, or failing to isolate active vs. soft-deleted database sequence IDs).
 
 Following the developer patch, QA executed targeted verification:
 
 1. **New Entity Creation:** Created a fresh Bon Sangu voucher and verified that the post-save redirect route matched the newly generated ID and payload.
 2. **Existing Entity Routing Integrity:** Navigated directly to various pre-existing Bon Sangu records (covering both active operational records and soft-deleted `status = 0` records) to ensure routing parameters resolved correctly.
 
-Both scenarios verified **PASSED**, confirming that post-save routing and entity ID binding were fully resolved.
+Both recorded routing scenarios **PASSED** after the patch. Concurrency, authorization, and other routes require their own checks.
 
 ---
 
@@ -44,7 +44,7 @@ Both scenarios verified **PASSED**, confirming that post-save routing and entity
 
 [Recorded routing checks](test-cases/bon-sangu-redirect-routing-test-cases.md). Fictional DEMO-001 illustrates identity comparison, not an actual executed record.
 
-## Why This Matters
+## Impact
 
 ### User Impact
 
@@ -52,7 +52,7 @@ Both scenarios verified **PASSED**, confirming that post-save routing and entity
 
 ### System Impact
 
-* Faulty redirect logic often indicates dangerous backend patterns, such as using `MAX(id)` or `LAST_INSERT_ID()` queries across concurrent database sessions instead of returning explicit insert payloads.
+* A global `MAX(id)` lookup can race with concurrent inserts. MySQL's `LAST_INSERT_ID()` is connection-scoped and can identify the insert when used on the same connection; using another connection is a different failure mode. Neither mechanism was confirmed as this defect's cause.
 
 ### Data Impact
 
@@ -70,9 +70,9 @@ Testing `CREATE` and `UPDATE` operations requires explicit validation of the pos
 
 ### Validation Points
 
-* **Post-Save URI Alignment:** Verify that the primary key returned in the API response payload matches the route parameter in the browser URL (`/view/{id}`).
+* **Post-Save URI Alignment:** Compare the inserted record ID with the HTTP redirect `Location` or JSON response, then with the browser URL and detail content.
 * **Session & Concurrency Isolation:** Confirm that concurrent creation requests by multiple users do not cross-assign target redirect IDs.
-* **State & Status Isolation:** Ensure that navigation handlers do not resolve soft-deleted records (`status = 0`) when retrieving primary key sequences.
+* **State & Status Isolation:** Verify navigation uses the inserted identity and applies the route's active/historical-record policy. Soft deletion does not itself reset an auto-increment sequence.
 
 ### Edge Cases
 
@@ -84,8 +84,8 @@ Testing `CREATE` and `UPDATE` operations requires explicit validation of the pos
 
 ## UX / System Consideration
 
-* **Explicit Payload Returns:** API controllers handling `CREATE` methods must explicitly return the newly inserted record ID inside the JSON response payload (`{ "success": true, "data": { "id": 1052 } }`) rather than relying on secondary queries to fetch the "latest" record.
-* **Deterministic Frontend Redirection:** The frontend routing handler should construct redirect URLs exclusively using the ID explicitly returned in the API response payload.
+* **Insert Identity:** Bind navigation to the inserted record's ID on the same connection or returned model. A server-rendered controller may return an HTTP redirect; an API may return JSON such as `{ "success": true, "data": { "id": 1052 } }`. Follow the application's response contract.
+* **Frontend Redirection:** When the contract uses JSON, construct the destination from that response's ID; otherwise follow the server's redirect. Avoid a separate global latest-record lookup.
 * **Route Guard Validation:** Ensure the detail view route (`/view/{id}`) validates record existence and permissions before rendering data to prevent fallback misdirection.
 
 ---

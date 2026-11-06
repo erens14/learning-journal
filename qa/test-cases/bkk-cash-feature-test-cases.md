@@ -1,7 +1,7 @@
 # Test Cases: Cash Outflow Voucher (BKK) Approval & GL Integration
 
 * **Category:** Quality Assurance, Financial Workflow, Security (RBAC), & Integration Testing  
-* **Target Scope:** Cash Outflow Voucher (*Bukti Kas Keluar / BKK*) Module — Multi-Level Approval, Auto-Numbering, & General Ledger Auto-Posting  
+* **Target Scope:** Cash Outflow Voucher (*Bukti Kas Keluar / BKK*) Module, Multi-Level Approval, Auto-Numbering, & General Ledger Auto-Posting\
 
 > **Disclaimer & Data Sanitization Notice**  
 > Documented test scenarios, ticket references, and database relations within this repository have been sanitized and generalized for educational and portfolio purposes. Confidential company identifiers and ticket numbers have been replaced.
@@ -29,5 +29,7 @@ Original application screenshots and confidential artifacts are excluded. Writte
 | **TC-BKK-002** | **Approval Level 1 Execution** | 1. Select BKK transaction in `Input` status.<br>2. Login with Approver 1 role.<br>3. Execute Level 1 Approval. | Functional / Workflow | Document status transitions cleanly from `Input` to `Approved 1`. | **PASS** | Level 1 approval executes successfully. |
 | **TC-BKK-003** | **Approval Level 2 & GL Auto-Post** | 1. Select BKK transaction in `Approved 1` status.<br>2. Login with SuperAdmin role.<br>3. Execute Level 2 Approval. | Functional / Integration | Document status updates to `Approved 2` and automatically triggers posting to Journal & General Ledger. | **PASS** | Level 2 approval completes and automatically posts entries to accounting ledgers. |
 | **TC-BKK-004** | **General Ledger Balance Verification** | 1. Navigate to General Ledger / Journal view.<br>2. Inspect entries generated from `Approved 2` BKK transaction. | Integration / Financial | Journal and GL entries reflect exact transaction values with strict zero-variance balance (Total Debit = Total Credit). | **PASS** | Balanced double-entry postings verified in GL post-approval. |
-| **TC-BKK-005** | **Approval Level 2 RBAC Protection** | 1. Select BKK transaction in `Approved 1` status.<br>2. Attempt Approval 2 action using Non-SuperAdmin account. | Security / RBAC | System blocks Approval 2 action and disables/hides approval controls for Non-SuperAdmin roles. | **PASS** | RBAC restriction successfully enforced for Approval Level 2. |
+| **TC-BKK-005** | **Approval Level 2 RBAC Protection** | 1. Select BKK transaction in `Approved 1` status.<br>2. Attempt Approval 2 action using Non-SuperAdmin account. | Security / RBAC | System blocks Approval 2 action and disables/hides approval controls for Non-SuperAdmin roles. | **PASS** | Non-SuperAdmin restriction was reported passed. The record does not specify whether a direct server request was exercised; endpoint bypass coverage remains unverified. |
 | **TC-BKK-006** | **UI/UX Consistency Check** | 1. Open BKK list and detail view pages.<br>2. Verify interface layout against BBK module design standards. | Functional / UI/UX | Form fields, tables, and action buttons strictly adhere to the UI/UX layout standards of the BBK module. | **PASS** | Layout and visual components align properly with BBK design standards. |
+
+Direct Approval 2 endpoint testing with a Non-SuperAdmin account is NOT RUN in this published record; it is not included in the six historical PASS results.

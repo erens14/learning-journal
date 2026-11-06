@@ -1,4 +1,4 @@
-# Article Summary — Access Control Vulnerabilities and Privilege Escalation
+# Article Summary: Access Control Vulnerabilities and Privilege Escalation
 
 **Source:** PortSwigger Web Security Academy  
 **Author:** No individual byline displayed  
@@ -50,6 +50,6 @@ For public documentation, I would use fictional roles and records, describe the 
 
 ## Personal Reflection
 
-As a QA engineer transitioning into entry-level cybersecurity, I can turn a business permission rule into a testable question: which actor may perform which action on which record in which state? That provides a concrete bridge from functional testing to security reasoning. I would document these checks as future security practice and keep them distinct from my existing QA observations.
+I can turn a business permission rule into a testable question: which actor may perform which action on which record in which state? That provides a concrete bridge from functional testing to security reasoning. I would document these checks as future security practice and keep them distinct from my existing QA observations.
 
 My next step is to complete an introductory [PortSwigger access-control lab](https://portswigger.net/web-security/access-control#labs). I would write the expected boundary first, record what I observe, and explain the result in my own words. For defensive follow-up, I would consider which actor, action, resource, and decision fields would help an analyst investigate suspicious access. That logging idea is my learning extension, not a finding or implementation claim from this article. No lab has been completed for this note.

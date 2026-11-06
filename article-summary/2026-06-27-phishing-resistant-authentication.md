@@ -18,21 +18,12 @@ Finally, NIST emphasizes that phishing-resistant authentication should be implem
 
 ## Key Takeaways
 
-* Traditional passwords and SMS OTPs remain susceptible to phishing attacks.
-* Phishing-resistant authentication relies on cryptographic verification rather than user judgment.
-* Technologies such as FIDO/WebAuthn, Passkeys, and PIV provide stronger authentication security.
-* Multi-Factor Authentication (MFA) alone does not guarantee phishing resistance.
-* Authentication security should be combined with layered cybersecurity controls.
+MFA is a broad category: passwords plus an SMS OTP can still be phished. The article identifies FIDO/WebAuthn, passkeys, and PIV as cryptographic approaches to phishing resistance.
 
 ## Lesson Learned
 
-* Phishing-resistant authentication significantly reduces the risk of credential theft.
-* Modern authentication should verify the legitimacy of services before exchanging credentials.
-* Cryptographic authentication offers stronger protection than password-based methods.
-* Security awareness remains important but should complement technical security controls.
+Evaluate the authentication mechanism's phishing resistance as part of layered defense. Awareness training, email protection, and network controls still have roles outside that authentication boundary.
 
 ## Personal Reflection
 
-This article helped me understand that preventing phishing should not rely solely on users recognizing malicious websites. Modern authentication mechanisms can eliminate many phishing risks by using cryptographic verification instead of shared secrets.
-
-As I continue learning cybersecurity, I see phishing-resistant authentication as an important security concept alongside identity management, Zero Trust Architecture, and modern access control. Understanding technologies like Passkeys and WebAuthn will also help me better understand current authentication best practices.
+I want to understand how passkeys and WebAuthn bind authentication to the intended service. This gives my identity-management study a specific question to follow; it is not a completed implementation or security test.
